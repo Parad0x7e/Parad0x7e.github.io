@@ -1,0 +1,66 @@
+<div class="terminal">
+  <pre id="ascii-{{ .Ordinal }}"></pre>
+</div>
+
+<script>
+(function () {
+  const target = document.getElementById("ascii-{{ .Ordinal }}");
+
+  const ascii = `
+                                                                                    ,----,     
+,-.----.                                                                          .'   .\`|     
+\\    /  \\                                              ,----..                 .'   .'   ;     
+|   :    \\                                    ,---,   /   /   \\              ,---, '    .'     
+|   |  .\\ :            __  ,-.              ,---.'|  /   .     :             |   :     ./      
+.   :  |: |          ,' ,'/ /|              |   | : .   /   ;.  \\,--,  ,--,  ;   | .'  /       
+|   |   \\ : ,--.--.  '  | |' | ,--.--.      |   | |.   ;   /  \` ;|'. \\/ .\`|  \`---' /  ;,---.   
+|   : .   //       \\ |  |   ,'/       \\   ,--.__| |;   |  ; \\ ; |'  \\/  / ;    /  ;  //     \\  
+;   | |\`-'.--.  .-. |'  :  / .--.  .-. | /   ,'   ||   :  | ; | ' \\  \\.' /    ;  /  //    /  | 
+|   | ;    \\__\\/: . .|  | '   \\__\\/: . ..   '  /  |.   |  ' ' ' :  \\  ;  ;   /  /  /.    ' / | 
+:   ' |    ," .--.; |;  : |   ," .--.; |'   ; |:  |'   ;  \\; /  | / \\  \\  \\./__;  / '   ;   /| 
+:   : :   /  /  ,.  ||  , ;  /  /  ,.  ||   | '/  ' \\   \\  ',  /./__;   ;  \\   : /  '   |  / | 
+|   | :  ;  :   .'   \\---'  ;  :   .'   \\   :    :|  ;   :    / |   :/\\  \\ ;   |/   |   :    | 
+\`---'.|  |  ,     .-./      |  ,     .-./\\   \\  /     \\   \\ .'  \`---'  \`--\`\`---'     \\   \\  /  
+  \`---\`   \`--\`---'           \`--\`---'     \`----'       \`---\`                          \`----'   
+`.trimEnd();
+
+  const lines = ascii.split("\n");
+  const width = Math.max(...lines.map(l => l.length));
+
+  let col = 0;
+  function render() {
+    if (col > width) return;
+
+    target.textContent = lines
+      .map(l => l.slice(0, col))
+      .join("\n");
+
+    col++;
+    setTimeout(render, 15);
+  }
+
+  render();
+})();
+</script>
+
+<style>
+.terminal {
+  background: radial-gradient(ellipse at center, #0c1411 0%, #050807 75%);
+  padding: 1.4rem 1.6rem;
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0 0 1px #1c2a22,
+    0 10px 40px rgba(0,0,0,.7);
+  overflow-x: auto;
+}
+
+.terminal pre {
+  margin: 0;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 0.72rem;   /* ✅ 关键：细 */
+  line-height: 1.05;    /* ✅ 关键：密 */
+  letter-spacing: 0;
+  color: #00ff66;
+  white-space: pre;
+}
+</style>

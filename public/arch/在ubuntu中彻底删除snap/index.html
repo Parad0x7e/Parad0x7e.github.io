@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="robots" content="noindex, nofollow" />
+  <link rel="icon shortcut" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" id="favicon-svg" />
+<link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+<link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+<link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
+<title>在Ubuntu中彻底删除SNAP – Parad0x7e&#39;s Blog</title>
+  <meta name="description" content="snap是什么？" /><link rel="canonical" href="http://localhost:1313/arch/%E5%9C%A8ubuntu%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4snap/" itemprop="url" />
+
+<meta property="og:title" content="在Ubuntu中彻底删除SNAP">
+<meta
+  property="og:description"
+  content="
+    
+      snap是什么？
+    
+  ">
+<meta
+  property="og:type"
+  content="
+    article
+  ">
+<meta property="og:url" content="http://localhost:1313/arch/%E5%9C%A8ubuntu%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4snap/"><meta property="article:section" content="arch">
+
+<meta
+  property="article:published_time"
+  content="2026-01-26T16:15:10+08:00">
+
+
+<meta
+  property="article:modified_time"
+  content="2026-01-26T16:15:10+08:00">
+
+
+
+  <meta itemprop="name" content="在Ubuntu中彻底删除SNAP">
+  <meta itemprop="description" content="snap是什么？">
+  <meta itemprop="datePublished" content="2026-01-26T16:15:10+08:00">
+  <meta itemprop="dateModified" content="2026-01-26T16:15:10+08:00">
+  <meta itemprop="wordCount" content="236">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="在Ubuntu中彻底删除SNAP">
+  <meta name="twitter:description" content="snap是什么？">
+<link href="/css/compiled/main.css" rel="stylesheet" />
+    <link href="/css/variables.css" rel="stylesheet" />
+    <link href="/css/custom.css" rel="stylesheet" />
+
+  
+
+
+  <script>
+    
+
+    function setTheme(theme) {
+      document.documentElement.classList.remove("light", "dark");
+
+      if (theme !== "light" && theme !== "dark") {
+       theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+
+      document.documentElement.classList.add(theme);
+      document.documentElement.style.colorScheme = theme;
+    }
+
+    setTheme("color-theme" in localStorage ? localStorage.getItem("color-theme") : 'system')
+
+  </script>
+
+  <script>
+    
+
+    if (localStorage.getItem('banner-closed')) {
+      document.documentElement.style.setProperty("--hextra-banner-height", "0px");
+      document.documentElement.classList.add("hextra-banner-hidden");
+    }
+  </script>
+
+  
+  
+  </head>
+<body><div class="hextra-nav-container hx:sticky hx:top-0 hx:z-20 hx:w-full hx:bg-transparent hx:print:hidden">
+  <div
+    class="hextra-nav-container-blur hx:pointer-events-none hx:absolute hx:z-[-1] hx:h-full hx:w-full hx:bg-white hx:dark:bg-dark hx:shadow-[0_2px_4px_rgba(0,0,0,.02),0_1px_0_rgba(0,0,0,.06)] hx:contrast-more:shadow-[0_0_0_1px_#000] hx:dark:shadow-[0_-1px_0_rgba(255,255,255,.1)_inset] hx:contrast-more:dark:shadow-[0_0_0_1px_#fff]"
+  ></div>
+
+  <nav class="hextra-max-navbar-width hx:mx-auto hx:flex hx:items-center hx:justify-end hx:gap-2 hx:h-16 hx:px-6">
+    <a class="hx:flex hx:items-center hx:hover:opacity-75 hx:ltr:mr-auto hx:rtl:ml-auto" href="/">
+    <img class="hx:mr-2 hx:block hx:dark:hidden" src="/images/logo.svg" alt="Logo" height="20" width="20" />
+    <img class="hx:mr-2 hx:hidden hx:dark:block" src="/images/logo.svg" alt="Dark Logo" height="20" width="20" />
+    <span class="hx:mr-2 hx:font-extrabold hx:inline hx:select-none" title="Parad0x7e&#39;s Blog">Parad0x7e&#39;s Blog</span>
+</a>
+<a
+  title=""
+  href="/arch"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:font-medium"
+><span class="hx:text-center">Arch</span>
+</a><a
+  title=""
+  href="/vul"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+><span class="hx:text-center">Vuln Repro</span>
+</a><a
+  title=""
+  href="/wp"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+><span class="hx:text-center">Write Up</span>
+</a><div class="hextra-search-wrapper hx:relative hx:md:w-64">
+  <div class="hx:relative hx:flex hx:items-center hx:text-gray-900 hx:contrast-more:text-gray-800 hx:dark:text-gray-300 hx:contrast-more:dark:text-gray-300">
+    <input
+      placeholder="搜索文档..."
+      class="hextra-search-input hx:focus:hextra-focus hx:block hx:w-full hx:appearance-none hx:rounded-lg hx:px-3 hx:py-2 hx:transition-colors hx:text-base hx:leading-tight hx:md:text-sm hx:bg-black/[.05] hx:dark:bg-gray-50/10 hx:focus:bg-white hx:dark:focus:bg-dark hx:placeholder:text-gray-500 hx:dark:placeholder:text-gray-400 hx:contrast-more:border hx:contrast-more:border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="hx:absolute hx:my-1.5 hx:select-none hx:ltr:right-1.5 hx:rtl:left-1.5 hx:h-5 hx:rounded-sm hx:bg-white hx:px-1.5 hx:font-mono hx:text-[10px] hx:font-medium hx:text-gray-500 hx:border hx:border-gray-200 hx:dark:border-gray-100/20 hx:dark:bg-dark/50 hx:contrast-more:border-current hx:contrast-more:text-current hx:contrast-more:dark:border-current hx:items-center hx:gap-1 hx:transition-opacity hx:pointer-events-none hx:hidden hx:sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="hextra-search-results hextra-scrollbar hx:hidden hx:border hx:border-gray-200 hx:bg-white hx:text-gray-100 hx:dark:border-neutral-800 hx:dark:bg-neutral-900 hx:absolute hx:top-full hx:z-20 hx:mt-2 hx:overflow-auto hx:overscroll-contain hx:rounded-xl hx:py-2.5 hx:shadow-xl hx:max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] hx:md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] hx:inset-x-0 hx:ltr:md:left-auto hx:rtl:md:right-auto hx:contrast-more:border hx:contrast-more:border-gray-900 hx:contrast-more:dark:border-gray-50 hx:w-screen hx:min-h-[100px] hx:max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+          <a class="hx:p-2 hx:text-current" target="_blank" rel="noreferrer" href="https://github.com/Parad0x7e" title="GitHub"><svg height=24 fill="currentColor" viewBox="3 3 18 18">
+  <path d="M12 3C7.0275 3 3 7.12937 3 12.2276C3 16.3109 5.57625 19.7597 9.15374 20.9824C9.60374 21.0631 9.77249 20.7863 9.77249 20.5441C9.77249 20.3249 9.76125 19.5982 9.76125 18.8254C7.5 19.2522 6.915 18.2602 6.735 17.7412C6.63375 17.4759 6.19499 16.6569 5.8125 16.4378C5.4975 16.2647 5.0475 15.838 5.80124 15.8264C6.51 15.8149 7.01625 16.4954 7.18499 16.7723C7.99499 18.1679 9.28875 17.7758 9.80625 17.5335C9.885 16.9337 10.1212 16.53 10.38 16.2993C8.3775 16.0687 6.285 15.2728 6.285 11.7432C6.285 10.7397 6.63375 9.9092 7.20749 9.26326C7.1175 9.03257 6.8025 8.08674 7.2975 6.81794C7.2975 6.81794 8.05125 6.57571 9.77249 7.76377C10.4925 7.55615 11.2575 7.45234 12.0225 7.45234C12.7875 7.45234 13.5525 7.55615 14.2725 7.76377C15.9937 6.56418 16.7475 6.81794 16.7475 6.81794C17.2424 8.08674 16.9275 9.03257 16.8375 9.26326C17.4113 9.9092 17.76 10.7281 17.76 11.7432C17.76 15.2843 15.6563 16.0687 13.6537 16.2993C13.98 16.5877 14.2613 17.1414 14.2613 18.0065C14.2613 19.2407 14.25 20.2326 14.25 20.5441C14.25 20.7863 14.4188 21.0746 14.8688 20.9824C16.6554 20.364 18.2079 19.1866 19.3078 17.6162C20.4077 16.0457 20.9995 14.1611 21 12.2276C21 7.12937 16.9725 3 12 3Z"></path>
+</svg>
+<span class="hx:sr-only">GitHub</span>
+          </a><button type="button" aria-label="Menu" class="hextra-hamburger-menu hx:cursor-pointer hx:-mr-2 hx:rounded-sm hx:p-2 hx:active:bg-gray-400/20 hx:md:hidden"><svg height=24 fill="none" viewBox="0 0 24 24" stroke="currentColor"><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8H20"></path></g><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16H20"></path></g></svg></button>
+  </nav>
+</div>
+
+  <div class="hx:mx-auto hx:flex hextra-max-page-width">
+    <aside class="hextra-sidebar-container hx:flex hx:flex-col hx:print:hidden hx:md:top-16 hx:md:shrink-0 hx:md:w-64 hx:md:self-start hx:max-md:[transform:translate3d(0,-100%,0)] hx:md:hidden hx:xl:block">
+  
+  <div class="hx:px-4 hx:pt-4 hx:md:hidden">
+    <div class="hextra-search-wrapper hx:relative hx:md:w-64">
+  <div class="hx:relative hx:flex hx:items-center hx:text-gray-900 hx:contrast-more:text-gray-800 hx:dark:text-gray-300 hx:contrast-more:dark:text-gray-300">
+    <input
+      placeholder="搜索文档..."
+      class="hextra-search-input hx:focus:hextra-focus hx:block hx:w-full hx:appearance-none hx:rounded-lg hx:px-3 hx:py-2 hx:transition-colors hx:text-base hx:leading-tight hx:md:text-sm hx:bg-black/[.05] hx:dark:bg-gray-50/10 hx:focus:bg-white hx:dark:focus:bg-dark hx:placeholder:text-gray-500 hx:dark:placeholder:text-gray-400 hx:contrast-more:border hx:contrast-more:border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="hx:absolute hx:my-1.5 hx:select-none hx:ltr:right-1.5 hx:rtl:left-1.5 hx:h-5 hx:rounded-sm hx:bg-white hx:px-1.5 hx:font-mono hx:text-[10px] hx:font-medium hx:text-gray-500 hx:border hx:border-gray-200 hx:dark:border-gray-100/20 hx:dark:bg-dark/50 hx:contrast-more:border-current hx:contrast-more:text-current hx:contrast-more:dark:border-current hx:items-center hx:gap-1 hx:transition-opacity hx:pointer-events-none hx:hidden hx:sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="hextra-search-results hextra-scrollbar hx:hidden hx:border hx:border-gray-200 hx:bg-white hx:text-gray-100 hx:dark:border-neutral-800 hx:dark:bg-neutral-900 hx:absolute hx:top-full hx:z-20 hx:mt-2 hx:overflow-auto hx:overscroll-contain hx:rounded-xl hx:py-2.5 hx:shadow-xl hx:max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] hx:md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] hx:inset-x-0 hx:ltr:md:left-auto hx:rtl:md:right-auto hx:contrast-more:border hx:contrast-more:border-gray-900 hx:contrast-more:dark:border-gray-50 hx:w-screen hx:min-h-[100px] hx:max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+  </div>
+  <div class="hextra-scrollbar hx:overflow-y-auto hx:overflow-x-hidden hx:p-4 hx:grow hx:md:h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
+    <ul class="hx:flex hx:flex-col hx:gap-1 hx:md:hidden">
+      
+      
+          <li class=""><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/wp/"
+    
+  >Wp
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hx:h-[18px] hx:min-w-[18px] hx:rounded-xs hx:p-0.5 hx:hover:bg-gray-800/5 hx:dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx:origin-center hx:transition-transform hx:rtl:-rotate-180"></path></svg></span>
+    </a><div class="hx:ltr:pr-0 hx:overflow-hidden">
+        <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/wp/ilovectf2025-wp/"
+    
+  >?CTF2025 WP
+    </a>
+              
+            </li><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/wp/newstarctf2025-wp/"
+    
+  >NewStarCTF2025 WP
+    </a>
+              
+            </li></ul>
+      </div></li>
+          <li class=""><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/vul/"
+    
+  >Vul
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hx:h-[18px] hx:min-w-[18px] hx:rounded-xs hx:p-0.5 hx:hover:bg-gray-800/5 hx:dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx:origin-center hx:transition-transform hx:rtl:-rotate-180"></path></svg></span>
+    </a><div class="hx:ltr:pr-0 hx:overflow-hidden">
+        <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/vul/zabbix%E5%8E%86%E5%8F%B2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"
+    
+  >Zabbix历史漏洞复现
+    </a>
+              
+            </li><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/vul/jenkins%E5%8E%86%E5%8F%B2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"
+    
+  >Jenkins历史漏洞复现
+    </a>
+              
+            </li></ul>
+      </div></li>
+          <li class="open"><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/arch/"
+    
+  >Arch
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hx:h-[18px] hx:min-w-[18px] hx:rounded-xs hx:p-0.5 hx:hover:bg-gray-800/5 hx:dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx:origin-center hx:transition-transform hx:rtl:-rotate-180"></path></svg></span>
+    </a><div class="hx:ltr:pr-0 hx:overflow-hidden">
+        <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col open"><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500"
+    href="/arch/%E5%9C%A8ubuntu%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4snap/"
+    
+  >在Ubuntu中彻底删除SNAP
+    </a>
+  
+    <ul class='hx:flex hx:flex-col hx:gap-1 hx:relative hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:dark:before:bg-neutral-800 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:pr-3 hx:rtl:before:right-0 hx:ltr:ml-3 hx:rtl:mr-3'><li>
+              <a
+                href="#snap"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >Snap</a>
+            </li>
+          <li>
+              <a
+                href="#%e5%88%a0%e9%99%a4snap"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >删除Snap</a>
+            </li>
+          <li>
+              <a
+                href="#%e6%81%a2%e5%a4%8dsnap"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >恢复Snap</a>
+            </li>
+          </ul>
+  
+              
+            </li></ul>
+      </div></li>
+    </ul>
+
+    <div class="hx:max-xl:hidden hx:h-0 hx:w-64 hx:shrink-0"></div></div>
+  
+  </aside>
+    
+<nav class="hextra-toc hx:order-last hx:hidden hx:w-64 hx:shrink-0 hx:xl:block hx:print:hidden hx:px-4" aria-label="table of contents">
+    <div class="hextra-scrollbar hx:sticky hx:top-16 hx:overflow-y-auto hx:pr-4 hx:pt-6 hx:text-sm [hyphens:auto] hx:max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] hx:ltr:-mr-4 hx:rtl:-ml-4"><p class="hx:mb-4 hx:font-semibold hx:tracking-tight">此页上</p><ul>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#snap">Snap
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#snap%e6%98%af%e4%bb%80%e4%b9%88">snap是什么？
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e7%bc%ba%e7%82%b9">缺点
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#-%e6%80%a7%e8%83%bd%e5%92%8c%e8%b5%84%e6%ba%90%e6%b6%88%e8%80%97">🐌 性能和资源消耗
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#-%e7%94%9f%e6%80%81%e7%b3%bb%e7%bb%9f%e5%92%8c%e9%9b%86%e4%b8%ad%e5%8c%96">🔒 生态系统和集中化
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#-%e7%b3%bb%e7%bb%9f%e9%9b%86%e6%88%90%e5%92%8c%e7%94%a8%e6%88%b7%e4%bd%93%e9%aa%8c">⚙️ 系统集成和用户体验
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#-%e5%85%bc%e5%ae%b9%e6%80%a7%e5%92%8c%e9%99%90%e5%88%b6">📦 兼容性和限制
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%88%a0%e9%99%a4snap">删除Snap
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%a4%87%e4%bb%bd">备份
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e8%99%9a%e6%8b%9f%e6%9c%ba">虚拟机
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e4%b8%bb%e6%9c%ba">主机
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%88%a0%e9%99%a4">删除
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%ae%89%e8%a3%85google-chrome%e4%b8%8d%e9%9c%80%e8%a6%81%e5%8f%af%e4%bb%a5%e8%b7%b3%e8%bf%87">安装Google Chrome（不需要可以跳过）
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%88%a0%e9%99%a4%e8%bd%af%e4%bb%b6%e5%8c%85">删除软件包
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%81%9c%e6%ad%a2snapd%e6%9c%8d%e5%8a%a1">停止snapd服务
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#apt%e5%8d%b8%e8%bd%bdsnapd">apt卸载snapd
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%88%a0%e9%99%a4%e6%ae%8b%e7%95%99%e6%96%87%e4%bb%b6">删除残留文件
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e9%98%bb%e6%ad%a2snap%e9%87%8d%e6%96%b0%e5%ae%89%e8%a3%85">阻止snap重新安装
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%81%a2%e5%a4%8dsnap">恢复Snap
+        </a>
+      </li></ul>
+      <div class="hx:mt-8 hx:border-t hx:bg-white hx:pt-8 hx:shadow-[0_-12px_16px_white] hx:dark:bg-dark hx:dark:shadow-[0_-12px_16px_#111] hx:sticky hx:bottom-0 hx:flex hx:flex-col hx:items-start hx:gap-2 hx:pb-8 hx:border-gray-200 hx:dark:border-neutral-800 hx:contrast-more:border-t hx:contrast-more:border-neutral-400 hx:contrast-more:shadow-none hx:contrast-more:dark:border-neutral-400">
+        <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="hx:cursor-pointer hx:transition-all hx:duration-75 hx:opacity-0 hx:text-xs hx:font-medium hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-100 hx:contrast-more:text-gray-800 hx:contrast-more:dark:text-gray-50">
+          <span>返回顶部</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hx:inline hx:ltr:ml-1 hx:rtl:mr-1 hx:h-3.5 hx:w-3.5 hx:rounded-full hx:border hx:border-gray-500 hx:hover:border-gray-900 hx:dark:border-gray-400 hx:dark:hover:border-gray-100 hx:contrast-more:border-gray-800 hx:contrast-more:dark:border-gray-50">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main class="hx:w-full hx:min-w-0 hx:max-w-6xl hx:px-6 hx:pt-4 hx:md:px-12">
+        <div class="hx:mt-1.5 hx:flex hx:items-center hx:gap-1 hx:overflow-hidden hx:text-sm hx:text-gray-500 hx:dark:text-gray-400 hx:contrast-more:text-current">
+        <div class="hx:whitespace-nowrap hx:transition-colors hx:min-w-[24px] hx:overflow-hidden hx:text-ellipsis hx:hover:text-gray-900 hx:dark:hover:text-gray-100">
+          <a href="/arch/">Arch</a>
+        </div><svg class="hx:w-3.5 hx:shrink-0 hx:rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg><div class="hx:whitespace-nowrap hx:transition-colors hx:font-medium hx:text-gray-700 hx:contrast-more:font-bold hx:contrast-more:text-current hx:dark:text-gray-100 hx:contrast-more:dark:text-current">在Ubuntu中彻底删除SNAP</div>
+  </div>
+
+        <h1 class="hx:mt-2 hx:text-4xl hx:font-bold hx:tracking-tight hx:text-slate-900 hx:dark:text-slate-100">在Ubuntu中彻底删除SNAP</h1>
+        <div class="hx:mt-4 hx:mb-16 hx:text-gray-500 hx:dark:text-gray-400 hx:text-sm hx:flex hx:items-center hx:flex-wrap hx:gap-y-2"><span class="hx:mr-1">January 26, 2026</span></div>
+        <div class="content">
+          <p>环境：Ubuntu 24.04 lts</p>
+<h2>Snap<span class="hx:absolute hx:-mt-20" id="snap"></span>
+    <a href="#snap" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>snap是什么？<span class="hx:absolute hx:-mt-20" id="snap是什么"></span>
+    <a href="#snap%e6%98%af%e4%bb%80%e4%b9%88" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>Ubuntu中的<code>snap</code>是一种由Canonical开发的、现代化的容器化软件包管理系统。
+Ubuntu是预装了snap的
+就是下面这个小玩意
+
+    <img src="../imgs/fc5094a79432bfef2109fc0c1705f348.png" alt=""  loading="lazy" />
+打开后的界面
+
+    <img src="../imgs/807a4f50ff3a30f39120d8133256eafd.png" alt=""  loading="lazy" />
+一个类似于软件商店的东西，那为什么要删除它呢？个人的体验和感受是缺点太多，不好用。</p>
+<h3>缺点<span class="hx:absolute hx:-mt-20" id="缺点"></span>
+    <a href="#%e7%bc%ba%e7%82%b9" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>Snap的缺点主要集中在性能、生态系统限制、集中化控制以及用户体验等等方面，它还违背了Linux操作系统的理念与精神。</p>
+<h4>🐌 性能和资源消耗<span class="hx:absolute hx:-mt-20" id="-性能和资源消耗"></span>
+    <a href="#-%e6%80%a7%e8%83%bd%e5%92%8c%e8%b5%84%e6%ba%90%e6%b6%88%e8%80%97" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
+<li><strong>启动速度慢</strong>： Snap应用通常比传统的<code>.deb</code>包或原生的应用启动要慢，尤其是在第一次启动时。</li>
+<li><strong>占用空间大</strong>： 由于 Snap应用将所有依赖项都打包在内（自包含），因此它们占用的磁盘空间通常比非Snap版本要大得多。</li>
+<li>内存占用高： 你可以在很多论坛中见到一些用户反映Snap应用会占用更多内存资源。</li>
+<li>系统资源消耗： 安装和运行多个Snap包可能会使系统启动和关机速度变慢。</li>
+</ul>
+<h4>🔒 生态系统和集中化<span class="hx:absolute hx:-mt-20" id="-生态系统和集中化"></span>
+    <a href="#-%e7%94%9f%e6%80%81%e7%b3%bb%e7%bb%9f%e5%92%8c%e9%9b%86%e4%b8%ad%e5%8c%96" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
+<li>单一应用商店： Snap生态系统被Canonical高度集中控制，所有Snap包都必须来自SnapCraft商店。用户无法像使用<code>apt</code>或<code>Flatpak</code>那样添加第三方仓库（repository）。</li>
+<li>垄断担忧： 这种集中化的模式引发了关于Canonical垄断和控制Linux软件分发渠道的担忧。</li>
+<li>私有后端： Snap商店的后端是私有的，而不是像传统 Linux软件包管理那样开放透明。</li>
+</ul>
+<h4>⚙️ 系统集成和用户体验<span class="hx:absolute hx:-mt-20" id="-系统集成和用户体验"></span>
+    <a href="#-%e7%b3%bb%e7%bb%9f%e9%9b%86%e6%88%90%e5%92%8c%e7%94%a8%e6%88%b7%e4%bd%93%e9%aa%8c" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
+<li>糟糕的桌面集成： Snap应用可能会遇到无法正确显示系统主题、字体或无法与桌面环境的拖放等功能正常工作的问题。</li>
+<li>受限的功能： 一些Snap版本的应用功能会受到限制，不如非 Snap 版本完整。</li>
+<li>权限问题： 由于Snap的沙盒（Sandboxing）机制，用户可能会遇到与文件系统访问或权限相关的小烦人bug。</li>
+<li>强制自动更新： Snap默认强制自动更新，这对于某些需要特定版本或稳定性的应用（如数据库、开发环境）来说可能是个大问题。</li>
+<li>命令行错误信息不友好： 某些Snap错误信息可能只显示PID（进程 ID）等技术细节，对普通用户不友好，需要到终端手动解决。</li>
+</ul>
+<h4>📦 兼容性和限制<span class="hx:absolute hx:-mt-20" id="-兼容性和限制"></span>
+    <a href="#-%e5%85%bc%e5%ae%b9%e6%80%a7%e5%92%8c%e9%99%90%e5%88%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ul>
+<li>对 AppArmor 的依赖： Snap的沙盒功能严重依赖于 AppArmor（Linux 内核安全模块）。在没有AppArmor配置或不适用的其他发行版上，其安全性可能无法得到保障。</li>
+<li>与系统设置不兼容： Snap应用可能不尊重你的系统设置或某些底层配置。</li>
+</ul>
+<p>Snap的行为很明显已经违背了Linux操作系统的核心理念与精神，在开源与自由的Linux中，是不太可能受到欢迎的。</p>
+<h2>删除Snap<span class="hx:absolute hx:-mt-20" id="删除snap"></span>
+    <a href="#%e5%88%a0%e9%99%a4snap" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>备份<span class="hx:absolute hx:-mt-20" id="备份"></span>
+    <a href="#%e5%a4%87%e4%bb%bd" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>为了安全起见，删除前记得做备份</p>
+<h4>虚拟机<span class="hx:absolute hx:-mt-20" id="虚拟机"></span>
+    <a href="#%e8%99%9a%e6%8b%9f%e6%9c%ba" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>打个快照即可，以VMware Workstation举例如下图
+
+    <img src="../imgs/1d59d1fd74c2fa36f64e91df69ba37ca.png" alt=""  loading="lazy" />
+
+    <img src="../imgs/8324b8967066883085c57fb382ac9091.png" alt=""  loading="lazy" />
+可以取一个名称，并写上相应的描述
+
+    <img src="../imgs/dc48e83e78bebc76da07a56b65f55967.png" alt=""  loading="lazy" /></p>
+<h4>主机<span class="hx:absolute hx:-mt-20" id="主机"></span>
+    <a href="#%e4%b8%bb%e6%9c%ba" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><blockquote>
+  <p>这里我没有电脑是安装了Ubuntu系统的只能用虚拟机来演示了</p>
+
+</blockquote>
+<p>在自己电脑上安装Ubuntu系统的话，是没有办法像虚拟机一样随时拍快照，随时进行恢复的，这里我们使用Time Shift工具来备份系统。
+TimeShift 是一款 Linux 上的系统快照工具，用于备份系统文件和设置，以便在系统崩溃或更新失败时，快速将系统恢复到先前的工作状态。</p>
+<ol>
+<li>下载Time Shift</li>
+</ol>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt install timeshift -y</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/d58e93759da011623f8ebcb95ffe6c70.png" alt=""  loading="lazy" /></p>
+<ol start="2">
+<li>打开timeshift
+
+    <img src="../imgs/80e6bc20cb3fe223da3f5d3f641d58ad.png" alt=""  loading="lazy" /></li>
+<li>选择快照类型为RSYNC
+
+    <img src="../imgs/d716258403366e5b45560a9237734765.png" alt=""  loading="lazy" /></li>
+<li>备份根目录和用户目录
+
+    <img src="../imgs/378da5f10f0b844bc2c9828a6b1a4a75.png" alt=""  loading="lazy" />
+
+    <img src="../imgs/ad9a5dda3cdfb3da163cac6d158aa3dd.png" alt=""  loading="lazy" />
+
+    <img src="../imgs/d0fb1743033308712dd6f2af230bd49a.png" alt=""  loading="lazy" />
+
+    <img src="../imgs/041b9d86ff07ed0f09b27ec5cdc4a0c2.png" alt=""  loading="lazy" /></li>
+<li>创建备份（耐心等待一会）
+
+    <img src="../imgs/ee79526fe780bb46bc9e39f0bf2f238b.png" alt=""  loading="lazy" />
+这样备份就做完了</li>
+</ol>
+<h3>删除<span class="hx:absolute hx:-mt-20" id="删除"></span>
+    <a href="#%e5%88%a0%e9%99%a4" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>先查看snap都安装了哪些软件</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>snap list</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/9dda255164374714f5b3066ee4038ae2.png" alt=""  loading="lazy" />
+开始删除操作前，请先确保后台没有运行其他程序，这里会删除firefox，可以先安装一个Google浏览器下载地址： <a href="https://www.google.com/chrome/"target="_blank" rel="noopener">https://www.google.com/chrome/</a></p>
+<h4>安装Google Chrome（不需要可以跳过）<span class="hx:absolute hx:-mt-20" id="安装google-chrome不需要可以跳过"></span>
+    <a href="#%e5%ae%89%e8%a3%85google-chrome%e4%b8%8d%e9%9c%80%e8%a6%81%e5%8f%af%e4%bb%a5%e8%b7%b3%e8%bf%87" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>下载对应的软件包deb格式
+
+    <img src="../imgs/ddb8105189ff526d6727a59496a91af3.png" alt=""  loading="lazy" />
+点击下载后，可以在download目录找到它
+
+    <img src="../imgs/b4dff8da5a360f9e5822b5f25de70ad6.png" alt=""  loading="lazy" />
+使用以下命令进行安装</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>chmod a+x google-chrome-stable_current_amd64.deb
+</span></span><span style="display:flex;"><span>sudo dpkg -i ./google-chrome-stable_current_amd64.deb</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/f80b096e96414940ee8ee11ddf6a7584.png" alt=""  loading="lazy" />这样就是安装完成了
+
+    <img src="../imgs/83ea13e4dcb00e0f5b04a3a3e4a85207.png" alt=""  loading="lazy" />
+好了接下来，我们可以开始删除软件了</p>
+<h4>删除软件包<span class="hx:absolute hx:-mt-20" id="删除软件包"></span>
+    <a href="#%e5%88%a0%e9%99%a4%e8%bd%af%e4%bb%b6%e5%8c%85" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>输入并执行以下命令完成删除，注意<strong>包与包之间存在依赖关系，最好是按这个顺序去删除</strong></p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo snap remove firefox
+</span></span><span style="display:flex;"><span>sudo snap remove gtk-common-themes
+</span></span><span style="display:flex;"><span>sudo snap remove gnome-42-2204
+</span></span><span style="display:flex;"><span>sudo snap remove snapd-desktop-integration
+</span></span><span style="display:flex;"><span>sudo snap remove snap-store
+</span></span><span style="display:flex;"><span>sudo snap remove firmware-updater
+</span></span><span style="display:flex;"><span>sudo snap remove bare
+</span></span><span style="display:flex;"><span>sudo snap remove thunderbird
+</span></span><span style="display:flex;"><span>sudo snap remove core22
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 最后删除snapd</span>
+</span></span><span style="display:flex;"><span>sudo snap remove snapd</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/dd033ffc7be1bbbb0915167a920ef0de.png" alt=""  loading="lazy" />
+这里能够发现有一个错误，原因是：thunderbird正在使用core22，先删除thunderbird，再删除core22就好了。
+删除完所有软件后，再次使用snap list查看
+
+    <img src="../imgs/1f4eff73b764ee18892ae446327d1cdb.png" alt=""  loading="lazy" />
+这样就是删完了</p>
+<h4>停止snapd服务<span class="hx:absolute hx:-mt-20" id="停止snapd服务"></span>
+    <a href="#%e5%81%9c%e6%ad%a2snapd%e6%9c%8d%e5%8a%a1" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo systemctl stop snapd
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 禁止开机自启动snapd</span>
+</span></span><span style="display:flex;"><span>sudo systemctl disable snapd
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 彻底禁用并阻止snapd服务启动</span>
+</span></span><span style="display:flex;"><span>sudo systemctl mask snapd</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/213f27fae3fe55c4a10eb270b50c2426.png" alt=""  loading="lazy" /></p>
+<h4>apt卸载snapd<span class="hx:absolute hx:-mt-20" id="apt卸载snapd"></span>
+    <a href="#apt%e5%8d%b8%e8%bd%bdsnapd" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 不仅会删除snapd软件包本身，还会删除其相关的所有配置文件</span>
+</span></span><span style="display:flex;"><span>sudo apt purge snapd -y
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 阻止snapd软件包被APT软件包管理器升级、安装(锁定版本)</span>
+</span></span><span style="display:flex;"><span>sudo apt-mark hold snapd</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<h4>删除残留文件<span class="hx:absolute hx:-mt-20" id="删除残留文件"></span>
+    <a href="#%e5%88%a0%e9%99%a4%e6%ae%8b%e7%95%99%e6%96%87%e4%bb%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo rm -rf ~/snap
+</span></span><span style="display:flex;"><span>sudo rm -rf /snap
+</span></span><span style="display:flex;"><span>sudo rm -rf /var/snap
+</span></span><span style="display:flex;"><span>sudo rm -rf /var/lib/snapd</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/68823be940f59ab4f21d61d17055222e.png" alt=""  loading="lazy" /></p>
+<h4>阻止snap重新安装<span class="hx:absolute hx:-mt-20" id="阻止snap重新安装"></span>
+    <a href="#%e9%98%bb%e6%ad%a2snap%e9%87%8d%e6%96%b0%e5%ae%89%e8%a3%85" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>编辑配置文件/etc/apt/preferences.d/nosnap.pref</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo nano /etc/apt/preferences.d/nosnap.pref</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>将以下内容写入这个配置文件：</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>Package: snapd
+Pin: release a=*
+Pin-Priority: -10</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>按住Ctrl + O保存，Ctrl + X退出
+
+    <img src="../imgs/51f8b3f3b39bf8cfa183854e4a37bd07.png" alt=""  loading="lazy" />
+这个配置文件，作用是利用APT的优先级机制，强制将snapd软件包的安装和升级优先级设置为极低，从而有效地阻止APT自动安装或推荐安装snapd。
+配置完成后，输入<code>sudo apt update</code>更新apt源列表
+
+    <img src="../imgs/ce34efe6e626315fcbfa0081dd140ed4.png" alt=""  loading="lazy" />
+做到这里，我们已经成功的在Ubuntu系统中删除了所有的snap软件包。删除snap后，Ubuntu就没有图形界面的软件商店了，如果需要使用图形界面化来安装软件，可以选择安装GNOME软件商店</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt install --install-suggests gnome-software</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/825f33c840748ed76b7820c15303a824.png" alt=""  loading="lazy" />
+安装完成后，可以找到它（中文为：软件，英文为：software）如下图所示：
+
+    <img src="../imgs/b3c0d6dfbf0c988c9b5dfec4d98447fd.png" alt=""  loading="lazy" />
+
+    <img src="../imgs/56ef0b44bfbf3f2bb166b5823900b568.png" alt=""  loading="lazy" />
+最后的最后重启电脑</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo reboot now</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<h2>恢复Snap<span class="hx:absolute hx:-mt-20" id="恢复snap"></span>
+    <a href="#%e6%81%a2%e5%a4%8dsnap" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>打开timeshfit，点击恢复，默认下一步即可
+
+    <img src="../imgs/572195d88bb005f09c5e20b20f1e0f73.png" alt=""  loading="lazy" /></p>
+
+        </div><div class="hx:mt-16"></div></main>
+    </article>
+  </div>
+
+      <footer class="hextra-footer hx:bg-gray-100 hx:pb-[env(safe-area-inset-bottom)] hx:dark:bg-neutral-900 hx:print:bg-transparent"><div class="hextra-custom-footer hextra-max-footer-width hx:pl-[max(env(safe-area-inset-left),1.5rem)] hx:pr-[max(env(safe-area-inset-right),1.5rem)] hx:text-gray-600 hx:dark:text-gray-400"></div><div
+      class="hextra-max-footer-width hx:mx-auto hx:flex hx:justify-center hx:py-12 hx:pl-[max(env(safe-area-inset-left),1.5rem)] hx:pr-[max(env(safe-area-inset-right),1.5rem)] hx:text-gray-600 hx:dark:text-gray-400 hx:md:justify-start"
+    >
+      <div class="hx:flex hx:w-full hx:flex-col hx:items-center hx:sm:items-start"><div class="hx:font-semibold"><a class="hx:flex hx:text-sm hx:items-center hx:gap-1 hx:text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
+    <span>由 Hextra 驱动<svg height=1em class="hx:inline-block hx:ltr:ml-1 hx:rtl:mr-1 hx:align-[-2.5px]" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="m 105.50024,22.224647 c -9.59169,-5.537563 -21.40871,-5.537563 -31.000093,0 L 39.054693,42.689119 C 29.463353,48.226675 23.55484,58.460531 23.55484,69.535642 v 40.928918 c 0,11.07542 5.908513,21.3092 15.499853,26.84652 l 35.445453,20.46446 c 9.591313,5.53732 21.408404,5.53732 31.000094,0 l 35.44507,-20.46446 c 9.59131,-5.53732 15.49985,-15.7711 15.49985,-26.84652 V 69.535642 c 0,-11.075111 -5.90854,-21.308967 -15.49985,-26.846523 z M 34.112797,85.737639 c -1.384445,2.397827 -1.384445,5.352099 0,7.749927 l 24.781554,42.922974 c 1.38437,2.39783 3.942853,3.87496 6.711592,3.87496 h 49.563107 c 2.76905,0 5.3273,-1.47713 6.71144,-3.87496 l 24.78194,-42.922974 c 1.38414,-2.397828 1.38414,-5.3521 0,-7.749927 L 121.88049,42.814746 c -1.38414,-2.397828 -3.94239,-3.874964 -6.71144,-3.874964 H 65.605944 c -2.768739,0 -5.327223,1.477059 -6.711592,3.874964 z" style="stroke-width:0.774993" /></svg></span>
+  </a></div></div>
+    </div></footer>
+    
+    <script defer src="/js/main.js" integrity=""></script>
+<script defer src="/js/flexsearch.9f5b5908f93ae86f1ecd4b043b799f580c2d1654e703dd9357d568ac41b2547a.js" integrity="sha256-n1tZCPk66G8ezUsEO3mfWAwtFlTnA92TV9VorEGyVHo=" crossorigin="anonymous"></script>
+        <script defer src="/en.search.js" integrity=""></script>
+  </body>
+</html>

